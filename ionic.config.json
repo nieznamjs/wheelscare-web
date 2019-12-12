@@ -3,9 +3,11 @@
     "mobile": {
       "name": "wc-mobile",
       "integrations": {
-        "capacitor": {}
+        "capacitor": {},
+        "cordova": {}
       },
       "type": "angular"
     }
-  }
+  },
+  "defaultProject": "mobile"
 }
