@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "mobile": {
+      "name": "wc-mobile",
+      "integrations": {
+        "capacitor": {}
+      },
+      "type": "angular"
+    }
+  }
+}
