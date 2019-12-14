@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "jest",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e-web": "concurrently \"ng serve web\" \"cypress open --project ./projects/web\"",
+    "e2e-admin": "concurrently \"ng serve admin\" \"cypress open --project ./projects/admin\""
   },
   "private": true,
   "dependencies": {
@@ -41,15 +42,16 @@
     "@types/jest": "^24.0.23",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "concurrently": "^5.0.1",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.1.3",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "cypress": "^3.8.0",
     "jest": "^24.9.0",
     "jest-preset-angular": "^8.0.0",
-    "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
