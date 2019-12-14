@@ -7,8 +7,8 @@
     "build": "ng build",
     "test": "jest",
     "lint": "ng lint",
-    "e2e-web": "concurrently \"ng serve web\" \"cypress open --project ./projects/web\"",
-    "e2e-admin": "concurrently \"ng serve admin\" \"cypress open --project ./projects/admin\""
+    "e2e-web": "concurrently \"ng serve web\" \"cypress open --project ./frontend/web\"",
+    "e2e-admin": "concurrently \"ng serve admin\" \"cypress open --project ./frontend/admin\""
   },
   "private": true,
   "dependencies": {
