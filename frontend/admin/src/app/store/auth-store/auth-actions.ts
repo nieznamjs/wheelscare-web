@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 
 export enum AuthActionsTypes {
-  LOGIN = '[WC] Login',
-  LOGIN_SUCCESS = '[WC] Login Success',
-  LOGIN_FAIL = '[WC] Login Fail',
+  LOGIN = '[WCA] Login',
+  LOGIN_SUCCESS = '[WCA] Login Success',
+  LOGIN_FAIL = '[WCA] Login Fail',
 }
 
 export class LoginAction implements Action {
