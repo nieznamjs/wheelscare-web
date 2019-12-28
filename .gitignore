@@ -51,3 +51,5 @@ ios
 
 # BACKEND
 /backend/.env
+/backend/dist
+/backend/node_modules/
