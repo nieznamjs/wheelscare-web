@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 
 import { ReadAllResponse } from '../../shared/interfaces/read-all-response.interface';
 import { User } from './users.entity';
@@ -16,8 +16,23 @@ export class UsersController {
     return this.usersService.read();
   }
 
+  @Get(':id')
+  public async readOne(): Promise<User> {
+    return null;
+  }
+
   @Post()
   public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
+  }
+
+  @Patch(':id')
+  public async update(): Promise<User> {
+    return null;
+  }
+
+  @Delete(':id')
+  public async delete(): Promise<User> {
+    return null;
   }
 }
