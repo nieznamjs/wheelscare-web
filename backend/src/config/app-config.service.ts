@@ -9,6 +9,10 @@ interface DatabaseConfig {
   password: string;
 }
 
+interface AuthConfig {
+  basicSecret: string;
+}
+
 @Injectable()
 export class AppConfigService {
   constructor(
@@ -18,4 +22,8 @@ export class AppConfigService {
   public get database(): DatabaseConfig { return this.configService.get('database'); }
 
   public get port(): number { return this.configService.get('port'); }
+
+  public get environment(): string { return this.configService.get('environment'); }
+
+  public get auth(): AuthConfig { return this.configService.get('auth'); }
 }

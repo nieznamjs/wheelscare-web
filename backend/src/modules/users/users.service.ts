@@ -3,9 +3,9 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './users.entity';
-import { ReadAllResponse } from '../../shared/interfaces/read-all-response.interface';
+import { ReadAllResponse } from '../../common/interfaces/read-all-response.interface';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { HashService } from '../../shared/services/hash.service';
+import { HashService } from '../../common/services';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +22,7 @@ export class UsersService {
     const user = this.userRepository.create(userDto);
 
     // TODO: maybe we can move this to entity to be always sure that passowrd will be encoded
-    user.password = await this.hashService.hash(user.password);
+    user.password = await this.hashService.encrypt(user.password);
 
     return this.userRepository.save(user);
   }

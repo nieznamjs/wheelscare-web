@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
 
-import { ReadAllResponse } from '../../shared/interfaces/read-all-response.interface';
+import { ReadAllResponse } from '../../common/interfaces/read-all-response.interface';
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
