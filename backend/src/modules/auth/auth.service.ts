@@ -32,7 +32,7 @@ export class AuthService {
           email: { operator: EQUAL, value: loginData.email },
         },
       ],
-      select: ['id', 'password', 'roles', 'active'],
+      select: ['id', 'password'],
     });
 
     const res = await this.queryService.findAll<User>(User, query);

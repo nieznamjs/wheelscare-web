@@ -8,4 +8,7 @@ export default () => ({
     password: process.env.DB_PASSWORD,
     environment: process.env.ENVIRONMENT,
   },
+  auth: {
+    basicSecret: process.env.BASIC_SECRET,
+  },
 });

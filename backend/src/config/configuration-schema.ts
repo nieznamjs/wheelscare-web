@@ -9,4 +9,5 @@ export default Joi.object({
   DB_NAME: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   ENVIRONMENT: Joi.string().default(Environments.Local),
+  BASIC_SECRET: Joi.string().required(),
 });
