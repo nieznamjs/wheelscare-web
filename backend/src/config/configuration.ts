@@ -11,4 +11,7 @@ export default () => ({
   auth: {
     basicSecret: process.env.BASIC_SECRET,
   },
+  sendgrid: {
+    apiKey: process.env.SENDGRID_API_KEY,
+  },
 });

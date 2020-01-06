@@ -9,13 +9,13 @@ import { AppConfigService } from './config/app-config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = app.get(AppConfigService).port;
+  const config = app.get(AppConfigService);
 
   app.useGlobalPipes(new ValidationPipe());
 
   app.use(cookieParser());
 
-  await app.listen(port);
+  await app.listen(config.port);
 }
 
 bootstrap();

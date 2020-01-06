@@ -13,6 +13,10 @@ interface AuthConfig {
   basicSecret: string;
 }
 
+interface SendgridConfig {
+  apiKey: string;
+}
+
 @Injectable()
 export class AppConfigService {
   constructor(
@@ -26,4 +30,6 @@ export class AppConfigService {
   public get environment(): string { return this.configService.get('environment'); }
 
   public get auth(): AuthConfig { return this.configService.get('auth'); }
+
+  public get sendgrid(): SendgridConfig { return this.configService.get('sendgrid'); }
 }

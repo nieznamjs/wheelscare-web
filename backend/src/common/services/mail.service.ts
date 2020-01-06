@@ -1,5 +1,6 @@
-import * as AWS from 'aws-sdk';
 import { Injectable } from '@nestjs/common';
+import * as sendgrid from '@sendgrid/mail';
+import { AppConfigService } from '../../config/app-config.service';
 
 interface SendMailConfig {
   subject: string;
@@ -10,36 +11,18 @@ interface SendMailConfig {
 
 @Injectable()
 export class MailService {
-  private readonly CHARSET = 'UTF-8';
-
-  private ses: AWS.SES;
-
-  constructor() {
-    this.ses = new AWS.SES({ apiVersion: '2010-12-01' });
+  constructor(
+    private readonly  appConfigService: AppConfigService,
+  ) {
+    sendgrid.setApiKey(this.appConfigService.sendgrid.apiKey);
   }
 
-  public async send(config: SendMailConfig): Promise<AWS.SES.Types.SendEmailResponse> {
-    return this.ses.sendEmail(this.generateSendEmailParams(config)).promise();
-  }
-
-  private generateSendEmailParams(config: SendMailConfig): AWS.SES.Types.SendEmailRequest {
-    return {
-      Destination: {
-        ToAddresses: [config.mailTo],
-      },
-      Message: {
-        Body: {
-          Html: {
-            Charset: this.CHARSET,
-            Data: config.body,
-          },
-        },
-        Subject: {
-          Charset: this.CHARSET,
-          Data: config.subject,
-        },
-      },
-      Source: config.mailFrom,
-    };
+  public async send(config: SendMailConfig): Promise<void> {
+    return sendgrid.send({
+      to: config.mailTo,
+      from: config.mailFrom,
+      subject: config.subject,
+      html: config.body,
+    }).then();
   }
 }
