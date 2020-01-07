@@ -10,5 +10,5 @@ export default Joi.object({
   DB_PASSWORD: Joi.string().required(),
   ENVIRONMENT: Joi.string().default(Environments.Local),
   BASIC_SECRET: Joi.string().required(),
-  SENDGRID_API_KEY: Joi.string().required(),
+  AWS_REGION: Joi.string().required(),
 });
