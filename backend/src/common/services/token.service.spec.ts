@@ -22,7 +22,7 @@ describe('TokenService', () => {
 
   it('should throw error when generating token with not allowed type of payload', async () => {
     try {
-      const token = await tokenService.generateToken(secret, true as any);
+      await tokenService.generateToken(secret, true as any);
     } catch (error) {
       expect(error).toBeDefined();
     }

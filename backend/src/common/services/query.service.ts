@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { getConnection, SelectQueryBuilder } from 'typeorm';
 
 import { ResponseService } from './response.service';
-import { FindAllQuery, FindAllQueryDto } from '../dtos';
-import { ReadAllResponse } from '../interfaces/read-all-response.interface';
-import { findAllQueryOperatorsMap } from '../constants';
+import { FindAllQuery, FindAllQueryDto } from '@dtos';
+import { ReadAllResponse } from '@interfaces';
+import { findAllQueryOperatorsMap } from '@constants';
 
 interface WhereClauseParams {
   [key: string]: number|number[]|boolean|string|string[];

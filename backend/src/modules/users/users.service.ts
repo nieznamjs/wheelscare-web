@@ -3,9 +3,9 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './users.entity';
-import { ReadAllResponse } from '../../common/interfaces/read-all-response.interface';
+import { ReadAllResponse } from '@interfaces';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { HashService } from '../../common/services';
+import { HashService } from '@services';
 
 @Injectable()
 export class UsersService {

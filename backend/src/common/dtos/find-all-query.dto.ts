@@ -8,7 +8,7 @@ import {
   registerDecorator,
   ValidationOptions,
 } from 'class-validator';
-import { findAllQueryOperatorsMap, EQUAL } from '../constants';
+import { findAllQueryOperatorsMap } from '@constants';
 
 export interface FindAllQuery {
   // key should come from generic value properties, for example for User it should be only like id, email etc.

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { MailService, QueryService, ResponseService, TemplateService, TokenService, HashService } from './services';
+import { MailService, QueryService, ResponseService, TemplateService, TokenService, HashService } from '@services';
 
 @Module({
   exports: [

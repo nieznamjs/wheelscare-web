@@ -2,7 +2,7 @@ import { readFile } from 'fs';
 import { resolve as pathResolve } from 'path';
 import { compile } from 'handlebars';
 import { Injectable } from '@nestjs/common';
-import { Templates } from '../constants';
+import { Templates } from '@constants';
 
 @Injectable()
 export class TemplateService {

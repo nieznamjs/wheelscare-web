@@ -19,8 +19,7 @@ export class MailService {
   }
 
   public async send(config: SendMailConfig): Promise<AWS.SES.Types.SendEmailResponse> {
-    const result = await this.ses.sendEmail(this.generateSendEmailParams(config)).promise();
-    return result;
+    return this.ses.sendEmail(this.generateSendEmailParams(config)).promise();
   }
 
   private generateSendEmailParams(config: SendMailConfig): AWS.SES.Types.SendEmailRequest {

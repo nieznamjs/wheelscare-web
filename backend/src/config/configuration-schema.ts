@@ -1,5 +1,5 @@
 import * as Joi from '@hapi/joi';
-import { Environments } from '../common/constants';
+import { Environments } from '@constants';
 
 export default Joi.object({
   PORT: Joi.number().default(3000),

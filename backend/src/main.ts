@@ -6,7 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 
 import { AppModule } from './app.module';
-import { AppConfigService } from './config/app-config.service';
+import { AppConfigService } from '@config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

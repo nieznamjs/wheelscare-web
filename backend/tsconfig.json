@@ -9,7 +9,15 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@config": ["src/config"],
+      "@services": ["src/common/services"],
+      "@interfaces": ["src/common/interfaces"],
+      "@dtos": ["src/common/dtos"],
+      "@constants": ["src/common/constants"],
+      "@errors": ["src/common/errors"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

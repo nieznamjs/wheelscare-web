@@ -4,11 +4,11 @@ import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { HashService, MailService, QueryService, TemplateService, TokenService } from '../../common/services';
-import { FindAllQueryDto } from '../../common/dtos';
-import { UnauthorizedUserError, UserNotActiveError } from '../../common/errors';
-import { AppConfigService } from '../../config/app-config.service';
-import { EQUAL, Templates, TokenTypes } from '../../common/constants';
+import { HashService, MailService, QueryService, TemplateService, TokenService } from '@services';
+import { FindAllQueryDto } from '@dtos';
+import { UnauthorizedUserError, UserNotActiveError } from '@errors';
+import { AppConfigService } from '@config';
+import { EQUAL, Templates, TokenTypes } from '@constants';
 
 @Injectable()
 export class AuthService {

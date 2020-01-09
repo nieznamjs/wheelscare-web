@@ -1,5 +1,5 @@
 import { TemplateService } from './template.service';
-import { Templates } from '../constants';
+import { Templates } from '@constants';
 
 describe('TemplateService', () => {
   let templateService: TemplateService;

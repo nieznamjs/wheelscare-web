@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ReadAllResponse } from '../interfaces/read-all-response.interface';
+import { ReadAllResponse } from '@interfaces';
 
 @Injectable()
 export class ResponseService {

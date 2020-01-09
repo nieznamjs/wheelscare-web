@@ -5,8 +5,8 @@ import { AuthService } from './auth.service';
 import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { Routes, Cookies, Environments } from '../../common/constants';
-import { AppConfigService } from '../../config/app-config.service';
+import { Routes, Cookies, Environments } from '@constants';
+import { AppConfigService } from '@config';
 
 @Controller(Routes.Auth)
 export class AuthController {
