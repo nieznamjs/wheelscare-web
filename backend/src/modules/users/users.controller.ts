@@ -1,38 +1,32 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { ReadAllResponse } from '@interfaces';
+import { Routes } from '@constants';
+
 import { User } from './users.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { BaseUserDto } from './dtos/base-user.dto';
+import { ReadUsersResponseDto } from './dtos/read-users-response.dto';
 
-@Controller('users')
+@ApiTags(Routes.Users)
+@Controller(Routes.Users)
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
   ) {}
 
   @Get()
+  @ApiOkResponse({ type: ReadUsersResponseDto, description: 'List of users' })
   public async read(): Promise<ReadAllResponse<User>> {
     return this.usersService.read();
   }
 
-  @Get(':id')
-  public async readOne(): Promise<User> {
-    return null;
-  }
-
   @Post()
+  @ApiCreatedResponse({ type: BaseUserDto, description: 'Created user' })
+  @ApiConflictResponse({ description: 'User already exists' })
   public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
-  }
-
-  @Patch(':id')
-  public async update(): Promise<User> {
-    return null;
-  }
-
-  @Delete(':id')
-  public async delete(): Promise<User> {
-    return null;
   }
 }

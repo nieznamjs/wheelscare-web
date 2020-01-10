@@ -1,5 +1,5 @@
-// import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class SuccessResponseDto {
-  // @ApiModelProperty({ example: true }) public readonly success: boolean;
+  @ApiProperty({ example: true }) public readonly success: boolean;
 }

@@ -9,6 +9,7 @@ import { FindAllQueryDto } from '@dtos';
 import { UnauthorizedUserError, UserNotActiveError } from '@errors';
 import { AppConfigService } from '@config';
 import { EQUAL, Templates, TokenTypes } from '@constants';
+import { CreateUserDto } from '../users/dtos/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
   ) {}
 
   public async register(userData: RegisterUserDto): Promise<User> {
-    const createdUser = await this.usersService.create(userData);
+    const createdUser = await this.usersService.create(userData as CreateUserDto);
 
     await this.sendAccountActivationEmail(createdUser);
 
