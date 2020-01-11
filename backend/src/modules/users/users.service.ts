@@ -6,6 +6,7 @@ import { User } from './users.entity';
 import { ReadAllResponse } from '@interfaces';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { HashService } from '@services';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -25,5 +26,21 @@ export class UsersService {
     user.password = await this.hashService.encrypt(user.password);
 
     return this.userRepository.save(user);
+  }
+
+  public async delete(id: string): Promise<User> {
+    const user = await this.userRepository.findOne(id);
+
+    await this.userRepository.delete(id);
+
+    return user;
+  }
+
+  public async update(userData: UpdateUserDto): Promise<User> {
+    const user = this.userRepository.create(userData);
+
+    await this.userRepository.update(user.id, user);
+
+    return this.userRepository.findOne(user.id);
   }
 }

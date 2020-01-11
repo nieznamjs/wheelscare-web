@@ -53,3 +53,4 @@ ios
 /backend/.env
 /backend/dist
 /backend/node_modules/
+/backend/coverage/

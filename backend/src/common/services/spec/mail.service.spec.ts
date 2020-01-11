@@ -1,6 +1,6 @@
 import * as mockAWS from 'aws-sdk-mock';
 
-import { MailService } from './mail.service';
+import { MailService } from '@services';
 
 describe('MailService', () => {
   let mailService: MailService;
