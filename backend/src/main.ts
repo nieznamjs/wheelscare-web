@@ -29,7 +29,12 @@ async function bootstrap() {
 
   app
     .use(cookieParser())
-    .use(cors());
+    .use(cors({
+      credentials: true,
+      origin: (origin: string, callback: (err: Error, val?: boolean) => void) => {
+        return callback(null, true);
+      },
+    }));
 
   await app.listen(config.port);
 }
