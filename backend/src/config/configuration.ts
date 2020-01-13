@@ -10,5 +10,7 @@ export default () => ({
   },
   auth: {
     basicSecret: process.env.BASIC_SECRET,
+    passwordResetSecret: process.env.PASSWORD_RESET_SECRET,
   },
+  passwordResetSecret: process.env.PASSWORD_RESET_SECRET,
 });
