@@ -24,8 +24,7 @@ jest.mock('typeorm', () => ({
   },
 }));
 
-import { ResponseService } from './response.service';
-import { QueryService } from './query.service';
+import { ResponseService, QueryService } from '@services';
 import { FindAllQueryDto } from '@dtos';
 
 describe('QueryService', () => {

@@ -1,4 +1,4 @@
-import { TokenService } from './token.service';
+import { TokenService } from '@services';
 
 describe('TokenService', () => {
   // tslint:disable-next-line: max-line-length

@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, HttpStatus, HttpCode } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { ReadAllResponse } from '@interfaces';
@@ -12,6 +13,7 @@ import { ReadUsersResponseDto } from './dtos/read-users-response.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { SuccessResponseDto } from '@dtos';
 import { InitResetPasswordResponse } from 'src/common/interfaces/init-password-reset-response.interface';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @ApiTags(Routes.Users)
 @Controller(Routes.Users)
@@ -70,5 +72,17 @@ export class UsersController {
   //   } catch(error) {
   //     return new ResponseError("RESET_PASSWORD.CHANGE_PASSWORD_ERROR", error);
   //   }
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({ type: BaseUserDto, description: 'Deleted user'})
+  public async delete(@Param('id') id: string): Promise<User> {
+    return this.usersService.delete(id);
+  }
+
+  @Patch()
+  @ApiOkResponse({ type: UpdateUserDto, description: 'Updated user'})
+  public async update(@Body() userData: UpdateUserDto): Promise<User> {
+    return this.usersService.update(userData);
   }
 }

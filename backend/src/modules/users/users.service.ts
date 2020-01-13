@@ -97,4 +97,19 @@ export class UsersService {
     return true;
   }
 
+  public async delete(id: string): Promise<User> {
+    const user = await this.userRepository.findOne(id);
+
+    await this.userRepository.delete(id);
+
+    return user;
+  }
+
+  public async update(userData: UpdateUserDto): Promise<User> {
+    const user = this.userRepository.create(userData);
+
+    await this.userRepository.update(user.id, user);
+
+    return this.userRepository.findOne(user.id);
+  }
 }

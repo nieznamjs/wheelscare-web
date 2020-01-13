@@ -1,4 +1,4 @@
-import { ResponseService } from './response.service';
+import { ResponseService } from '@services';
 
 describe('ResponseService', () => {
   let service: ResponseService;

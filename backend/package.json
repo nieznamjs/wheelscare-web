@@ -60,6 +60,7 @@
     "@types/jsonwebtoken": "^8.3.5",
     "@types/node": "^12.7.5",
     "@types/supertest": "^2.0.8",
+    "aws-sdk-mock": "^5.0.0",
     "copyfiles": "^2.1.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
@@ -83,6 +84,22 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "collectCoverageFrom": [
+      "**/*.ts",
+      "!migrations/**",
+      "!**/*.entity.ts",
+      "!**/*.dto.ts",
+      "!**/*.module.ts",
+      "!**/*.spec.ts"
+    ],
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@config$": "<rootDir>/config",
+      "^@services$": "<rootDir>/common/services",
+      "^@interfaces$": "<rootDir>/common/interfaces",
+      "^@dtos$": "<rootDir>/common/dtos",
+      "^@constants$": "<rootDir>/common/constants",
+      "^@errors$": "<rootDir>/common/errors"
+    }
   }
 }
