@@ -12,7 +12,8 @@
       "@constants": [ "src/app/shared/constants" ],
       "@interfaces": [ "src/app/shared/interfaces" ],
       "@env/*": [ "src/environments/*" ],
-      "@store/*": [ "src/app/store/*" ]
+      "@store/*": [ "src/app/store/*" ],
+      "@shared/*": [ "src/app/shared/*" ]
     }
   },
   "files": [
