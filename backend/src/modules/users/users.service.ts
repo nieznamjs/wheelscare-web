@@ -10,6 +10,7 @@ import { UserNotFoundError } from '@errors';
 import { TokenTypes, Templates } from '@constants';
 import { AppConfigService } from '@config';
 import { SES } from 'aws-sdk';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Injectable()
 export class UsersService {
