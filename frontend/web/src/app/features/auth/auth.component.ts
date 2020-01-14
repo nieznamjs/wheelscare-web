@@ -11,15 +11,15 @@ export class AuthComponent {
 
   constructor(private socialAuthService: SocialAuthService) {}
 
-  public async loginWithGoogle(): Promise<void> {
-    const response = await this.socialAuthService.loginWithGoogle();
-
-    console.warn(response);
+  public loginWithGoogle(): void {
+    this.socialAuthService.loginWithGoogle().subscribe(response => {
+      console.warn(response);
+    });
   }
 
-  public async loginWithFacebook(): Promise<void> {
-    const response = await this.socialAuthService.loginWithFacebook();
-
-    console.warn(response);
+  public loginWithFacebook(): void {
+    this.socialAuthService.loginWithFacebook().subscribe(response => {
+      console.warn(response);
+    });
   }
 }

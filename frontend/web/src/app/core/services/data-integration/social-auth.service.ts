@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { from, Observable } from 'rxjs';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
 @Injectable({
@@ -9,11 +10,11 @@ export class SocialAuthService {
     private socialAuthService: AuthService,
   ) { }
 
-  public loginWithGoogle(): Promise<SocialUser> {
-    return this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  public loginWithGoogle(): Observable<SocialUser> {
+    return from(this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID));
   }
 
-  public loginWithFacebook(): Promise<SocialUser> {
-    return this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  public loginWithFacebook(): Observable<SocialUser> {
+    return from(this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID));
   }
 }

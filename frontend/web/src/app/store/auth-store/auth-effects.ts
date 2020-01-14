@@ -6,7 +6,15 @@ import { Router } from '@angular/router';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { AuthService } from '@services/data-integration/auth.service';
-import { AuthActionsTypes, LoginAction, LoginFailAction, LoginSuccessAction } from '@store/auth-store/auth-actions';
+import {
+  AuthActionsTypes,
+  LoginAction,
+  LoginFailAction,
+  LoginSuccessAction,
+  RegisterAction,
+  RegisterFailAction,
+  RegisterSuccessAction
+} from '@store/auth-store/auth-actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';
 import { ErrorMessages } from '@shared/constants/error-messages';
@@ -34,6 +42,26 @@ export class AuthEffects {
             const error = isUnauthorizedStatusCode ? ErrorMessages.Unauthorized : ErrorMessages.GeneralServerError;
 
             return of(new LoginFailAction({ error }));
+          }),
+        );
+    }),
+  );
+
+  @Effect()
+  public registerEffect$: Observable<Action> = this.actions$.pipe(
+    ofType<RegisterAction>(AuthActionsTypes.REGISTER),
+    switchMap((action: RegisterAction) => {
+      return this.authService.registerUser(action.payload.newUser)
+        .pipe(
+          map(() => {
+            this.router.navigate(['/auth/login']);
+            return new RegisterSuccessAction();
+          }),
+          catchError((err: HttpErrorResponse) => {
+            const isConflictStatusCode = err.error.statusCode === HttpStatusCodes.Conflict;
+            const error = isConflictStatusCode ? ErrorMessages.UserAlreadyExists : ErrorMessages.GeneralServerError;
+
+            return of(new RegisterFailAction({ error }));
           }),
         );
     }),

@@ -1,1 +1,63 @@
-<p>register works!</p>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="field">
+    <input
+      matInput
+      type="email"
+      placeholder="E-mail"
+      formControlName="email"
+      required
+      autocomplete="email">
+
+    <mat-error *ngIf="getFormControl('email').hasError('required')">
+      E-mail jest wymagany
+    </mat-error>
+
+    <mat-error *ngIf="getFormControl('email').hasError('email')">
+      Niepoprawny e-mail
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input
+      matInput
+      type="password"
+      placeholder="Hasło"
+      formControlName="password"
+      required
+      #password
+      autocomplete="new-password">
+
+    <mat-error *ngIf="getFormControl('password').hasError('required')">
+      Hasło jest wymagane
+    </mat-error>
+
+    <mat-error *ngIf="getFormControl('password').hasError('pattern')">
+      Hasło musi składać się z przynajmniej jednej małej litery, jednej wielkiej litery i cyfry oraz mieć długość 6-24 znaki
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input
+      matInput
+      type="password"
+      placeholder="Potwierdź hasło"
+      formControlName="confirmPassword"
+      [pattern]="password.value"
+      required
+      autocomplete="new-password">
+
+    <mat-error *ngIf="getFormControl('confirmPassword').hasError('required')">
+      Potwierdzenie hasła jest wymagane
+    </mat-error>
+
+    <mat-error *ngIf="getFormControl('confirmPassword').hasError('pattern')">
+      Hasła nie są takie same
+    </mat-error>
+  </mat-form-field>
+
+  <button class="btn" mat-raised-button color="primary">
+    Zarejestruj się
+  </button>
+</form>
+
+<a routerLink="/auth/login">Logowanie</a>

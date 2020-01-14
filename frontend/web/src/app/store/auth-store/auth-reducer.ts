@@ -37,6 +37,36 @@ export function authReducer(state: AuthState = authInitialState, action: AuthAct
       };
     }
 
+    case AuthActionsTypes.REGISTER: {
+      return {
+        ...state,
+        userRegister: {
+          isLoading: true,
+          error: null,
+        },
+      };
+    }
+
+    case AuthActionsTypes.REGISTER_SUCCESS: {
+      return {
+        ...state,
+        userRegister: {
+          ...state.userRegister,
+          isLoading: false,
+        },
+      };
+    }
+
+    case AuthActionsTypes.REGISTER_FAIL: {
+      return {
+        ...state,
+        userRegister: {
+          isLoading: false,
+          error: action.payload.error,
+        },
+      };
+    }
+
     default: {
       return state;
     }
