@@ -99,7 +99,9 @@
       "^@interfaces$": "<rootDir>/common/interfaces",
       "^@dtos$": "<rootDir>/common/dtos",
       "^@constants$": "<rootDir>/common/constants",
-      "^@errors$": "<rootDir>/common/errors"
+      "^@errors$": "<rootDir>/common/errors",
+      "^@entities$": "<rootDir>/common/entities",
+      "^@shared$": "<rootDir>/../../shared"
     }
   }
 }

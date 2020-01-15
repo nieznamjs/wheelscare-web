@@ -25,7 +25,12 @@ export class UsersService {
     // TODO: maybe we can move this to entity to be always sure that passowrd will be encoded
     user.password = await this.hashService.encrypt(user.password);
 
-    return this.userRepository.save(user);
+    const createdUser = await this.userRepository.save(user);
+
+    // TODO: deleting password because for some reason .save is ignoring select: false on it
+    delete createdUser.password;
+
+    return createdUser;
   }
 
   public async delete(id: string): Promise<User> {
