@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { User } from './users.entity';
+import { UserAlreadyExistsError } from '@errors';
 import { ReadAllResponse } from '@interfaces';
-import { CreateUserDto } from './dtos/create-user.dto';
 import { HashService } from '@services';
+
+import { User } from './users.entity';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Injectable()
@@ -20,6 +22,12 @@ export class UsersService {
   }
 
   public async create(userDto: CreateUserDto): Promise<User> {
+    const existingUser = await this.userRepository.findOne({ email: userDto.email }, { select: ['id'] });
+
+    if (existingUser) {
+      throw new UserAlreadyExistsError();
+    }
+
     const user = this.userRepository.create(userDto);
 
     // TODO: maybe we can move this to entity to be always sure that passowrd will be encoded
