@@ -12,6 +12,7 @@ export const seedDatabase =  async () => {
       active: true,
     }),
     userRepository.create({
+      id: '6e41853d-3ee0-4609-9d38-5aadaa81c768',
       email: 'dummy2@dummy.com',
       password: '$2b$12$BMEOay88LJ1MiUaQ4tfNY.0EKM.BWAsbjNnqtGt3Z7y2AYrwlY67e', // someStrongPassWord
       active: false,
