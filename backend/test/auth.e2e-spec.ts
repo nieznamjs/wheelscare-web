@@ -39,7 +39,7 @@ describe('Auth (E2E)', () => {
     it('should register user', async () => {
       const res = await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ email: 'test@example.pl', password: 'someStrongPassWord' })
+        .send({ email: 'test@example.pl', password: 'someStrongPassWord!23' })
         .expect(201);
 
       expect(res.body.email).toBe('test@example.pl');
@@ -51,18 +51,27 @@ describe('Auth (E2E)', () => {
     it('should fail if user email already exists', async () => {
        await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ email: 'teste@example.pl', password: 'someStrongPassWord' });
+        .send({ email: 'teste@example.pl', password: 'someStrongPassWord!23' });
 
        const res = await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ email: 'teste@example.pl', password: 'someStrongPassWord' })
+        .send({ email: 'teste@example.pl', password: 'someStrongPassWord!23' })
         .expect(409);
 
        expect(res.body.statusCode).toBe(409);
        expect(res.body.message).toBe('User already exists');
     });
 
-    // it('should fail if password is too weak');
+    it('should fail if password is too weak', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/auth/register')
+        .send({ email: 'test12345@example.pl', password: 'som' })
+        .expect(400);
+
+      expect(res.body.statusCode).toBe(400);
+      expect(res.body.error).toBe('Bad Request');
+      expect(res.body.message[0].property).toBe('password');
+    });
   });
 
   describe('login', () => {

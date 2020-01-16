@@ -8,6 +8,6 @@ export class CreateUserDto extends BaseUserDto {
   @IsString()
   @MinLength(6)
   @MaxLength(24)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,24}$/)
+  @Matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){6,24}).*$/) // TODO: the same is used for user register, move to constant
   public readonly password: string;
 }
