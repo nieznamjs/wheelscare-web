@@ -1,6 +1,7 @@
 import { IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { BaseUserDto } from './base-user.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { USER_PASSWORD_REGEX } from '@constants';
 
 export class CreateUserDto extends BaseUserDto {
   @ApiProperty({ example: 'somestrongpassword' })
@@ -8,7 +9,6 @@ export class CreateUserDto extends BaseUserDto {
   @IsString()
   @MinLength(6)
   @MaxLength(24)
-  // TODO: the same is used for user register, move to constant
-  @Matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){6,24}).*$/)
+  @Matches(USER_PASSWORD_REGEX)
   public readonly password: string;
 }
