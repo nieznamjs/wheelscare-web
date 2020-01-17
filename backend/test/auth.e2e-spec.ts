@@ -1,4 +1,4 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 
@@ -44,18 +44,15 @@ describe('Auth (E2E)', () => {
 
       expect(res.body.email).toBe('test@example.pl');
       expect(res.body.password).toBeUndefined();
+      expect(res.body.id).toBeDefined();
       expect(res.body.active).toBeFalsy();
       expect(mailService.send).toBeCalled();
     });
 
     it('should fail if user email already exists', async () => {
-       await request(app.getHttpServer())
-        .post('/auth/register')
-        .send({ email: 'teste@example.pl', password: 'someStrongPassWord!23' });
-
        const res = await request(app.getHttpServer())
         .post('/auth/register')
-        .send({ email: 'teste@example.pl', password: 'someStrongPassWord!23' })
+        .send({ email: 'dummy@dummy.com', password: 'someStrongPassWord!23' })
         .expect(409);
 
        expect(res.body.statusCode).toBe(409);
