@@ -50,7 +50,8 @@ export class UsersController {
 
   @Post(':id/reset-password')
   @ApiCreatedResponse({ type: SuccessResponseDto, description: 'Password reset' })
-  public async setNewPassord(@Body() resetPassword: ResetPasswordDto): Promise<void> {
+  public async setNewPassord(@Body() resetPasswordConfig: ResetPasswordDto): Promise<ResetPasswordDto> {
+    return await this.usersService.resetPassword(resetPasswordConfig);
   //   try {
   //     var isNewPasswordChanged : boolean = false;
   //     if(resetPassword.email && resetPassword.currentPassword){

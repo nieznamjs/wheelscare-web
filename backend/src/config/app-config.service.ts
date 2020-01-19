@@ -27,6 +27,4 @@ export class AppConfigService {
   public get environment(): string { return this.configService.get('environment'); }
 
   public get auth(): AuthConfig { return this.configService.get('auth'); }
-
-  public get passwordResetSecret(): string { return this.configService.get('passwordResetSecret'); }
 }

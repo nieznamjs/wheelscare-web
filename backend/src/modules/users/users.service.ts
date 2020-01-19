@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './users.entity';
 import { ReadAllResponse } from '@interfaces';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { HashService, TokenService, MailService, TemplateService } from '@services';
 import { UserNotFoundError } from '@errors';
 import { TokenTypes, Templates } from '@constants';
@@ -52,7 +53,7 @@ export class UsersService {
 
   private async getPasswordResetToken(): Promise<string> {
     return this.tokenService.generateToken(
-      this.appConfigService.passwordResetSecret,
+      this.appConfigService.auth.passwordResetSecret,
       { type: TokenTypes.ResetPassword },
       { expiresIn: this.PASSWORD_RESET_TOKEN_EXPIRATION },
     );
@@ -65,7 +66,7 @@ export class UsersService {
 
   private async getPasswordResetEmailTemplate(user: User, token: string): Promise<string> {
     return this.templateService.compileTemplate(Templates.PASSWORD_RESET, {
-      url: this.getUrlLinkWithToken(user.id, token),
+      url: await this.getUrlLinkWithToken(user.id, token),
     });
   }
 
@@ -96,6 +97,10 @@ export class UsersService {
 
     await this.userRepository.save(user);
     return true;
+  }
+
+  public async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<ResetPasswordDto> {
+    return { ...resetPasswordDto, newPassword: 'hidden' };
   }
 
   public async delete(id: string): Promise<User> {
