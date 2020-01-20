@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { ApiConflictResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { ReadAllResponse } from '@interfaces';
+import { FindAllQueryDto } from '@dtos';
 import { Routes } from '@constants';
 
 import { User } from './users.entity';
@@ -13,6 +14,7 @@ import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { SuccessResponseDto } from '@dtos';
 import { InitResetPasswordResponse } from 'src/common/interfaces/init-password-reset-response.interface';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserResponseDto } from './dtos/user-response.dto';
 
 @ApiTags(Routes.Users)
 @Controller(Routes.Users)
@@ -23,8 +25,15 @@ export class UsersController {
 
   @Get()
   @ApiOkResponse({ type: ReadUsersResponseDto, description: 'List of users' })
-  public async read(): Promise<ReadAllResponse<User>> {
-    return this.usersService.read();
+  public async read(@Query() findAllQueryDto: FindAllQueryDto): Promise<ReadAllResponse<User>> {
+    return this.usersService.read(findAllQueryDto);
+  }
+
+  @Get(':id')
+  @ApiOkResponse({ type: UserResponseDto, description: 'Single user' })
+  @ApiNotFoundResponse({ description: 'User not found' })
+  public async readOne(@Param('id') id: string): Promise<User> {
+    return this.usersService.readOne(id);
   }
 
   @Post()

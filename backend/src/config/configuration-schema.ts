@@ -12,4 +12,5 @@ export default Joi.object({
   BASIC_SECRET: Joi.string().required(),
   PASSWORD_RESET_SECRET: Joi.string().required(),
   AWS_REGION: Joi.string().required(),
+  CLIENT_URL: Joi.string().required(),
 });

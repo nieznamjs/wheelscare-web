@@ -12,6 +12,11 @@ interface DatabaseConfig {
 interface AuthConfig {
   basicSecret: string;
   passwordResetSecret?: string;
+  accountActivationTokenExpiration: number;
+}
+
+interface EmailConfig {
+  from: string;
 }
 
 @Injectable()
@@ -27,4 +32,8 @@ export class AppConfigService {
   public get environment(): string { return this.configService.get('environment'); }
 
   public get auth(): AuthConfig { return this.configService.get('auth'); }
+
+  public get clientUrl(): string { return this.configService.get('clientUrl'); }
+
+  public get email(): EmailConfig { return this.configService.get('email'); }
 }

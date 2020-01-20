@@ -20,11 +20,19 @@ export class QueryService {
   public async findAll<T>(entity: new () => T, findAllQueryDto: FindAllQueryDto): Promise<ReadAllResponse<T>> {
     let query: SelectQueryBuilder<T> = getConnection().createQueryBuilder();
 
-    query = this.addSelectClause<T>(entity, findAllQueryDto, query);
+    // TODO: ugly as fck, find better way - maybe parse with pipe
+    const parsedQueryDto = {
+      ...findAllQueryDto,
+      queries: typeof(findAllQueryDto.queries) === 'string' ?
+        JSON.parse(findAllQueryDto.queries as unknown as string) as FindAllQuery[] :
+        findAllQueryDto.queries,
+    } as FindAllQueryDto;
+
+    query = this.addSelectClause<T>(entity, parsedQueryDto, query);
     query = this.addFromClause<T>(entity, query);
-    query = this.addWhereClauses<T>(entity.name, query, findAllQueryDto);
-    query = this.addOrderClauses<T>(query, findAllQueryDto);
-    query = this.addPaginationClauses<T>(query, findAllQueryDto);
+    query = this.addWhereClauses<T>(entity.name, query, parsedQueryDto);
+    query = this.addOrderClauses<T>(query, parsedQueryDto);
+    query = this.addPaginationClauses<T>(query, parsedQueryDto);
 
     const res = await query.getManyAndCount();
 

@@ -1,5 +1,6 @@
 export default () => ({
   port: Number(process.env.PORT),
+  clientUrl: process.env.CLIENT_URL,
   database: {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
@@ -8,8 +9,12 @@ export default () => ({
     password: process.env.DB_PASSWORD,
     environment: process.env.ENVIRONMENT,
   },
+  email: {
+    from: 'no-reply@chat.deftcode.pl',
+  },
   auth: {
     basicSecret: process.env.BASIC_SECRET,
     passwordResetSecret: process.env.PASSWORD_RESET_SECRET,
+    accountActivationTokenExpiration: 3600,
   },
 });
