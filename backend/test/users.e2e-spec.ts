@@ -12,6 +12,7 @@ describe('Users (E2E)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
+    await flushDatabase();
     await syncDatabase();
     await seedDatabase();
   });

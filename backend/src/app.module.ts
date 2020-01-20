@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+import { AppConfigModule, AppConfigService } from '@config';
+
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-import { AppConfigModule } from '@config';
-import { AppConfigService } from '@config';
+import { Environments } from '../dist/src/common/constants';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AppConfigService } from '@config';
         username: configService.database.username,
         password: configService.database.password,
         database: configService.database.name,
+        keepConnectionAlive: configService.environment === Environments.Test,
         entities: [
           __dirname + '/**/*.entity{.ts,.js}',
         ],
