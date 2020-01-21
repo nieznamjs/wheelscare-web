@@ -21,7 +21,7 @@ export const LoginSuccessAction = createAction(
 
 export const LoginFailAction = createAction(
   AuthActionsTypes.LOGIN_FAIL,
-  props<{ payload: { error: string }}>(),
+  props<{ error: string }>(),
 );
 
 export const RegisterAction = createAction(
@@ -35,6 +35,6 @@ export const RegisterSuccessAction = createAction(
 
 export const RegisterFailAction = createAction(
   AuthActionsTypes.REGISTER_FAIL,
-  props<{ payload: { error: string }}>(),
+  props<{ error: string }>(),
 );
 

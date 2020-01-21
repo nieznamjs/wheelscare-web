@@ -10,16 +10,20 @@ import { ConfigService } from '@services/utils/config.service';
 })
 export class AuthDataService {
 
+  private readonly authApiUrl: string;
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-  ) { }
+  ) {
+    this.authApiUrl = `${this.config.apiUrl}/auth`;
+  }
 
   public registerUser(newUser: RegisterUserBody): Observable<User> {
-    return this.http.post<User>(`${this.config.apiUrl}/auth/register`, newUser);
+    return this.http.post<User>(`${this.authApiUrl}/register`, newUser);
   }
 
   public login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.config.apiUrl}/auth/login`, { email, password });
+    return this.http.post<LoginResponse>(`${this.authApiUrl}/login`, { email, password });
   }
 }
