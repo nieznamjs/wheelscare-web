@@ -6,8 +6,6 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
 import {
-  AuthActionsTypes,
-  LoginAction,
   LoginFailAction,
   LoginSuccessAction,
   RegisterFailAction,
@@ -16,19 +14,20 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';
 import { ErrorMessages } from '@shared/constants/error-messages';
+import * as AuthActions from '@store/auth-store/auth-actions';
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private authService: AuthDataService,
-    private actions$: Actions<AuthActionsTypes>,
+    private actions$: Actions,
     private router: Router,
   ) {}
 
   public loginEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(LoginAction.type),
-    switchMap(({ payload }) => {
-      return this.authService.login(payload.email, payload.password)
+    ofType(AuthActions.LoginAction),
+    switchMap(action => {
+      return this.authService.login(action.payload.email, action.payload.password)
         .pipe(
           map(() =>  {
             this.router.navigate(['/app']);
@@ -66,7 +65,7 @@ export class AuthEffects {
 
   @Effect()
   public registerEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActionsTypes.REGISTER),
+    ofType(AuthActions.RegisterAction),
     switchMap(({ payload }) => {
       return this.authService.registerUser(payload.newUser)
         .pipe(
