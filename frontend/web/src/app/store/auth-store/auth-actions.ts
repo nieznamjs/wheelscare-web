@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { RegisterUserBody } from '@interfaces';
 
-export enum AuthActionsTypes {
+enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
   LOGIN_SUCCESS = '[WCW] Login Success',
   LOGIN_FAIL = '[WCW] Login Fail',
@@ -37,3 +37,4 @@ export const RegisterFailAction = createAction(
   AuthActionsTypes.REGISTER_FAIL,
   props<{ payload: { error: string }}>(),
 );
+
