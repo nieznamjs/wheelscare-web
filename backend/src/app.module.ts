@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+import { Environments } from '@constants';
 import { AppConfigModule, AppConfigService } from '@config';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-import { Environments } from '../dist/src/common/constants';
 
 @Module({
   imports: [
