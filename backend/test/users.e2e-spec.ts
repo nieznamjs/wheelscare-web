@@ -169,8 +169,4 @@ describe('Users (E2E)', () => {
   afterEach(async () => {
     await app.close();
   });
-
-  afterAll(async () => {
-    await flushDatabase();
-  });
 });
