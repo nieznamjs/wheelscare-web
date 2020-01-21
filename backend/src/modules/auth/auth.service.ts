@@ -1,20 +1,19 @@
 import { Injectable } from '@nestjs/common';
 
+import { HashService, MailService, QueryService, TemplateService, TokenService } from '@services';
+import { FindAllQueryDto } from '@dtos';
+import { AppConfigService } from '@config';
+import { EQUAL, MailSubjects, Templates, TokenTypes } from '@constants';
+import { UnauthorizedUserError, UserNotActiveError } from '@errors';
+
 import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { HashService, MailService, QueryService, TemplateService, TokenService } from '@services';
-import { FindAllQueryDto } from '@dtos';
-import { UnauthorizedUserError, UserNotActiveError } from '@errors';
-import { AppConfigService } from '@config';
-import { EQUAL, Templates, TokenTypes } from '@constants';
 import { CreateUserDto } from '../users/dtos/create-user.dto';
 
 @Injectable()
 export class AuthService {
-  private readonly ACCOUNT_ACTIVATION_TOKEN_EXPIRATION = 3600;
-
   constructor(
     private readonly usersService: UsersService,
     private readonly hashService: HashService,
@@ -53,8 +52,6 @@ export class AuthService {
     if (!arePasswordsEqual) { throw new UnauthorizedUserError(); }
     if (!user.active) { throw new UserNotActiveError(); }
 
-    // https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e
-    // TODO: go later for RS256 algorithm
     const token = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
       userId: user.id,
       type: TokenTypes.Auth,
@@ -67,20 +64,19 @@ export class AuthService {
     const token = await this.tokenService.generateToken(
       this.appConfigService.auth.basicSecret,
       { type: TokenTypes.AccountActivation },
-      { expiresIn: this.ACCOUNT_ACTIVATION_TOKEN_EXPIRATION },
+      { expiresIn: this.appConfigService.auth.accountActivationTokenExpiration },
     );
 
     const template = await this.templateService.compileTemplate(Templates.USER_ACTIVATION, {
       email: user.email,
-      // TODO: url should be dynamic, based on host sending request to server
-      url: `https://localhost:4200/activate-account/${user.id}?token=${token}`,
+      url: `${this.appConfigService.clientUrl}/activate-account/${user.id}?token=${token}`,
     });
 
     await this.mailService.send({
-      mailFrom: 'no-reply@chat.deftcode.pl',
+      mailFrom: this.appConfigService.email.from,
       mailTo: user.email,
       body: template,
-      subject: 'WheelsCare - Aktywacja konta',
+      subject: MailSubjects.AccountActivation,
     });
   }
 }

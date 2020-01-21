@@ -11,4 +11,5 @@ export default Joi.object({
   ENVIRONMENT: Joi.string().default(Environments.Local),
   BASIC_SECRET: Joi.string().required(),
   AWS_REGION: Joi.string().required(),
+  CLIENT_URL: Joi.string().required(),
 });

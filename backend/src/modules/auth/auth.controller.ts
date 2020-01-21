@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import {
   ApiCreatedResponse,
@@ -10,12 +10,13 @@ import {
 
 import { Routes, Cookies, Environments } from '@constants';
 import { AppConfigService } from '@config';
+import { SuccessResponseDto } from '@dtos';
 
 import { AuthService } from './auth.service';
 import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { SuccessResponseDto } from '@dtos';
+import { UserResponseDto } from '../users/dtos/user-response.dto';
 
 @ApiTags(Routes.Auth)
 @Controller(Routes.Auth)
@@ -26,15 +27,14 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  // TODO: add when response for create user will be ready
-  // @ApiCreatedResponse({ description: 'Will return created user', type: RegisterResponseDto })
+  @ApiCreatedResponse({ description: 'Will return created user', type: UserResponseDto })
   @ApiForbiddenResponse({ description: 'Not enough permissions' })
   public async registerUser(@Body() userData: RegisterUserDto): Promise<User> {
     return this.authService.register(userData);
   }
 
   @Post('login')
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: SuccessResponseDto, description: 'Beside success response it should return cookie with auth token' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized user' })
   @ApiForbiddenResponse({ description: 'User not active'})

@@ -1,14 +1,13 @@
-// import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
-  IsNumber,
   IsIn,
   IsString,
   IsOptional,
   registerDecorator,
-  ValidationOptions,
+  ValidationOptions, IsNumberString, IsJSON,
 } from 'class-validator';
-import { findAllQueryOperatorsMap } from '@constants';
+import { EQUAL, findAllQueryOperatorsMap } from '@constants';
 
 export interface FindAllQuery {
   // key should come from generic value properties, for example for User it should be only like id, email etc.
@@ -29,12 +28,14 @@ function HasProperQueries(validationOptions?: ValidationOptions) {
         defaultMessage() {
           return 'At least one of the queries is wrong';
         },
-        validate(value: FindAllQuery[]) {
-          if (value.length === 0) { return false; }
+        validate(value: string) {
+          const parsedValue = JSON.parse(value);
+
+          if (parsedValue.length === 0) { return false; }
 
           const operatorKeys = Object.keys(findAllQueryOperatorsMap);
 
-          return value.every(val => {
+          return parsedValue.every(val => {
             const keys = Object.keys(val);
 
             if (keys.length === 0) { return false; }
@@ -53,35 +54,36 @@ function HasProperQueries(validationOptions?: ValidationOptions) {
 }
 
 export class FindAllQueryDto {
-  // @ApiModelProperty({ example: [
-  //   { firstName: { operator: EQUAL, value: 'Some value like firstName' } },
-  //   { firstName: { operator: EQUAL, value: 'Some other value like lastName' } },
-  // ]})
+  @ApiProperty({ example: [
+    { firstName: { operator: EQUAL, value: 'Some value like firstName' } },
+    { firstName: { operator: EQUAL, value: 'Some other value like lastName' } },
+  ]})
   @IsOptional()
+  @IsJSON()
   @HasProperQueries()
   public readonly queries: FindAllQuery[];
 
-  // @ApiModelProperty({ example: [ 'Some value', 'Some other value', 'id' ] })
+  @ApiProperty({ example: [ 'Some value', 'Some other value', 'id' ] })
   @IsOptional()
   @IsArray()
   public readonly select: string[];
 
-  // @ApiModelProperty({ example: 2 })
+  @ApiProperty({ example: 2 })
   @IsOptional()
-  @IsNumber()
+  @IsNumberString()
   public readonly page: number;
 
-  // @ApiModelProperty({ example: 25 })
+  @ApiProperty({ example: 25 })
   @IsOptional()
-  @IsNumber()
+  @IsNumberString()
   public readonly pageSize: number;
 
-  // @ApiModelProperty({ example: 'DESC' })
+  @ApiProperty({ example: 'DESC' })
   @IsOptional()
   @IsIn(['DESC', 'ASC', 'asc', 'desc'])
   public readonly order: 'DESC'|'ASC';
 
-  // @ApiModelProperty({ example: 'Some value' })
+  @ApiProperty({ example: 'Some value' })
   @IsOptional()
   @IsString()
   public readonly orderBy: string;
