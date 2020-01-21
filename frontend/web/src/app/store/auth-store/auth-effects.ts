@@ -78,7 +78,7 @@ export class AuthEffects {
             const isConflictStatusCode = err.error.statusCode === HttpStatusCodes.Conflict;
             const error = isConflictStatusCode ? ErrorMessages.UserAlreadyExists : ErrorMessages.GeneralServerError;
 
-            return of(RegisterFailAction({ error }));
+            return of(RegisterFailAction({ payload: { error }));
           }),
         );
     }),
