@@ -22,10 +22,10 @@ export class AuthFacade {
   constructor(private store: Store<AuthState>) {}
 
   public login(email: string, password: string): void {
-    this.store.dispatch(new LoginAction({ email, password }));
+    this.store.dispatch(LoginAction({ payload: { email, password }}));
   }
 
   public register(newUser: RegisterUserBody): void {
-    this.store.dispatch(new RegisterAction({ newUser }));
+    this.store.dispatch(RegisterAction({ payload: { newUser }}));
   }
 }

@@ -8,7 +8,7 @@ import { ConfigService } from '@services/utils/config.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthDataService {
 
   constructor(
     private http: HttpClient,
