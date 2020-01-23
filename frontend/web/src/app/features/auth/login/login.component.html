@@ -1,0 +1,50 @@
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="field">
+    <input
+      matInput
+      type="email"
+      placeholder="E-mail"
+      formControlName="email"
+      required
+      autocomplete="email"
+      data-cy="email-field">
+
+    <mat-error class="error" *ngIf="getFormControl('email').hasError('required')">
+      E-mail jest wymagany
+    </mat-error>
+
+    <mat-error class="error" *ngIf="getFormControl('email').hasError('email')">
+      Niepoprawny e-mail
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <input
+      matInput
+      type="password"
+      placeholder="Hasło"
+      formControlName="password"
+      required
+      autocomplete="current-password"
+      data-cy="password-field">
+
+    <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
+      Hasło jest wymagane
+    </mat-error>
+
+    <mat-error *ngIf="getFormControl('password').hasError('pattern')">
+      Hasło musi składać się z przynajmniej jednej małej litery, jednej wielkiej litery i cyfry oraz mieć długość 6-24 znaki
+    </mat-error>
+  </mat-form-field>
+
+  <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="isLoading$ | async">
+    Zaloguj się
+  </button>
+
+  <mat-error *ngIf="(loginError$ | async) as error" class="login-error">
+    {{ error }}
+  </mat-error>
+  <mat-spinner color="primary" [diameter]="50" *ngIf="isLoading$ | async" class="loading-spinner"></mat-spinner>
+</form>
+
+<a routerLink="/auth/register">Rejestracja</a>

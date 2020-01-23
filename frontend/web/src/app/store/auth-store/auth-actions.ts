@@ -1,27 +1,40 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { RegisterUserBody } from '@interfaces';
 
-export enum AuthActionsTypes {
+enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
   LOGIN_SUCCESS = '[WCW] Login Success',
   LOGIN_FAIL = '[WCW] Login Fail',
+  REGISTER_USER = '[WCW] Register User',
+  REGISTER_USER_SUCCESS = '[WCW] Register User Success',
+  REGISTER_USER_FAIL = '[WCW] Register User Fail',
 }
 
-export class LoginAction implements Action {
-  readonly type = AuthActionsTypes.LOGIN;
+export const LoginAction = createAction(
+  AuthActionsTypes.LOGIN,
+  props<{ payload: { email: string, password: string }}>(),
+);
 
-  constructor(public payload: { email: string, password: string }) {}
-}
+export const LoginSuccessAction = createAction(
+  AuthActionsTypes.LOGIN_SUCCESS,
+);
 
-export class LoginSuccessAction implements Action {
-  readonly type = AuthActionsTypes.LOGIN_SUCCESS;
-}
+export const LoginFailAction = createAction(
+  AuthActionsTypes.LOGIN_FAIL,
+  props<{ error: string }>(),
+);
 
-export class LoginFailAction implements Action {
-  readonly type = AuthActionsTypes.LOGIN_FAIL;
+export const RegisterUserAction = createAction(
+  AuthActionsTypes.REGISTER_USER,
+  props<{ payload: { newUser: RegisterUserBody }}>(),
+);
 
-  constructor(public payload: { error: string }) {}
-}
-export type AuthActions =
-  LoginAction
-  | LoginSuccessAction
-  | LoginFailAction;
+export const RegisterUserSuccessAction = createAction(
+  AuthActionsTypes.REGISTER_USER_SUCCESS,
+);
+
+export const RegisterUserFailAction = createAction(
+  AuthActionsTypes.REGISTER_USER_FAIL,
+  props<{ error: string }>(),
+);
+
