@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": [ "./frontend/web/src" ]
+            },
             "outputPath": "dist/web",
             "index": "frontend/web/src/index.html",
             "main": "frontend/web/src/main.ts",
