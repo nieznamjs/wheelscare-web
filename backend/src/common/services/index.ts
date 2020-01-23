@@ -4,3 +4,4 @@ export * from './response.service';
 export * from './token.service';
 export * from './mail.service';
 export * from './template.service';
+export * from './logger.service';

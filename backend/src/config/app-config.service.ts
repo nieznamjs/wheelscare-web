@@ -35,4 +35,6 @@ export class AppConfigService {
   public get clientUrl(): string { return this.configService.get('clientUrl'); }
 
   public get email(): EmailConfig { return this.configService.get('email'); }
+
+  public get logLevel(): string { return this.configService.get('logLevel'); }
 }
