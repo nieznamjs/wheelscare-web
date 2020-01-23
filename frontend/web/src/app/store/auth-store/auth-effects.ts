@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { Router } from '@angular/router';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';
 import { ErrorMessages } from '@shared/constants/error-messages';
 import * as AuthActions from '@store/auth-store/auth-actions';
@@ -37,20 +37,20 @@ export class AuthEffects {
     }),
   ));
 
-  public registerEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.RegisterAction),
+  public registerUserEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.RegisterUserAction),
     switchMap(({ payload }) => {
       return this.authService.registerUser(payload.newUser)
         .pipe(
           map(() => {
             this.router.navigate(['/auth/login']);
-            return AuthActions.RegisterSuccessAction();
+            return AuthActions.RegisterUserSuccessAction();
           }),
           catchError((err: HttpErrorResponse) => {
             const isConflictStatusCode = err.error.statusCode === HttpStatusCodes.Conflict;
             const error = isConflictStatusCode ? ErrorMessages.UserAlreadyExists : ErrorMessages.GeneralServerError;
 
-            return of(AuthActions.RegisterFailAction({ error }));
+            return of(AuthActions.RegisterUserFailAction({ error }));
           }),
         );
     }),

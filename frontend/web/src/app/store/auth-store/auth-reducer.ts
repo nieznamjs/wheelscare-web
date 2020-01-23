@@ -34,28 +34,28 @@ export const authReducer = createReducer(
       },
     };
   }),
-  on(AuthActions.RegisterAction, state => {
+  on(AuthActions.RegisterUserAction, state => {
     return {
       ...state,
-      register: {
+      registerUser: {
         isLoading: true,
         error: null,
       },
     };
   }),
-  on(AuthActions.RegisterSuccessAction, state => {
+  on(AuthActions.RegisterUserSuccessAction, state => {
     return {
       ...state,
-      register: {
-        ...state.register,
+      registerUser: {
+        ...state.registerUser,
         isLoading: false,
       },
     };
   }),
-  on(AuthActions.RegisterFailAction, (state, payload) => {
+  on(AuthActions.RegisterUserFailAction, (state, payload) => {
     return {
       ...state,
-      register: {
+      registerUser: {
         isLoading: false,
         error: payload.error,
       },

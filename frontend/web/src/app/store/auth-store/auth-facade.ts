@@ -4,20 +4,20 @@ import { Store } from '@ngrx/store';
 import { AuthState, RegisterUserBody } from '@interfaces';
 import {
   selectIsLogging,
-  selectIsRegistering,
+  selectIsRegisteringUser,
   selectIsUserLogged,
   selectLoginError,
-  selectRegisterError,
+  selectRegisterUserError,
 } from './auth-selectors';
-import { LoginAction, RegisterAction } from './auth-actions';
+import { LoginAction, RegisterUserAction } from './auth-actions';
 
 @Injectable()
 export class AuthFacade {
   public isUserLogged$ = this.store.select(selectIsUserLogged);
   public isLogging$ = this.store.select(selectIsLogging);
   public loginError$ = this.store.select(selectLoginError);
-  public isRegistering$ = this.store.select(selectIsRegistering);
-  public registerError$ = this.store.select(selectRegisterError);
+  public isRegistering$ = this.store.select(selectIsRegisteringUser);
+  public registerError$ = this.store.select(selectRegisterUserError);
 
   constructor(private store: Store<AuthState>) {}
 
@@ -26,6 +26,6 @@ export class AuthFacade {
   }
 
   public register(newUser: RegisterUserBody): void {
-    this.store.dispatch(RegisterAction({ payload: { newUser }}));
+    this.store.dispatch(RegisterUserAction({ payload: { newUser }}));
   }
 }

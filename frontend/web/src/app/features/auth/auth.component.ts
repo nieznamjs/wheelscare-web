@@ -8,18 +8,17 @@ import { SocialAuthService } from '@services/data-integration/social-auth.servic
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-
   constructor(private socialAuthService: SocialAuthService) {}
 
   public loginWithGoogle(): void {
     this.socialAuthService.loginWithGoogle().subscribe(response => {
-      console.warn(response);
+      throw new Error('Implement me motherfucker!');
     });
   }
 
   public loginWithFacebook(): void {
     this.socialAuthService.loginWithFacebook().subscribe(response => {
-      console.warn(response);
+      throw new Error('Implement me motherfucker!');
     });
   }
 }

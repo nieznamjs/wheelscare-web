@@ -4,7 +4,7 @@ export interface AuthState {
     isLoading: boolean;
     error: string | null;
   };
-  register: {
+  registerUser: {
     isLoading: boolean;
     error: string | null;
   };

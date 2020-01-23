@@ -5,9 +5,9 @@ enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
   LOGIN_SUCCESS = '[WCW] Login Success',
   LOGIN_FAIL = '[WCW] Login Fail',
-  REGISTER = '[WCW] Register',
-  REGISTER_SUCCESS = '[WCW] Register Success',
-  REGISTER_FAIL = '[WCW] Register Fail',
+  REGISTER_USER = '[WCW] Register User',
+  REGISTER_USER_SUCCESS = '[WCW] Register User Success',
+  REGISTER_USER_FAIL = '[WCW] Register User Fail',
 }
 
 export const LoginAction = createAction(
@@ -24,17 +24,17 @@ export const LoginFailAction = createAction(
   props<{ error: string }>(),
 );
 
-export const RegisterAction = createAction(
-  AuthActionsTypes.REGISTER,
+export const RegisterUserAction = createAction(
+  AuthActionsTypes.REGISTER_USER,
   props<{ payload: { newUser: RegisterUserBody }}>(),
 );
 
-export const RegisterSuccessAction = createAction(
-  AuthActionsTypes.REGISTER_SUCCESS,
+export const RegisterUserSuccessAction = createAction(
+  AuthActionsTypes.REGISTER_USER_SUCCESS,
 );
 
-export const RegisterFailAction = createAction(
-  AuthActionsTypes.REGISTER_FAIL,
+export const RegisterUserFailAction = createAction(
+  AuthActionsTypes.REGISTER_USER_FAIL,
   props<{ error: string }>(),
 );
 

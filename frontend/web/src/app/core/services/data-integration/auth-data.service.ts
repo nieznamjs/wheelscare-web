@@ -9,15 +9,12 @@ import { ConfigService } from '@services/utils/config.service';
   providedIn: 'root'
 })
 export class AuthDataService {
-
-  private readonly authApiUrl: string;
+  private readonly authApiUrl = `${this.config.apiUrl}/auth`;
 
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-  ) {
-    this.authApiUrl = `${this.config.apiUrl}/auth`;
-  }
+  ) {}
 
   public registerUser(newUser: RegisterUserBody): Observable<User> {
     return this.http.post<User>(`${this.authApiUrl}/register`, newUser);
