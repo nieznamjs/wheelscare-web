@@ -14,6 +14,7 @@ describe('Auth (E2E)', () => {
   let mailService: MailService;
 
   beforeAll(async () => {
+    await flushDatabase();
     await syncDatabase();
     await seedDatabase();
   });
@@ -128,9 +129,5 @@ describe('Auth (E2E)', () => {
 
   afterEach(async () => {
     await app.close();
-  });
-
-  afterAll(async () => {
-    await flushDatabase();
   });
 });

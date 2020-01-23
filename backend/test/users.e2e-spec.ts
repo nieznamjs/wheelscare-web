@@ -12,6 +12,7 @@ describe('Users (E2E)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
+    await flushDatabase();
     await syncDatabase();
     await seedDatabase();
   });
@@ -167,9 +168,5 @@ describe('Users (E2E)', () => {
 
   afterEach(async () => {
     await app.close();
-  });
-
-  afterAll(async () => {
-    await flushDatabase();
   });
 });

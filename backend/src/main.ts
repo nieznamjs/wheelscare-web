@@ -5,6 +5,7 @@ import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
+import * as cors from 'cors';
 
 import { AppModule } from './app.module';
 import { AppConfigService } from '@config';
@@ -29,7 +30,14 @@ async function bootstrap() {
     transform: true,
   }));
 
-  app.use(cookieParser());
+  app
+    .use(cookieParser())
+    .use(cors({
+      credentials: true,
+      origin: (origin: string, callback: (err: Error, val?: boolean) => void) => {
+        return callback(null, true);
+      },
+    }));
 
   await app.listen(config.port);
 }

@@ -1,13 +1,13 @@
 export default () => ({
   port: Number(process.env.PORT),
   clientUrl: process.env.CLIENT_URL,
+  environment: process.env.ENVIRONMENT,
   database: {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
     username: process.env.DB_USERNAME,
     name: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
-    environment: process.env.ENVIRONMENT,
   },
   email: {
     from: 'no-reply@chat.deftcode.pl',
