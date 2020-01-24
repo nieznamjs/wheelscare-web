@@ -11,7 +11,7 @@ interface DatabaseConfig {
 
 interface AuthConfig {
   basicSecret: string;
-  passwordResetSecret?: string;
+  passwordResetSecret: string;
   accountActivationTokenExpiration: number;
 }
 

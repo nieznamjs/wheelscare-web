@@ -8,7 +8,6 @@ import { ReadAllResponse } from '@interfaces';
 import { FindAllQueryDto } from '@dtos';
 import { User } from './users.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { HashService, QueryService, TokenService, MailService, TemplateService } from '@services';
 import { TokenTypes, Templates } from '@constants';
 import { AppConfigService } from '@config';
@@ -55,8 +54,6 @@ export class UsersService {
     return this.userRepository.findOne(createdUser.id);
   }
 
-  // -------------------
-
   public async initResetPassword(email: string): Promise<void> {
     const user = await this.getUserByEmail(email);
 
@@ -67,9 +64,9 @@ export class UsersService {
     await this.sendMailWithPasswordResetUrl(user);
   }
 
-  private async getPasswordResetToken(): Promise<string> {
+  private async getPasswordResetToken(userId: string): Promise<string> {
     return this.tokenService.generateToken(
-      this.appConfigService.auth.passwordResetSecret,
+      `${this.appConfigService.auth.passwordResetSecret}_${userId}`,
       { type: TokenTypes.ResetPassword },
       { expiresIn: this.PASSWORD_RESET_TOKEN_EXPIRATION },
     );
@@ -87,7 +84,7 @@ export class UsersService {
   }
 
   private async sendMailWithPasswordResetUrl(user: User): Promise<SES.SendEmailResponse> {
-    const token = await this.getPasswordResetToken();
+    const token = await this.getPasswordResetToken(user.id);
     const template = await this.getPasswordResetEmailTemplate(user, token);
 
     return await this.mailService.send({
@@ -115,8 +112,23 @@ export class UsersService {
     return true;
   }
 
-  public async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<ResetPasswordDto> {
-    return { ...resetPasswordDto, newPassword: 'hidden' };
+  public async resetPassword(userId: string, newPassword: string): Promise<User> {
+    const user = await this.readOne(userId);
+
+    if (!user) {
+      throw new UserNotFoundError();
+    }
+
+    const password = this.hashService.encrypt(newPassword);
+    const userConfig = { ...user, password };
+
+    this.update(userConfig);
+
+    return user;
+  }
+
+  public createPasswordResetTokenSecret(passwordResetSecret: string, userId: string): string {
+    return `${passwordResetSecret}_${userId}`;
   }
 
   public async delete(id: string): Promise<User> {
