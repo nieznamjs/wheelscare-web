@@ -1,33 +1,41 @@
+<h2 class="head-2">Utwórz konto</h2>
+
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field class="field">
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>E-mail</mat-label>
+
     <input
       matInput
       type="email"
-      placeholder="E-mail"
+      placeholder="Wprowadź adres e-mail"
       formControlName="email"
       required
-      autocomplete="email">
+      autocomplete="email"
+      data-cy="email-field">
 
-    <mat-error *ngIf="getFormControl('email').hasError('required')">
+    <mat-error class="error" *ngIf="getFormControl('email').hasError('required')">
       E-mail jest wymagany
     </mat-error>
 
-    <mat-error *ngIf="getFormControl('email').hasError('email')">
+    <mat-error class="error" *ngIf="getFormControl('email').hasError('email')">
       Niepoprawny e-mail
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field">
+  <mat-form-field class="field field-alt" appearance="outline">
+    <mat-label>Hasło</mat-label>
+
     <input
       matInput
       type="password"
-      placeholder="Hasło"
+      placeholder="Wprowadź hasło"
       formControlName="password"
       required
-      #password
-      autocomplete="new-password">
+      autocomplete="current-password"
+      data-cy="password-field"
+      #password>
 
-    <mat-error *ngIf="getFormControl('password').hasError('required')">
+    <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
       Hasło jest wymagane
     </mat-error>
 
@@ -36,7 +44,9 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field">
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>Potwierdź hasło</mat-label>
+
     <input
       matInput
       type="password"
@@ -55,9 +65,29 @@
     </mat-error>
   </mat-form-field>
 
-  <button class="btn" mat-raised-button color="primary">
-    Zarejestruj się
+  <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
+    <span *ngIf="!(isLoading$ | async)">Utwórz konto</span>
+
+    <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
   </button>
+
+  <mat-error *ngIf="(registerError$ | async) as error" class="register-error">
+    {{ error }}
+  </mat-error>
 </form>
 
-<a routerLink="/auth/login">Logowanie</a>
+<span class="or-dividier">Lub</span>
+
+<div class="social-buttons">
+  <button class="btn social-btn" mat-raised-button color="primary">
+    <mat-icon svgIcon="fb" class="social-icon"></mat-icon> Zaloguj się za pomocą Facebooka
+  </button>
+
+  <button class="btn social-btn btn-google" mat-raised-button>
+    <mat-icon svgIcon="google" class="social-icon"></mat-icon> Zaloguj się za pomocą Google
+  </button>
+</div>
+
+<div class="redirect-links">
+  <span class="redirect-link">Posiadasz już konto? <a routerLink="/auth/login">Zaloguj się</a></span>
+</div>

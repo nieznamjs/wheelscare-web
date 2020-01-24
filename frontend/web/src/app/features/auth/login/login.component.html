@@ -44,13 +44,14 @@
   </mat-form-field>
 
   <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
-    Zaloguj się
+    <span *ngIf="!(isLoading$ | async)">Zaloguj się</span>
+
+    <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
   </button>
 
-  <mat-error *ngIf="(loginError$ | async) as error" class="login-error">
+  <mat-error *ngIf="(loginError$ | async) as error">
     {{ error }}
   </mat-error>
-  <mat-spinner color="primary" [diameter]="50" *ngIf="isLoading$ | async" class="loading-spinner"></mat-spinner>
 </form>
 
 <span class="or-dividier">Lub</span>

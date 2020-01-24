@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, delay, map, switchMap } from 'rxjs/operators';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';
@@ -20,6 +20,7 @@ export class AuthEffects {
 
   public loginEffect$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.LoginAction),
+    delay(2000),
     switchMap(action => {
       return this.authService.login(action.payload.email, action.payload.password)
         .pipe(

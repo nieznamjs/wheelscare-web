@@ -7,9 +7,11 @@ import {
   MatIconModule,
   MatIconRegistry,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { LoaderComponent } from '@components/loader/loader.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -29,7 +31,9 @@ const materialModules = [
     ...materialModules,
     CommonModule,
     ReactiveFormsModule,
+    LoaderComponent,
   ],
+  declarations: [LoaderComponent],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
@@ -41,6 +45,11 @@ export class SharedModule {
     this.matIconRegistry.addSvgIcon(
       'google',
       this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/google-logo.svg'),
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'wheel',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/wheel.svg'),
     );
   }
 }
