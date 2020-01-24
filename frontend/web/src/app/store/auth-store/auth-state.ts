@@ -7,6 +7,7 @@ export const authInitialState: AuthState = {
     error: null,
   },
   registerUser: {
+    registeredSuccessfully: false,
     isLoading: false,
     error: null,
   },

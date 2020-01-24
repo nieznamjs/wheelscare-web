@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   public form: FormGroup;
   public isLoading$: Observable<boolean>;
   public registerError$: Observable<string>;
+  public registeredSuccessfully$: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +37,7 @@ export class RegisterComponent implements OnInit {
 
     this.isLoading$ = this.authFacade.isRegistering$;
     this.registerError$ = this.authFacade.registerError$;
+    this.registeredSuccessfully$ = this.authFacade.registeredSuccessfully;
   }
 
   public getFormControl(name: string): AbstractControl {

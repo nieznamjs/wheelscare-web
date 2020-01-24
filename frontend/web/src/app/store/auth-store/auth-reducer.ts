@@ -40,6 +40,7 @@ export const authReducer = createReducer(
       registerUser: {
         isLoading: true,
         error: null,
+        registeredSuccessfully: false,
       },
     };
   }),
@@ -49,6 +50,7 @@ export const authReducer = createReducer(
       registerUser: {
         ...state.registerUser,
         isLoading: false,
+        registeredSuccessfully: true,
       },
     };
   }),
@@ -58,6 +60,7 @@ export const authReducer = createReducer(
       registerUser: {
         isLoading: false,
         error: payload.error,
+        registeredSuccessfully: true,
       },
     };
   }),

@@ -1,93 +1,104 @@
 <h2 class="head-2">Utwórz konto</h2>
 
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field class="field" appearance="outline">
-    <mat-label>E-mail</mat-label>
+<div  *ngIf="!(registeredSuccessfully$ | async)">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>E-mail</mat-label>
 
-    <input
-      matInput
-      type="email"
-      placeholder="Wprowadź adres e-mail"
-      formControlName="email"
-      required
-      autocomplete="email"
-      data-cy="email-field">
+      <input
+        matInput
+        type="email"
+        placeholder="Wprowadź adres e-mail"
+        formControlName="email"
+        required
+        autocomplete="email"
+        data-cy="email-field">
 
-    <mat-error class="error" *ngIf="getFormControl('email').hasError('required')">
-      E-mail jest wymagany
+      <mat-error class="error" *ngIf="getFormControl('email').hasError('required')">
+        E-mail jest wymagany
+      </mat-error>
+
+      <mat-error class="error" *ngIf="getFormControl('email').hasError('email')">
+        Niepoprawny e-mail
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field field-alt" appearance="outline">
+      <mat-label>Hasło</mat-label>
+
+      <input
+        matInput
+        type="password"
+        placeholder="Wprowadź hasło"
+        formControlName="password"
+        required
+        autocomplete="current-password"
+        data-cy="password-field"
+        #password>
+
+      <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
+        Hasło jest wymagane
+      </mat-error>
+
+      <mat-error *ngIf="getFormControl('password').hasError('pattern')">
+        Hasło musi składać się z przynajmniej jednej małej litery, jednej wielkiej litery i cyfry oraz mieć długość 6-24 znaki
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Potwierdź hasło</mat-label>
+
+      <input
+        matInput
+        type="password"
+        placeholder="Potwierdź hasło"
+        formControlName="confirmPassword"
+        [pattern]="password.value"
+        required
+        autocomplete="new-password">
+
+      <mat-error *ngIf="getFormControl('confirmPassword').hasError('required')">
+        Potwierdzenie hasła jest wymagane
+      </mat-error>
+
+      <mat-error *ngIf="getFormControl('confirmPassword').hasError('pattern')">
+        Hasła nie są takie same
+      </mat-error>
+    </mat-form-field>
+
+    <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
+      <span *ngIf="!(isLoading$ | async)">Utwórz konto</span>
+
+      <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
+    </button>
+
+    <mat-error *ngIf="(registerError$ | async) as error" class="register-error">
+      {{ error }}
     </mat-error>
+  </form>
 
-    <mat-error class="error" *ngIf="getFormControl('email').hasError('email')">
-      Niepoprawny e-mail
-    </mat-error>
-  </mat-form-field>
+  <span class="or-dividier">Lub</span>
 
-  <mat-form-field class="field field-alt" appearance="outline">
-    <mat-label>Hasło</mat-label>
+  <div class="social-buttons">
+    <button class="btn social-btn" mat-raised-button color="primary">
+      <mat-icon svgIcon="fb" class="social-icon"></mat-icon> Zaloguj się za pomocą Facebooka
+    </button>
 
-    <input
-      matInput
-      type="password"
-      placeholder="Wprowadź hasło"
-      formControlName="password"
-      required
-      autocomplete="current-password"
-      data-cy="password-field"
-      #password>
+    <button class="btn social-btn btn-google" mat-raised-button>
+      <mat-icon svgIcon="google" class="social-icon"></mat-icon> Zaloguj się za pomocą Google
+    </button>
+  </div>
 
-    <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
-      Hasło jest wymagane
-    </mat-error>
-
-    <mat-error *ngIf="getFormControl('password').hasError('pattern')">
-      Hasło musi składać się z przynajmniej jednej małej litery, jednej wielkiej litery i cyfry oraz mieć długość 6-24 znaki
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field class="field" appearance="outline">
-    <mat-label>Potwierdź hasło</mat-label>
-
-    <input
-      matInput
-      type="password"
-      placeholder="Potwierdź hasło"
-      formControlName="confirmPassword"
-      [pattern]="password.value"
-      required
-      autocomplete="new-password">
-
-    <mat-error *ngIf="getFormControl('confirmPassword').hasError('required')">
-      Potwierdzenie hasła jest wymagane
-    </mat-error>
-
-    <mat-error *ngIf="getFormControl('confirmPassword').hasError('pattern')">
-      Hasła nie są takie same
-    </mat-error>
-  </mat-form-field>
-
-  <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
-    <span *ngIf="!(isLoading$ | async)">Utwórz konto</span>
-
-    <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
-  </button>
-
-  <mat-error *ngIf="(registerError$ | async) as error" class="register-error">
-    {{ error }}
-  </mat-error>
-</form>
-
-<span class="or-dividier">Lub</span>
-
-<div class="social-buttons">
-  <button class="btn social-btn" mat-raised-button color="primary">
-    <mat-icon svgIcon="fb" class="social-icon"></mat-icon> Zaloguj się za pomocą Facebooka
-  </button>
-
-  <button class="btn social-btn btn-google" mat-raised-button>
-    <mat-icon svgIcon="google" class="social-icon"></mat-icon> Zaloguj się za pomocą Google
-  </button>
+  <div class="redirect-links">
+    <span class="redirect-link">Posiadasz już konto? <a routerLink="/auth/login">Zaloguj się</a></span>
+  </div>
 </div>
 
-<div class="redirect-links">
-  <span class="redirect-link">Posiadasz już konto? <a routerLink="/auth/login">Zaloguj się</a></span>
+<div class="success-wrapper" *ngIf="registeredSuccessfully$ | async">
+  <mat-icon class="success-icon">check_circle</mat-icon>
+
+  <span class="success-info">Konto utworzone.</span>
+  <span class="success-info">Aktywuj je za pomocą linku wysłanego na maila.</span>
+
+  <a class="redirect-link" routerLink="/auth/login">Powrót do logowania</a>
 </div>

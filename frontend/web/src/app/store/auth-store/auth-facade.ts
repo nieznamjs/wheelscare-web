@@ -6,7 +6,7 @@ import {
   selectIsLogging,
   selectIsRegisteringUser,
   selectIsUserLogged,
-  selectLoginError,
+  selectLoginError, selectRegisteredSuccessfully,
   selectRegisterUserError,
 } from './auth-selectors';
 import { LoginAction, RegisterUserAction } from './auth-actions';
@@ -16,6 +16,7 @@ export class AuthFacade {
   public isUserLogged$ = this.store.select(selectIsUserLogged);
   public isLogging$ = this.store.select(selectIsLogging);
   public loginError$ = this.store.select(selectLoginError);
+  public registeredSuccessfully = this.store.select(selectRegisteredSuccessfully);
   public isRegistering$ = this.store.select(selectIsRegisteringUser);
   public registerError$ = this.store.select(selectRegisterUserError);
 

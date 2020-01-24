@@ -68,3 +68,23 @@
   margin-left: 5px;
   height: 24px;
 }
+
+.success-wrapper {
+  color: $green-success;
+  text-align: center;
+  margin-top: -30px;
+
+  .redirect-link {
+    margin-top: 60px;
+  }
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  font-size: 72px;
+}
+
+.success-info {
+  display: block;
+}
