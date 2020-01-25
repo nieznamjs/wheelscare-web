@@ -4,19 +4,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { UserAlreadyExistsError, UserNotFoundError } from '@errors';
 import { ReadAllResponse } from '@interfaces';
+import { QueryService } from '@services';
 import { FindAllQueryDto } from '@dtos';
-import { HashService, QueryService } from '@services';
 
 import { User } from './users.entity';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dtos';
+import { AppConfigService } from '@config';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    private readonly hashService: HashService,
     private readonly queryService: QueryService,
+    private readonly config: AppConfigService,
   ) {}
 
   public async read(findAllQueryDto: FindAllQueryDto): Promise<ReadAllResponse<User>> {
@@ -60,5 +60,13 @@ export class UsersService {
     await this.userRepository.update(user.id, user);
 
     return this.userRepository.findOne(user.id);
+  }
+
+  public async activateUser(id: string): Promise<void> {
+    await this.userRepository.update(id, { active: true });
+  }
+
+  public generateAccountActivationSecret(userID: string): string {
+    return `${this.config.auth.accountActivationSecret}_${userID}`;
   }
 }

@@ -62,7 +62,7 @@ export class AuthService {
 
   private async sendAccountActivationEmail(user: User): Promise<void> {
     const token = await this.tokenService.generateToken(
-      this.appConfigService.auth.basicSecret,
+      this.usersService.generateAccountActivationSecret(user.id),
       { type: TokenTypes.AccountActivation },
       { expiresIn: this.appConfigService.auth.accountActivationTokenExpiration },
     );

@@ -58,5 +58,11 @@ AWS.config.getCredentials(async err => {
     return;
   }
 
-  await bootstrap();
+  try {
+    await bootstrap();
+  } catch (e) {
+    // tslint:disable-next-line:no-console
+    console.error(e);
+    process.exit(1);
+  }
 });

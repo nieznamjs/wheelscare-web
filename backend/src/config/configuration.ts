@@ -15,6 +15,7 @@ export default () => ({
   },
   auth: {
     basicSecret: process.env.BASIC_SECRET,
+    accountActivationSecret: process.env.ACCOUNT_ACTIVATION_SECRET,
     accountActivationTokenExpiration: 3600,
   },
 });
