@@ -12,7 +12,7 @@ import { UsersService } from '../users.service';
 export class AccountActivationGuard implements CanActivate {
   constructor(
     private readonly tokenService: TokenService,
-    private readonly  usersService: UsersService,
+    private readonly usersService: UsersService,
   ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
