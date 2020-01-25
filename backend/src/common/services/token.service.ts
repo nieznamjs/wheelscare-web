@@ -22,4 +22,8 @@ export class TokenService {
       });
     });
   }
+
+  public getTokenFromBearerString(val: string): string {
+    return val.replace('Bearer ', '');
+  }
 }
