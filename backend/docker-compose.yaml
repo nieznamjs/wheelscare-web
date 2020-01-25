@@ -1,4 +1,4 @@
-version: "3.1"
+version: '3.1'
 
 services:
   database:
@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=wheelscare
       - POSTGRES_DB=wheelscare
     volumes:
-      - "dbdata:/var/lib/postgresql/data"
+      - 'dbdata:/var/lib/postgresql/data'
     ports:
       - 5430:5432
 

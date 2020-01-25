@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SES } from 'aws-sdk';
 
 import { UserAlreadyExistsError, UserNotFoundError } from '@errors';
 import { ReadAllResponse } from '@interfaces';
@@ -9,7 +8,7 @@ import { FindAllQueryDto } from '@dtos';
 import { User } from './users.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { HashService, QueryService, TokenService, MailService, TemplateService } from '@services';
-import { TokenTypes, Templates } from '@constants';
+import { TokenTypes, Templates, MailSubjects } from '@constants';
 import { AppConfigService } from '@config';
 import { UpdateUserDto } from './dtos/update-user.dto';
 
@@ -83,15 +82,15 @@ export class UsersService {
     });
   }
 
-  private async sendMailWithPasswordResetUrl(user: User): Promise<SES.SendEmailResponse> {
+  private async sendMailWithPasswordResetUrl(user: User): Promise<void> {
     const token = await this.getPasswordResetToken(user.id);
     const template = await this.getPasswordResetEmailTemplate(user, token);
 
-    return await this.mailService.send({
-      mailFrom: 'no-reply@chat.deftcode.pl',
+    await this.mailService.send({
+      mailFrom: this.appConfigService.email.from,
       mailTo: user.email,
       body: template,
-      subject: 'WheelsCare - Reset hasła',
+      subject: MailSubjects.PasswordReset,
     });
   }
 

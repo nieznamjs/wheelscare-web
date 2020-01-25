@@ -10,7 +10,7 @@ export default () => ({
     password: process.env.DB_PASSWORD,
   },
   email: {
-    from: 'no-reply@chat.deftcode.pl',
+    from: process.env.EMAIL,
   },
   auth: {
     basicSecret: process.env.BASIC_SECRET,

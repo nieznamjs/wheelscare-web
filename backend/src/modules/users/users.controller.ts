@@ -11,10 +11,11 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { BaseUserDto } from './dtos/base-user.dto';
 import { ReadUsersResponseDto } from './dtos/read-users-response.dto';
 import { SuccessResponseDto } from '@dtos';
-import { InitResetPasswordResponse } from 'src/common/interfaces/init-password-reset-response.interface';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserResponseDto } from './dtos/user-response.dto';
+import { InitPasswordResetDto } from './dtos/init-password-reset.dto';
 import { ResetPasswordGuard } from '../../common/guards/reset-password.guard';
+import { PasswordResetDto } from './dtos/password-reset.dto';
 
 @ApiTags(Routes.Users)
 @Controller(Routes.Users)
@@ -43,8 +44,6 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  // -----------------
-
   @Get()
   @ApiOkResponse({ type: ReadUsersResponseDto, description: 'Get user data' })
   public async getUserByEmail(@Body() email: string): Promise<User> {
@@ -53,18 +52,15 @@ export class UsersController {
 
   @Post('init-password-reset')
   @ApiCreatedResponse({ type: SuccessResponseDto, description: 'Password reset initialization' })
-  public async initResetPassword(@Body() initPasswordResetConfig: InitResetPasswordResponse): Promise<void> {
-    return await this.usersService.initResetPassword(initPasswordResetConfig.email);
+  public async initResetPassword(@Body() initPasswordResetDto: InitPasswordResetDto): Promise<void> {
+    return await this.usersService.initResetPassword(initPasswordResetDto.email);
   }
 
   @Post(':id/reset-password')
   @ApiCreatedResponse({ type: SuccessResponseDto, description: 'Password reset' })
   @UseGuards(ResetPasswordGuard)
-  public async setNewPassord(
-    @Body('newPassword') newPassword: string,
-    @Param('id') id: string,
-  ): Promise<User> {
-    return await this.usersService.resetPassword(id, newPassword);
+  public async setNewPassord(@Body('newPassword') passwordResetDto: PasswordResetDto, @Param('id') id: string): Promise<User> {
+    return await this.usersService.resetPassword(id, passwordResetDto.newPassword);
   }
 
   @Delete(':id')

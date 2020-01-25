@@ -35,7 +35,6 @@ export class ResetPasswordGuard implements CanActivate {
       if (payload.type !== TokenTypes.ResetPassword) {
         throw new InvalidTokenError();
       }
-
     } catch (error) {
       throw new InvalidTokenError();
     }

@@ -1,6 +1,6 @@
 export * from './invalid-auth-token';
 export * from './invalid-password-reset-request';
-export * from './missing-auth-token';
+export * from './missing-auth-header';
 export * from './not-enough-permissions';
 export * from './query-failed';
 export * from './unauthorized-user';
