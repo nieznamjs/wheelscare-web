@@ -1,6 +1,14 @@
 import { Module } from '@nestjs/common';
 
-import { MailService, QueryService, ResponseService, TemplateService, TokenService, HashService } from '@services';
+import {
+  MailService,
+  QueryService,
+  ResponseService,
+  TemplateService,
+  TokenService,
+  HashService,
+  AppLoggerService,
+} from '@services';
 
 @Module({
   exports: [
@@ -10,6 +18,7 @@ import { MailService, QueryService, ResponseService, TemplateService, TokenServi
     ResponseService,
     TemplateService,
     TokenService,
+    AppLoggerService,
   ],
   providers: [
     HashService,
@@ -18,6 +27,7 @@ import { MailService, QueryService, ResponseService, TemplateService, TokenServi
     ResponseService,
     TemplateService,
     TokenService,
+    AppLoggerService,
   ],
 })
 export class CommonModule {}

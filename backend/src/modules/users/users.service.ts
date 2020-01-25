@@ -6,11 +6,10 @@ import { UserAlreadyExistsError, UserNotFoundError } from '@errors';
 import { ReadAllResponse } from '@interfaces';
 import { FindAllQueryDto } from '@dtos';
 import { User } from './users.entity';
-import { CreateUserDto } from './dtos/create-user.dto';
 import { HashService, QueryService, TokenService, MailService, TemplateService } from '@services';
 import { TokenTypes, Templates, MailSubjects } from '@constants';
 import { AppConfigService } from '@config';
-import { UpdateUserDto } from './dtos/update-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dtos';
 
 @Injectable()
 export class UsersService {
@@ -19,11 +18,11 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly hashService: HashService,
-    private readonly appConfigService: AppConfigService,
     private readonly tokenService: TokenService,
     private readonly mailService: MailService,
     private readonly templateService: TemplateService,
     private readonly queryService: QueryService,
+    private readonly config: AppConfigService,
   ) {}
 
   public async read(findAllQueryDto: FindAllQueryDto): Promise<ReadAllResponse<User>> {
@@ -65,7 +64,7 @@ export class UsersService {
 
   private async getPasswordResetToken(userId: string): Promise<string> {
     return this.tokenService.generateToken(
-      `${this.appConfigService.auth.passwordResetSecret}_${userId}`,
+      `${this.config.auth.passwordResetSecret}_${userId}`,
       { type: TokenTypes.ResetPassword },
       { expiresIn: this.PASSWORD_RESET_TOKEN_EXPIRATION },
     );
@@ -87,7 +86,7 @@ export class UsersService {
     const template = await this.getPasswordResetEmailTemplate(user, token);
 
     await this.mailService.send({
-      mailFrom: this.appConfigService.email.from,
+      mailFrom: this.config.email.from,
       mailTo: user.email,
       body: template,
       subject: MailSubjects.PasswordReset,
@@ -144,5 +143,13 @@ export class UsersService {
     await this.userRepository.update(user.id, user);
 
     return this.userRepository.findOne(user.id);
+  }
+
+  public async activateUser(id: string): Promise<void> {
+    await this.userRepository.update(id, { active: true });
+  }
+
+  public generateAccountActivationSecret(userID: string): string {
+    return `${this.config.auth.accountActivationSecret}_${userID}`;
   }
 }

@@ -8,5 +8,6 @@ import { CommonModule } from '../../common/common.module';
   imports: [UsersModule, CommonModule],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}
