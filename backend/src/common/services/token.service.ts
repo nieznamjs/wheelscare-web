@@ -13,12 +13,12 @@ export class TokenService {
     });
   }
 
-  public async decodeToken(token: string, secret: string): Promise<string|object> {
+  public async decodeToken<T>(token: string, secret: string): Promise<T> {
     return new Promise((resolve, reject) => {
       verify(token, secret, {}, (err: Error, data: string|object) => {
         if (err) { return reject(err); }
 
-        resolve(data);
+        resolve(data as unknown as T);
       });
     });
   }

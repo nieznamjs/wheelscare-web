@@ -31,7 +31,7 @@ export class AccountActivationGuard implements CanActivate {
 
     try {
       const passwordResetTokenSecret = this.usersService.generateAccountActivationSecret(userID);
-      const payload = await this.tokenService.decodeToken(token, passwordResetTokenSecret) as { type: string };
+      const payload = await this.tokenService.decodeToken<{ type: string }>(token, passwordResetTokenSecret);
 
       assert(payload.type === TokenTypes.AccountActivation);
     } catch (error) {
