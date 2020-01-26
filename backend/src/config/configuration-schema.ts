@@ -10,6 +10,8 @@ export default Joi.object({
   DB_PASSWORD: Joi.string().required(),
   ENVIRONMENT: Joi.string().default(Environments.Local),
   BASIC_SECRET: Joi.string().required(),
+  PASSWORD_RESET_SECRET: Joi.string().required(),
+  EMAIL: Joi.string().email().required(),
   ACCOUNT_ACTIVATION_SECRET: Joi.string().required(),
   AWS_REGION: Joi.string().required(),
   CLIENT_URL: Joi.string().required(),

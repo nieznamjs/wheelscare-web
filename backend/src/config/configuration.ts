@@ -11,10 +11,11 @@ export default () => ({
     password: process.env.DB_PASSWORD,
   },
   email: {
-    from: 'no-reply@chat.deftcode.pl',
+    from: process.env.EMAIL,
   },
   auth: {
     basicSecret: process.env.BASIC_SECRET,
+    passwordResetSecret: process.env.PASSWORD_RESET_SECRET,
     accountActivationSecret: process.env.ACCOUNT_ACTIVATION_SECRET,
     accountActivationTokenExpiration: 3600,
   },
