@@ -17,7 +17,7 @@ interface AuthConfig {
 }
 
 interface EmailConfig {
-  from: string;
+  systemEmail: string;
 }
 
 @Injectable()

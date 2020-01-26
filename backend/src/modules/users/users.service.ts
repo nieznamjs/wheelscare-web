@@ -5,10 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserAlreadyExistsError, UserNotFoundError } from '@errors';
 import { ReadAllResponse } from '@interfaces';
 import { FindAllQueryDto } from '@dtos';
-import { User } from './users.entity';
 import { HashService, QueryService, TokenService, MailService, TemplateService } from '@services';
 import { TokenTypes, Templates, MailSubjects } from '@constants';
 import { AppConfigService } from '@config';
+
+import { User } from './users.entity';
 import { CreateUserDto, UpdateUserDto } from './dtos';
 
 @Injectable()
@@ -86,7 +87,7 @@ export class UsersService {
     const template = await this.getPasswordResetEmailTemplate(user, token);
 
     await this.mailService.send({
-      mailFrom: this.config.email.from,
+      mailFrom: this.config.email.systemEmail,
       mailTo: user.email,
       body: template,
       subject: MailSubjects.PasswordReset,
@@ -97,32 +98,10 @@ export class UsersService {
     return this.userRepository.findOne({ email });
   }
 
-  public async setPassword(email: string, newPassword: string): Promise<boolean> {
-    const user = await this.getUserByEmail(email);
+  public async resetPassword(userId: string, password: string): Promise<void> {
+    const hashedPassword = await this.hashService.encrypt(password);
 
-    if (!user) {
-      throw new UserNotFoundError();
-    }
-
-    user.password = await this.hashService.encrypt(newPassword);
-
-    await this.userRepository.save(user);
-    return true;
-  }
-
-  public async resetPassword(userId: string, newPassword: string): Promise<User> {
-    const user = await this.readOne(userId);
-
-    if (!user) {
-      throw new UserNotFoundError();
-    }
-
-    const password = this.hashService.encrypt(newPassword);
-    const userConfig = { ...user, password };
-
-    this.update(userConfig);
-
-    return user;
+    await this.userRepository.update(userId, { password: hashedPassword });
   }
 
   public createPasswordResetTokenSecret(passwordResetSecret: string, userId: string): string {

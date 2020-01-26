@@ -4,7 +4,7 @@ import { TokenTypes } from '@constants';
 import { MissingAuthHeaderError, InvalidTokenError, InvalidPasswordResetRequestError  } from '@errors';
 import { TokenService } from '@services';
 import { AppConfigService } from '@config';
-import { UsersService } from '../../modules/users/users.service';
+import { UsersService } from '../users.service';
 
 @Injectable()
 export class ResetPasswordGuard implements CanActivate {
