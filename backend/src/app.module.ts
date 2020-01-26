@@ -19,6 +19,7 @@ import { UsersModule } from './modules/users/users.module';
         password: configService.database.password,
         database: configService.database.name,
         keepConnectionAlive: configService.environment === Environments.Test,
+        logging: configService.environment === Environments.Local,
         entities: [
           __dirname + '/**/*.entity{.ts,.js}',
         ],
