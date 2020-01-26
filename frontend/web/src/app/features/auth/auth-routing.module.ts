@@ -13,7 +13,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'init-password-reset', component: InitResetPasswordComponent },
-      { path: 'password-reset', component: PasswordResetComponent },
+      { path: 'reset-password/:id', component: PasswordResetComponent },
       { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
     ],
   },

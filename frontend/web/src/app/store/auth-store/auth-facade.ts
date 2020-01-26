@@ -46,7 +46,7 @@ export class AuthFacade {
     this.store.dispatch(InitResetPasswordAction({ payload: { email }}));
   }
 
-  public passwordReset(id: string, password: string): void {
-    this.store.dispatch(ResetPasswordAction({ payload: { id, password }}));
+  public passwordReset(id: string, password: string, token: string): void {
+    this.store.dispatch(ResetPasswordAction({ payload: { id, password, token }}));
   }
 }

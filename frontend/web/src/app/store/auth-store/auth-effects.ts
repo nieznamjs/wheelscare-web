@@ -64,7 +64,7 @@ export class AuthEffects {
     switchMap(({ payload }) => {
       return this.usersService.initPasswordReset(payload.email)
         .pipe(
-          map(() => AuthActions.InitResetPasswordSuccessAction),
+          map(() => AuthActions.InitResetPasswordSuccessAction()),
           catchError((err: HttpErrorResponse) => {
             // TODO add proper error messages
             return of(AuthActions.InitResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));
@@ -76,9 +76,9 @@ export class AuthEffects {
   public passwordReset = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.ResetPasswordAction),
     switchMap(({ payload }) => {
-      return this.usersService.passwordReset(payload.id, payload.password)
+      return this.usersService.passwordReset(payload.id, payload.password, payload.token)
         .pipe(
-          map(() => AuthActions.ResetPasswordSuccessAction),
+          map(() => AuthActions.ResetPasswordSuccessAction()),
           catchError((err: HttpErrorResponse) => {
             // TODO add proper error messages
             return of(AuthActions.ResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));

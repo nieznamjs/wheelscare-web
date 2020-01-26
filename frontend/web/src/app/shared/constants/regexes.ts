@@ -1,1 +1,1 @@
-export const PASSWORD_REQUIREMENT_REGEX_STRING = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,24}$';
+export const PASSWORD_REQUIREMENT_REGEX_STRING = '^.*(?=.{8,})((?=.*[!@#$%^&*()\\-_=+{};:,<.>]){1})(?=.*\\d)((?=.*[a-z]){1})((?=.*[A-Z]){6,24}).*$';

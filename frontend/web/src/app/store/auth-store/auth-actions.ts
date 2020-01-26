@@ -63,7 +63,7 @@ export const InitResetPasswordFailAction = createAction(
 
 export const ResetPasswordAction = createAction(
   AuthActionsTypes.RESET_PASSWORD,
-  props<{ payload: { id: string, password: string }}>(),
+  props<{ payload: { id: string, password: string, token: string }}>(),
 );
 
 export const ResetPasswordSuccessAction = createAction(

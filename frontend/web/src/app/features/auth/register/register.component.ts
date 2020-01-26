@@ -46,8 +46,8 @@ export class RegisterComponent implements OnInit {
   public onSubmit(): void {
     if (this.form.invalid) { return; }
 
-    const { password } = this.form.value;
+    const { email, password } = this.form.value;
 
-    this.authFacade.passwordReset('123', password);
+    this.authFacade.registerUser({ email, password });
   }
 }
