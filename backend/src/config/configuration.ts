@@ -11,7 +11,7 @@ export default () => ({
     password: process.env.DB_PASSWORD,
   },
   email: {
-    from: process.env.EMAIL,
+    systemEmail: process.env.SYSTEM_EMAIL,
   },
   auth: {
     basicSecret: process.env.BASIC_SECRET,

@@ -4,13 +4,18 @@ import { ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResp
 import { ReadAllResponse } from '@interfaces';
 import { FindAllQueryDto, SuccessResponseDto } from '@dtos';
 import { Routes } from '@constants';
+
 import { User } from './users.entity';
 import { UsersService } from './users.service';
-import { InitPasswordResetDto } from './dtos/init-password-reset.dto';
-import { ResetPasswordGuard } from '../../common/guards/reset-password.guard';
-import { PasswordResetDto } from './dtos/password-reset.dto';
-import { BaseUserDto, CreateUserDto, ReadUsersResponseDto, UpdateUserDto, UserResponseDto } from './dtos';
-import { AccountActivationGuard } from './guards';
+import {
+  BaseUserDto,
+  CreateUserDto,
+  InitPasswordResetDto, PasswordResetDto,
+  ReadUsersResponseDto,
+  UpdateUserDto,
+  UserResponseDto,
+} from './dtos';
+import { AccountActivationGuard, ResetPasswordGuard } from './guards';
 
 @ApiTags(Routes.Users)
 @Controller(Routes.Users)
@@ -47,15 +52,19 @@ export class UsersController {
 
   @Post('init-password-reset')
   @ApiCreatedResponse({ type: SuccessResponseDto, description: 'Password reset initialization' })
-  public async initResetPassword(@Body() initPasswordResetDto: InitPasswordResetDto): Promise<void> {
-    return await this.usersService.initResetPassword(initPasswordResetDto.email);
+  public async initResetPassword(@Body() initPasswordResetDto: InitPasswordResetDto): Promise<SuccessResponseDto> {
+    await this.usersService.initResetPassword(initPasswordResetDto.email);
+
+    return { success: true };
   }
 
   @Post(':id/reset-password')
   @ApiCreatedResponse({ type: SuccessResponseDto, description: 'Password reset' })
   @UseGuards(ResetPasswordGuard)
-  public async setNewPassord(@Body('newPassword') passwordResetDto: PasswordResetDto, @Param('id') id: string): Promise<User> {
-    return await this.usersService.resetPassword(id, passwordResetDto.newPassword);
+  public async resetPassword(@Body() passwordResetDto: PasswordResetDto, @Param('id') id: string): Promise<SuccessResponseDto> {
+    await this.usersService.resetPassword(id, passwordResetDto.newPassword);
+
+    return { success: true };
   }
 
   @Delete(':id')

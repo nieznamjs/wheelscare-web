@@ -17,10 +17,13 @@ DB_PASSWORD=password
 DB_NAME=wheelscare
 DB_PORT=5430
 BASIC_SECRET=supersecret
-ACCOUNT_ACTIVATION_SECRET=someMegaStrongSecret
+ACCOUNT_ACTIVATION_SECRET=dupadupadupa
+PASSWORD_RESET_SECRET=tsatsatsa
 AWS_REGION=eu-west-1
 CLIENT_URL=http://localhost:4200
 ENVIRONMENT=local
+LOG_LEVEL=info
+SYSTEM_EMAIL=no-reply@chat.deftcode.pl
 ```
 - Run `docker-compose up` to setup database that will be used
 - Run `npm run migration:run` to run database migrations

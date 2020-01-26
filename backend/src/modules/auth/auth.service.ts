@@ -73,7 +73,7 @@ export class AuthService {
     });
 
     await this.mailService.send({
-      mailFrom: this.appConfigService.email.from,
+      mailFrom: this.appConfigService.email.systemEmail,
       mailTo: user.email,
       body: template,
       subject: MailSubjects.AccountActivation,
