@@ -8,21 +8,12 @@
   margin-bottom: 50px;
 }
 
-.field {
-  display: block;
-  width: 100%
-}
-
-.mat-form-field-invalid {
-  margin-bottom: 10px;
-}
-
-.field-alt.mat-form-field-invalid {
-  margin-bottom: 20px;
-}
-
 .btn {
   width: 100%;
+}
+
+.error-message {
+  margin-top: 10px;
 }
 
 .social-btn {
@@ -66,5 +57,4 @@
 
 .loader {
   margin-left: 5px;
-  height: 24px;
 }

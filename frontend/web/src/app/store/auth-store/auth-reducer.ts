@@ -60,7 +60,7 @@ export const authReducer = createReducer(
       registerUser: {
         isLoading: false,
         error: payload.error,
-        registeredSuccessfully: true,
+        registeredSuccessfully: false,
       },
     };
   }),

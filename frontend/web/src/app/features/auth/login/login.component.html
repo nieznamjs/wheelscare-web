@@ -46,10 +46,10 @@
   <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
     <span *ngIf="!(isLoading$ | async)">Zaloguj się</span>
 
-    <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
+    <wcw-loader class="loader" color="accent" size="24" ></wcw-loader>
   </button>
 
-  <mat-error *ngIf="(loginError$ | async) as error">
+  <mat-error class="error-message" *ngIf="(loginError$ | async) as error">
     {{ error }}
   </mat-error>
 </form>
@@ -71,5 +71,3 @@
 
   <span class="redirect-link">Nie pamiętasz hasła? <a routerLink="/auth/reset-password">Przypomnij hasło</a></span>
 </div>
-
-

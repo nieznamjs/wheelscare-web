@@ -9,4 +9,14 @@ export interface AuthState {
     isLoading: boolean;
     error: string | null;
   };
+  passwordReset: {
+    isSuccess: boolean;
+    isLoading: boolean;
+    error: string | null;
+  };
+  initPasswordReset: {
+    isSuccess: boolean;
+    isLoading: boolean;
+    error: string | null;
+  };
 }

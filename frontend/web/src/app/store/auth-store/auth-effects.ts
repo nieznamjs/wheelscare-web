@@ -9,11 +9,13 @@ import { AuthDataService } from '@services/data-integration/auth-data.service';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';
 import { ErrorMessages } from '@shared/constants/error-messages';
 import * as AuthActions from '@store/auth-store/auth-actions';
+import { UsersDataService } from '@services/data-integration/users-data.service';
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private authService: AuthDataService,
+    private usersService: UsersDataService,
     private actions$: Actions,
     private router: Router,
   ) {}
@@ -52,6 +54,19 @@ export class AuthEffects {
             const error = isConflictStatusCode ? ErrorMessages.UserAlreadyExists : ErrorMessages.GeneralServerError;
 
             return of(AuthActions.RegisterUserFailAction({ error }));
+          }),
+        );
+    }),
+  ));
+
+  public initPasswordReset$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.InitResetPasswordAction),
+    switchMap(({ payload }) => {
+      return this.usersService.initPasswordReset(payload.email)
+        .pipe(
+          map(() => AuthActions.InitResetPasswordSuccessAction),
+          catchError((err: HttpErrorResponse) => {
+            return of(AuthActions.InitResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
     }),

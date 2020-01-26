@@ -8,6 +8,15 @@ enum AuthActionsTypes {
   REGISTER_USER = '[WCW] Register User',
   REGISTER_USER_SUCCESS = '[WCW] Register User Success',
   REGISTER_USER_FAIL = '[WCW] Register User Fail',
+  INIT_RESET_PASSWORD = '[WCW] Init Reset Password',
+  INIT_RESET_PASSWORD_SUCCESS = '[WCW] Init Reset Password Success',
+  INIT_RESET_PASSWORD_FAIL = '[WCW] Init Reset Password Fail',
+  RESET_PASSWORD = '[WCW] Reset Password',
+  RESET_PASSWORD_SUCCESS = '[WCW] Reset Password Success',
+  RESET_PASSWORD_FAIL = '[WCW] Reset Password Fail',
+  ACTIVATE = '[WCW] Activate',
+  ACTIVATE_SUCCESS = '[WCW] Activate Success',
+  ACTIVATE_FAIL = '[WCW] Activate Fail',
 }
 
 export const LoginAction = createAction(
@@ -35,6 +44,34 @@ export const RegisterUserSuccessAction = createAction(
 
 export const RegisterUserFailAction = createAction(
   AuthActionsTypes.REGISTER_USER_FAIL,
+  props<{ error: string }>(),
+);
+
+export const InitResetPasswordAction = createAction(
+  AuthActionsTypes.INIT_RESET_PASSWORD,
+  props<{ payload: { email: string }}>(),
+);
+
+export const InitResetPasswordSuccessAction = createAction(
+  AuthActionsTypes.INIT_RESET_PASSWORD_SUCCESS,
+);
+
+export const InitResetPasswordFailAction = createAction(
+  AuthActionsTypes.INIT_RESET_PASSWORD_FAIL,
+  props<{ error: string }>(),
+);
+
+export const ResetPasswordAction = createAction(
+  AuthActionsTypes.RESET_PASSWORD,
+  props<{ payload: { password: string }}>(),
+);
+
+export const ResetPasswordSuccessAction = createAction(
+  AuthActionsTypes.RESET_PASSWORD_SUCCESS,
+);
+
+export const ResetPasswordFailAction = createAction(
+  AuthActionsTypes.RESET_PASSWORD_FAIL,
   props<{ error: string }>(),
 );
 

@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-
-import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
 import { FormsService } from '@services/utils/forms.service';
 import { AuthFacade } from '@store/auth-store';
 
 @Component({
-  selector: 'wcw-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'wcw-init-reset-password',
+  templateUrl: './init-reset-password.component.html',
+  styleUrls: ['./init-reset-password.component.scss']
 })
-export class RegisterComponent implements OnInit {
-
+export class InitResetPasswordComponent implements OnInit {
   public form: FormGroup;
   public isLoading$: Observable<boolean>;
-  public registerError$: Observable<string>;
-  public registeredSuccessfully$: Observable<boolean>;
+  public error$: Observable<string>;
+  public success$: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
@@ -27,17 +24,15 @@ export class RegisterComponent implements OnInit {
   private createForm(): FormGroup {
     return this.fb.group({
       email: [ null, [ Validators.required, Validators.email ] ],
-      password: [ null, [ Validators.required, Validators.pattern(PASSWORD_REQUIREMENT_REGEX_STRING) ] ],
-      confirmPassword: [ null, Validators.required ],
     });
   }
 
   public ngOnInit(): void {
     this.form = this.createForm();
 
-    this.isLoading$ = this.authFacade.isRegistering$;
-    this.registerError$ = this.authFacade.registerError$;
-    this.registeredSuccessfully$ = this.authFacade.registeredSuccessfully;
+    this.isLoading$ = this.authFacade.isInitiatedPasswordReset$;
+    this.error$ = this.authFacade.initPasswordResetError$;
+    this.success$ = this.authFacade.initPasswordResetSuccess$;
   }
 
   public getFormControl(name: string): AbstractControl {
@@ -47,8 +42,8 @@ export class RegisterComponent implements OnInit {
   public onSubmit(): void {
     if (this.form.invalid) { return; }
 
-    const { email, password } = this.form.value;
+    const { email } = this.form.value;
 
-    this.authFacade.registerUser({ email, password });
+    this.authFacade.initPasswordReset(email);
   }
 }

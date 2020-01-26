@@ -8,6 +8,12 @@ export const getLoginError = (state: AuthState) => state.login.error;
 export const getRegisteredSuccessfully = (state: AuthState) => state.registerUser.registeredSuccessfully;
 export const getIsRegistering = (state: AuthState) => state.registerUser.isLoading;
 export const getRegisterError = (state: AuthState) => state.registerUser.error;
+export const getIsInitiatedPasswordReset = (state: AuthState) => state.initPasswordReset.isLoading;
+export const getInitPasswordResetSuccess = (state: AuthState) => state.initPasswordReset.isSuccess;
+export const getInitPasswordResetError = (state: AuthState) => state.initPasswordReset.error;
+export const getIsPasswordResetting = (state: AuthState) => state.passwordReset.isLoading;
+export const getPasswordResetSuccess = (state: AuthState) => state.passwordReset.isSuccess;
+export const getPasswordResetError = (state: AuthState) => state.passwordReset.error;
 
 export const authStateSelector = createFeatureSelector<AuthState>('auth');
 
@@ -17,3 +23,9 @@ export const selectIsUserLogged = createSelector(authStateSelector, getIsUserLog
 export const selectRegisteredSuccessfully = createSelector(authStateSelector, getRegisteredSuccessfully);
 export const selectIsRegisteringUser = createSelector(authStateSelector, getIsRegistering);
 export const selectRegisterUserError = createSelector(authStateSelector, getRegisterError);
+export const selectIsInitiatedPasswordReset = createSelector(authStateSelector, getIsInitiatedPasswordReset);
+export const selectInitPasswordResetSuccess = createSelector(authStateSelector, getInitPasswordResetSuccess);
+export const selectInitPasswordResetError = createSelector(authStateSelector, getInitPasswordResetError);
+export const selectIsPasswordResetting = createSelector(authStateSelector, getIsPasswordResetting);
+export const selectPasswordResetSuccess = createSelector(authStateSelector, getPasswordResetSuccess);
+export const selectPasswordResetError = createSelector(authStateSelector, getPasswordResetError);

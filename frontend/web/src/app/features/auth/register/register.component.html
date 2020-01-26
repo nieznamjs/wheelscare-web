@@ -72,7 +72,7 @@
       <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
     </button>
 
-    <mat-error *ngIf="(registerError$ | async) as error" class="register-error">
+    <mat-error *ngIf="(registerError$ | async) as error" class="error-message">
       {{ error }}
     </mat-error>
   </form>
