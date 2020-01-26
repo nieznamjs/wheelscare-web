@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { LoginResponse, RegisterUserBody, User } from '@interfaces';
+import { GeneralSuccessResponse, RegisterUserBody, User } from '@interfaces';
 import { ConfigService } from '@services/utils/config.service';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthDataService {
     return this.http.post<User>(`${this.authApiUrl}/register`, newUser);
   }
 
-  public login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.authApiUrl}/login`, { email, password });
+  public login(email: string, password: string): Observable<GeneralSuccessResponse> {
+    return this.http.post<GeneralSuccessResponse>(`${this.authApiUrl}/login`, { email, password });
   }
 }

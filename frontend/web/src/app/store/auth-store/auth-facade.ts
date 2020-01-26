@@ -12,7 +12,7 @@ import {
   selectLoginError, selectPasswordResetError, selectPasswordResetSuccess, selectRegisteredSuccessfully,
   selectRegisterUserError,
 } from './auth-selectors';
-import { InitResetPasswordAction, LoginAction, RegisterUserAction } from './auth-actions';
+import { InitResetPasswordAction, LoginAction, RegisterUserAction, ResetPasswordAction } from './auth-actions';
 
 @Injectable()
 export class AuthFacade {
@@ -20,7 +20,7 @@ export class AuthFacade {
   public isLogging$ = this.store.select(selectIsLogging);
   public loginError$ = this.store.select(selectLoginError);
 
-  public registeredSuccessfully = this.store.select(selectRegisteredSuccessfully);
+  public registeredSuccessfully$ = this.store.select(selectRegisteredSuccessfully);
   public isRegistering$ = this.store.select(selectIsRegisteringUser);
   public registerError$ = this.store.select(selectRegisterUserError);
 
@@ -44,5 +44,9 @@ export class AuthFacade {
 
   public initPasswordReset(email: string): void {
     this.store.dispatch(InitResetPasswordAction({ payload: { email }}));
+  }
+
+  public passwordReset(id: string, password: string): void {
+    this.store.dispatch(ResetPasswordAction({ payload: { id, password }}));
   }
 }
