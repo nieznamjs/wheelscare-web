@@ -1,6 +1,6 @@
 <h2 class="head-2">Zaloguj się</h2>
 
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field class="field" appearance="outline">
     <mat-label>E-mail</mat-label>
 
@@ -46,7 +46,7 @@
   <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
     <span *ngIf="!(isLoading$ | async)">Zaloguj się</span>
 
-    <wcw-loader class="loader" color="accent" size="24" ></wcw-loader>
+    <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
   </button>
 
   <mat-error class="error-message" *ngIf="(loginError$ | async) as error">

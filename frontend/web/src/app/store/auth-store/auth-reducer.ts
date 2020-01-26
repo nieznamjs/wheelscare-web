@@ -64,4 +64,34 @@ export const authReducer = createReducer(
       },
     };
   }),
+  on(AuthActions.InitResetPasswordAction, state => {
+    return {
+      ...state,
+      initPasswordReset: {
+        isLoading: true,
+        isSuccess: false,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.InitResetPasswordSuccessAction, state => {
+    return {
+      ...state,
+      initPasswordReset: {
+        isLoading: false,
+        isSuccess: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.InitResetPasswordFailAction, (state, payload) => {
+    return {
+      ...state,
+      initPasswordReset: {
+        isLoading: false,
+        isSuccess: false,
+        error: payload.error,
+      },
+    };
+  }),
 );

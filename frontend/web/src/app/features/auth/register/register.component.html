@@ -1,7 +1,7 @@
 <h2 class="head-2">Utwórz konto</h2>
 
-<div  *ngIf="!(registeredSuccessfully$ | async)">
-  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<div *ngIf="!(registeredSuccessfully$ | async)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field class="field" appearance="outline">
       <mat-label>E-mail</mat-label>
 
