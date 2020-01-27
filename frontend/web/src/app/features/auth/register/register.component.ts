@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
   public isLoading$: Observable<boolean>;
   public registerError$: Observable<string>;
   public registeredSuccessfully$: Observable<boolean>;
+  public hideFirstPassword = true;
+  public hideSecondPassword = true;
 
   constructor(
     private fb: FormBuilder,

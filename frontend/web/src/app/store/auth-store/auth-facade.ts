@@ -9,7 +9,10 @@ import {
   selectIsLogging, selectIsPasswordResetting,
   selectIsRegisteringUser,
   selectIsUserLogged,
-  selectLoginError, selectPasswordResetError, selectPasswordResetSuccess, selectRegisteredSuccessfully,
+  selectLoginError,
+  selectPasswordResetError,
+  selectPasswordResetSuccess,
+  selectRegisteredSuccessfully,
   selectRegisterUserError,
 } from './auth-selectors';
 import { InitResetPasswordAction, LoginAction, RegisterUserAction, ResetPasswordAction } from './auth-actions';

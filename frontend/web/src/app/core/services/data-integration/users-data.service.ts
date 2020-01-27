@@ -14,7 +14,7 @@ export class UsersDataService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-  ) { }
+  ) {}
 
   public initPasswordReset(email: string): Observable<GeneralSuccessResponse> {
     return this.http.post<GeneralSuccessResponse>(`${this.usersApiUrl}/init-password-reset`, { email });

@@ -1,5 +1,6 @@
 @import "styles/fonts";
 @import "styles/colors";
+@import "styles/variables";
 
 .wrapper {
   display: flex;
@@ -50,7 +51,7 @@
   border: solid 1px $gray;
   border-radius: 3px;
   background-color: $white;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: $general-shadow;
   z-index: 2;
 }
 

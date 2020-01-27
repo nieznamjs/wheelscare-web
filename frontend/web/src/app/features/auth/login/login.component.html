@@ -27,12 +27,20 @@
 
     <input
       matInput
-      type="password"
+      [type]="hidePassword ? 'password' : 'text'"
       placeholder="Wprowadź hasło"
       formControlName="password"
       required
       autocomplete="current-password"
       data-cy="password-field">
+
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="hidePassword = !hidePassword">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
 
     <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
       Hasło jest wymagane
@@ -54,7 +62,7 @@
   </mat-error>
 </form>
 
-<span class="or-dividier">Lub</span>
+<span class="divider">Lub</span>
 
 <div class="social-buttons">
   <button class="btn social-btn" mat-raised-button color="primary">
@@ -69,5 +77,5 @@
 <div class="redirect-links">
   <span class="redirect-link">Nie posiadasz konta? <a routerLink="/auth/register">Utwórz konto</a></span>
 
-  <span class="redirect-link">Nie pamiętasz hasła? <a routerLink="/auth/init-password-reset">Przypomnij hasło</a></span>
+  <span class="redirect-link">Nie pamiętasz hasła? <a routerLink="/auth/init-password-reset">Zresetuj hasło</a></span>
 </div>

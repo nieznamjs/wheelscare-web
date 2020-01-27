@@ -5,7 +5,7 @@ export interface AuthState {
     error: string | null;
   };
   registerUser: {
-    registeredSuccessfully: boolean,
+    isSuccess: boolean,
     isLoading: boolean;
     error: string | null;
   };

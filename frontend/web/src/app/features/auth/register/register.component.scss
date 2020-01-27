@@ -25,11 +25,11 @@
 }
 
 .btn-google {
-  background-color: $red-google;
+  background-color: $google;
   color: $white;
 }
 
-.or-dividier {
+.divider {
   display: block;
   margin: 25px 0;
   text-transform: uppercase;
@@ -59,22 +59,6 @@
   margin-left: 5px;
 }
 
-.success-wrapper {
-  color: $green-success;
-  text-align: center;
-  margin-top: -30px;
-
-  .redirect-link {
-    margin-top: 60px;
-  }
-}
-
-.success-icon {
-  width: 72px;
-  height: 72px;
-  font-size: 72px;
-}
-
-.success-info {
-  display: block;
+.redirect-link {
+  margin-top: 60px;
 }

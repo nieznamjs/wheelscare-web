@@ -45,10 +45,7 @@ export class AuthEffects {
     switchMap(({ payload }) => {
       return this.authService.registerUser(payload.newUser)
         .pipe(
-          map(() => {
-            this.router.navigate(['/auth/login']);
-            return AuthActions.RegisterUserSuccessAction();
-          }),
+          map(() => AuthActions.RegisterUserSuccessAction()),
           catchError((err: HttpErrorResponse) => {
             const isConflictStatusCode = err.error.statusCode === HttpStatusCodes.Conflict;
             const error = isConflictStatusCode ? ErrorMessages.UserAlreadyExists : ErrorMessages.GeneralServerError;

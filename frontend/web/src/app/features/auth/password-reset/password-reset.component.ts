@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { FormsService } from '@services/utils/forms.service';
 import { AuthFacade } from '@store/auth-store';
-import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
+import { PASSWORD_REQUIREMENT_REGEX_STRING, VALID_UUID_REGEX } from '@shared/constants/regexes';
 
 @Component({
   selector: 'wcw-password-reset',
@@ -17,6 +17,8 @@ export class PasswordResetComponent implements OnInit {
   public isLoading$: Observable<boolean>;
   public error$: Observable<string>;
   public success$: Observable<boolean>;
+  public hideFirstPassword = true;
+  public hideSecondPassword = true;
 
   private userId: string;
   private token: string;
@@ -26,6 +28,7 @@ export class PasswordResetComponent implements OnInit {
     private formsService: FormsService,
     private authFacade: AuthFacade,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   private createForm(): FormGroup {
@@ -38,6 +41,10 @@ export class PasswordResetComponent implements OnInit {
   public ngOnInit(): void {
     this.userId = this.route.snapshot.params.id;
     this.token = this.route.snapshot.queryParams.token;
+
+    if (!this.token || !VALID_UUID_REGEX.test(this.userId)) {
+      this.router.navigate(['auth/login']);
+    }
 
     this.form = this.createForm();
 

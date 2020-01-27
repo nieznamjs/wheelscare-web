@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
   public isLoading$: Observable<boolean>;
   public loginError$: Observable<string>;
+  public hidePassword = true;
 
   constructor(
     private fb: FormBuilder,

@@ -28,13 +28,21 @@
 
       <input
         matInput
-        type="password"
+        [type]="hideFirstPassword ? 'password' : 'text'"
         placeholder="Wprowadź hasło"
         formControlName="password"
         required
         autocomplete="current-password"
         data-cy="password-field"
         #password>
+
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hideFirstPassword = !hideFirstPassword">
+        <mat-icon>{{hideFirstPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
 
       <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
         Hasło jest wymagane
@@ -50,12 +58,20 @@
 
       <input
         matInput
-        type="password"
+        [type]="hideSecondPassword ? 'password' : 'text'"
         placeholder="Potwierdź hasło"
         formControlName="confirmPassword"
         [pattern]="password.value"
         required
         autocomplete="new-password">
+
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hideSecondPassword = !hideSecondPassword">
+        <mat-icon>{{hideSecondPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
 
       <mat-error *ngIf="getFormControl('confirmPassword').hasError('required')">
         Potwierdzenie hasła jest wymagane
@@ -77,7 +93,7 @@
     </mat-error>
   </form>
 
-  <span class="or-dividier">Lub</span>
+  <span class="divider">Lub</span>
 
   <div class="social-buttons">
     <button class="btn social-btn" mat-raised-button color="primary">
@@ -92,11 +108,9 @@
   <span class="redirect-link">Posiadasz już konto? <a routerLink="/auth/login">Zaloguj się</a></span>
 </div>
 
-<div class="success-wrapper" *ngIf="registeredSuccessfully$ | async">
-  <mat-icon class="success-icon">check_circle</mat-icon>
-
+<wcw-auth-success *ngIf="registeredSuccessfully$| async">
   <span class="success-info">Konto utworzone.</span>
   <span class="success-info">Aktywuj je za pomocą linku wysłanego na maila.</span>
 
   <a class="redirect-link" routerLink="/auth/login">Powrót do logowania</a>
-</div>
+</wcw-auth-success>

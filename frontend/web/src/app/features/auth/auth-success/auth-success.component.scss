@@ -1,0 +1,16 @@
+@import "styles/colors";
+
+.success-wrapper {
+  color: $success;
+  text-align: center;
+}
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  font-size: 72px;
+}
+
+.success-info {
+  display: block;
+}

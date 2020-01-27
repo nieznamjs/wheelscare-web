@@ -5,7 +5,7 @@ import { AuthState } from '@interfaces';
 export const getIsUserLogged = (state: AuthState) => state.login.isUserLogged;
 export const getIsLogging = (state: AuthState) => state.login.isLoading;
 export const getLoginError = (state: AuthState) => state.login.error;
-export const getRegisteredSuccessfully = (state: AuthState) => state.registerUser.registeredSuccessfully;
+export const getRegisteredSuccessfully = (state: AuthState) => state.registerUser.isSuccess;
 export const getIsRegistering = (state: AuthState) => state.registerUser.isLoading;
 export const getRegisterError = (state: AuthState) => state.registerUser.error;
 export const getIsInitiatedPasswordReset = (state: AuthState) => state.initPasswordReset.isLoading;
