@@ -63,7 +63,6 @@ export class AuthEffects {
         .pipe(
           map(() => AuthActions.InitResetPasswordSuccessAction()),
           catchError((err: HttpErrorResponse) => {
-            // TODO add proper error messages
             return of(AuthActions.InitResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
@@ -77,7 +76,6 @@ export class AuthEffects {
         .pipe(
           map(() => AuthActions.ResetPasswordSuccessAction()),
           catchError((err: HttpErrorResponse) => {
-            // TODO add proper error messages
             return of(AuthActions.ResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
