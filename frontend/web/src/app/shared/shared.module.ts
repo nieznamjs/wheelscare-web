@@ -21,6 +21,17 @@ const materialModules = [
   MatIconModule,
 ];
 
+interface CustomSvgIconConfig {
+  name: string;
+  url: string;
+}
+
+const customSvgIcons: CustomSvgIconConfig[] = [
+  { name: 'fb', url: 'assets/images/icons/facebook-logo.svg' },
+  { name: 'google', url: 'assets/images/icons/google-logo.svg' },
+  { name: 'wheel', url: 'assets/images/icons/wheel.svg' },
+];
+
 @NgModule({
   imports: [
     ...materialModules,
@@ -37,19 +48,8 @@ const materialModules = [
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
-    this.matIconRegistry.addSvgIcon(
-      'fb',
-      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/facebook-logo.svg'),
-    );
-
-    this.matIconRegistry.addSvgIcon(
-      'google',
-      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/google-logo.svg'),
-    );
-
-    this.matIconRegistry.addSvgIcon(
-      'wheel',
-      this.sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/wheel.svg'),
-    );
+    customSvgIcons.forEach(config => {
+      this.matIconRegistry.addSvgIcon(config.name, this.sanitizer.bypassSecurityTrustResourceUrl(config.url));
+    });
   }
 }

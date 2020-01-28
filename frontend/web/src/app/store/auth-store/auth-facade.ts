@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AuthState, RegisterUserBody } from '@interfaces';
+import { AuthState } from '@interfaces';
 import {
   selectInitPasswordResetError,
   selectInitPasswordResetSuccess,
@@ -16,6 +16,7 @@ import {
   selectRegisterUserError,
 } from './auth-selectors';
 import { InitResetPasswordAction, LoginAction, RegisterUserAction, ResetPasswordAction } from './auth-actions';
+import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
 
 @Injectable()
 export class AuthFacade {
@@ -41,7 +42,7 @@ export class AuthFacade {
     this.store.dispatch(LoginAction({ payload: { email, password }}));
   }
 
-  public registerUser(newUser: RegisterUserBody): void {
+  public registerUser(newUser: IRegisterUserBody): void {
     this.store.dispatch(RegisterUserAction({ payload: { newUser }}));
   }
 

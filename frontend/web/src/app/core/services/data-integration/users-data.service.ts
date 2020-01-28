@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
 import { ConfigService } from '@services/utils/config.service';
-import { GeneralSuccessResponse } from '@interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +16,17 @@ export class UsersDataService {
     private config: ConfigService,
   ) {}
 
-  public initPasswordReset(email: string): Observable<GeneralSuccessResponse> {
-    return this.http.post<GeneralSuccessResponse>(`${this.usersApiUrl}/init-password-reset`, { email });
+  public initPasswordReset(email: string): Observable<IGeneralSuccessResponse> {
+    return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/init-password-reset`, { email });
   }
 
-  public passwordReset(id: string, newPassword: string, token: string): Observable<GeneralSuccessResponse> {
+  public passwordReset(id: string, newPassword: string, token: string): Observable<IGeneralSuccessResponse> {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: token,
       }),
     };
 
-    return this.http.post<GeneralSuccessResponse>(`${this.usersApiUrl}/${id}/reset-password`, { newPassword }, httpOptions);
+    return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/${id}/reset-password`, { newPassword }, httpOptions);
   }
 }

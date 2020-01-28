@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { RegisterUserBody } from '@interfaces';
+import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
 
 enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
@@ -35,7 +35,7 @@ export const LoginFailAction = createAction(
 
 export const RegisterUserAction = createAction(
   AuthActionsTypes.REGISTER_USER,
-  props<{ payload: { newUser: RegisterUserBody }}>(),
+  props<{ payload: { newUser: IRegisterUserBody }}>(),
 );
 
 export const RegisterUserSuccessAction = createAction(
