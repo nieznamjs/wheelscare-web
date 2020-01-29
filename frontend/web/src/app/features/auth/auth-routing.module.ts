@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { InitResetPasswordComponent } from './init-reset-password/init-reset-password.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'init-password-reset', component: InitResetPasswordComponent },
       { path: 'reset-password/:id', component: PasswordResetComponent },
+      { path: 'activate-account/:id', component: ActivateAccountComponent },
       { path: '', pathMatch: 'full', redirectTo: '/auth/login' },
     ],
   },

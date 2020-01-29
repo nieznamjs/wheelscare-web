@@ -29,4 +29,14 @@ export class UsersDataService {
 
     return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/${id}/reset-password`, { newPassword }, httpOptions);
   }
+
+  public activateUser(userId: string, token: string): Observable<IGeneralSuccessResponse> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token,
+      }),
+    };
+
+    return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/${userId}/activate`, {}, httpOptions);
+  }
 }

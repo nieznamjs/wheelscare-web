@@ -3,8 +3,10 @@ import { Store } from '@ngrx/store';
 
 import { AuthState } from '@interfaces';
 import {
+  selectActivateUserError,
+  selectActivateUserSuccess,
   selectInitPasswordResetError,
-  selectInitPasswordResetSuccess,
+  selectInitPasswordResetSuccess, selectIsActivatingUser,
   selectIsInitiatedPasswordReset,
   selectIsLogging, selectIsPasswordResetting,
   selectIsRegisteringUser,
@@ -15,7 +17,7 @@ import {
   selectRegisteredSuccessfully,
   selectRegisterUserError,
 } from './auth-selectors';
-import { InitResetPasswordAction, LoginAction, RegisterUserAction, ResetPasswordAction } from './auth-actions';
+import { ActivateUserAction, InitResetPasswordAction, LoginAction, RegisterUserAction, ResetPasswordAction } from './auth-actions';
 import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
 
 @Injectable()
@@ -36,6 +38,10 @@ export class AuthFacade {
   public resetPasswordSuccess$ = this.store.select(selectPasswordResetSuccess);
   public resetPasswordError$ = this.store.select(selectPasswordResetError);
 
+  public isActivatingUser$ = this.store.select(selectIsActivatingUser);
+  public activateUserSuccess$ = this.store.select(selectActivateUserSuccess);
+  public activateUserError$ = this.store.select(selectActivateUserError);
+
   constructor(private store: Store<AuthState>) {}
 
   public login(email: string, password: string): void {
@@ -52,5 +58,9 @@ export class AuthFacade {
 
   public passwordReset(id: string, password: string, token: string): void {
     this.store.dispatch(ResetPasswordAction({ payload: { id, password, token }}));
+  }
+
+  public activateUser(userId: string, token: string): void {
+    this.store.dispatch(ActivateUserAction({ payload: { userId, token }}));
   }
 }

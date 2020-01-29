@@ -19,4 +19,9 @@ export interface AuthState {
     isLoading: boolean;
     error: string | null;
   };
+  activateUser: {
+    isSuccess: boolean;
+    isLoading: boolean;
+    error: string | null;
+  };
 }

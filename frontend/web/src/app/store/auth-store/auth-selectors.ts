@@ -14,6 +14,9 @@ export const getInitPasswordResetError = (state: AuthState) => state.initPasswor
 export const getIsPasswordResetting = (state: AuthState) => state.passwordReset.isLoading;
 export const getPasswordResetSuccess = (state: AuthState) => state.passwordReset.isSuccess;
 export const getPasswordResetError = (state: AuthState) => state.passwordReset.error;
+export const getIsActivatingUser = (state: AuthState) => state.activateUser.isLoading;
+export const getActivateUserSuccess = (state: AuthState) => state.activateUser.isSuccess;
+export const getActivateUserError = (state: AuthState) => state.activateUser.error;
 
 export const authStateSelector = createFeatureSelector<AuthState>('auth');
 
@@ -29,3 +32,6 @@ export const selectInitPasswordResetError = createSelector(authStateSelector, ge
 export const selectIsPasswordResetting = createSelector(authStateSelector, getIsPasswordResetting);
 export const selectPasswordResetSuccess = createSelector(authStateSelector, getPasswordResetSuccess);
 export const selectPasswordResetError = createSelector(authStateSelector, getPasswordResetError);
+export const selectIsActivatingUser = createSelector(authStateSelector, getIsActivatingUser);
+export const selectActivateUserSuccess = createSelector(authStateSelector, getActivateUserSuccess);
+export const selectActivateUserError = createSelector(authStateSelector, getActivateUserError);

@@ -14,9 +14,9 @@ enum AuthActionsTypes {
   RESET_PASSWORD = '[WCW] Reset Password',
   RESET_PASSWORD_SUCCESS = '[WCW] Reset Password Success',
   RESET_PASSWORD_FAIL = '[WCW] Reset Password Fail',
-  ACTIVATE = '[WCW] Activate',
-  ACTIVATE_SUCCESS = '[WCW] Activate Success',
-  ACTIVATE_FAIL = '[WCW] Activate Fail',
+  ACTIVATE_USER = '[WCW] Activate user',
+  ACTIVATE_USER_SUCCESS = '[WCW] Activate user Success',
+  ACTIVATE_USER_FAIL = '[WCW] Activate user Fail',
 }
 
 export const LoginAction = createAction(
@@ -72,6 +72,20 @@ export const ResetPasswordSuccessAction = createAction(
 
 export const ResetPasswordFailAction = createAction(
   AuthActionsTypes.RESET_PASSWORD_FAIL,
+  props<{ error: string }>(),
+);
+
+export const ActivateUserAction = createAction(
+  AuthActionsTypes.ACTIVATE_USER,
+  props<{ payload: { userId: string, token: string }}>(),
+);
+
+export const ActivateUserSuccessAction = createAction(
+  AuthActionsTypes.ACTIVATE_USER_SUCCESS,
+);
+
+export const ActivateUserFailAction = createAction(
+  AuthActionsTypes.ACTIVATE_USER_FAIL,
   props<{ error: string }>(),
 );
 

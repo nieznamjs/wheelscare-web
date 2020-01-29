@@ -62,7 +62,7 @@ export class AuthEffects {
       return this.usersService.initPasswordReset(payload.email)
         .pipe(
           map(() => AuthActions.InitResetPasswordSuccessAction()),
-          catchError((err: HttpErrorResponse) => {
+          catchError(() => {
             return of(AuthActions.InitResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
@@ -75,10 +75,22 @@ export class AuthEffects {
       return this.usersService.passwordReset(payload.id, payload.password, payload.token)
         .pipe(
           map(() => AuthActions.ResetPasswordSuccessAction()),
-          catchError((err: HttpErrorResponse) => {
+          catchError(() => {
             return of(AuthActions.ResetPasswordFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
+    }),
+  ));
+
+  public activateUser = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.ActivateUserAction),
+    switchMap(({ payload }) => {
+      return this.usersService.activateUser(payload.userId, payload.token).pipe(
+        map(() => AuthActions.ActivateUserSuccessAction()),
+        catchError(() => {
+          return of (AuthActions.ActivateUserFailAction({ error: ErrorMessages.CannotActivateUser }));
+        }),
+      );
     }),
   ));
 }

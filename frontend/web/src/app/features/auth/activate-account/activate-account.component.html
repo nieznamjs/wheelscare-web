@@ -1,0 +1,15 @@
+<h2 class="header-2">Aktywuj konto</h2>
+
+<wcw-loader class="loader" size="72" *ngIf="isLoading$ | async"></wcw-loader>
+
+<wcw-auth-success *ngIf="success$ | async">
+  <span class="success-info">Twoje konto zostało aktywowane.</span>
+</wcw-auth-success>
+
+<div class="error-wrapper" *ngIf="(error$ | async) as error">
+  <mat-icon class="error-icon">check_circle</mat-icon>
+
+  <span class="error-message">{{ error }}</span>
+</div>
+
+<a class="redirect-link" routerLink="/auth/login">Powrót do logowania</a>

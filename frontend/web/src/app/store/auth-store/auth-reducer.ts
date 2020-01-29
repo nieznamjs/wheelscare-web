@@ -124,4 +124,34 @@ export const authReducer = createReducer(
       },
     };
   }),
+  on(AuthActions.ActivateUserAction, state => {
+    return {
+      ...state,
+      activateUser: {
+        isLoading: true,
+        isSuccess: false,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.ActivateUserSuccessAction, state => {
+    return {
+      ...state,
+      activateUser: {
+        isLoading: false,
+        isSuccess: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.ActivateUserFailAction, (state, payload) => {
+    return {
+      ...state,
+      activateUser: {
+        isLoading: false,
+        isSuccess: false,
+        error: payload.error,
+      },
+    };
+  }),
 );

@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { InitResetPasswordComponent } from './init-reset-password/init-reset-password.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AuthSuccessComponent } from './auth-success/auth-success.component';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AuthSuccessComponent } from './auth-success/auth-success.component';
     InitResetPasswordComponent,
     PasswordResetComponent,
     AuthSuccessComponent,
+    ActivateAccountComponent,
   ],
   imports: [
     SharedModule,
