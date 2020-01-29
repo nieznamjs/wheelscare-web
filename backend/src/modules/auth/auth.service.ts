@@ -69,7 +69,7 @@ export class AuthService {
 
     const template = await this.templateService.compileTemplate(Templates.USER_ACTIVATION, {
       email: user.email,
-      url: `${this.appConfigService.clientUrl}/activate-account/${user.id}?token=${token}`,
+      url: `${this.appConfigService.clientUrl}/auth/activate-account/${user.id}?token=${token}`,
     });
 
     await this.mailService.send({
