@@ -1,0 +1,34 @@
+@import 'styles/colors';
+
+:host {
+  text-align: center;
+}
+
+.heading-2 {
+  margin-bottom: 50px;
+}
+
+.loader {
+  display: block;
+  margin: 0 auto;
+}
+
+.redirect-link {
+  display: block;
+
+  margin-top: 60px;
+}
+
+.error-wrapper {
+  color: $error;
+}
+
+.mat-icon.error-icon {
+  width: 72px;
+  height: 72px;
+  font-size: 72px;
+}
+
+.error-message {
+  display: block;
+}

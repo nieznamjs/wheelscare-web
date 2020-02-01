@@ -1,0 +1,21 @@
+:host {
+  display: inline-block;
+}
+
+.wheel {
+  animation: spin 2s infinite ease-in-out;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(-45deg);
+  }
+
+  50% {
+    transform: rotate(45deg);
+  }
+
+  100% {
+    transform: rotate(-45deg);
+  }
+}

@@ -7,6 +7,22 @@ export const authInitialState: AuthState = {
     error: null,
   },
   registerUser: {
+    isSuccess: false,
+    isLoading: false,
+    error: null,
+  },
+  initPasswordReset: {
+    isSuccess: false,
+    isLoading: false,
+    error: null,
+  },
+  passwordReset: {
+    isSuccess: false,
+    isLoading: false,
+    error: null,
+  },
+  activateUser: {
+    isSuccess: false,
     isLoading: false,
     error: null,
   },

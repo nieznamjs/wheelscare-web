@@ -12,10 +12,12 @@ import { AuthFacade } from '@store/auth-store';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
   public form: FormGroup;
   public isLoading$: Observable<boolean>;
   public registerError$: Observable<string>;
+  public registeredSuccessfully$: Observable<boolean>;
+  public hideFirstPassword = true;
+  public hideSecondPassword = true;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +38,7 @@ export class RegisterComponent implements OnInit {
 
     this.isLoading$ = this.authFacade.isRegistering$;
     this.registerError$ = this.authFacade.registerError$;
+    this.registeredSuccessfully$ = this.authFacade.registeredSuccessfully$;
   }
 
   public getFormControl(name: string): AbstractControl {
@@ -47,6 +50,6 @@ export class RegisterComponent implements OnInit {
 
     const { email, password } = this.form.value;
 
-    this.authFacade.register({ email, password, active: true });
+    this.authFacade.registerUser({ email, password });
   }
 }

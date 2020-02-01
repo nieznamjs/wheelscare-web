@@ -40,6 +40,7 @@ export const authReducer = createReducer(
       registerUser: {
         isLoading: true,
         error: null,
+        isSuccess: false,
       },
     };
   }),
@@ -49,6 +50,7 @@ export const authReducer = createReducer(
       registerUser: {
         ...state.registerUser,
         isLoading: false,
+        isSuccess: true,
       },
     };
   }),
@@ -57,6 +59,97 @@ export const authReducer = createReducer(
       ...state,
       registerUser: {
         isLoading: false,
+        error: payload.error,
+        isSuccess: false,
+      },
+    };
+  }),
+  on(AuthActions.InitResetPasswordAction, state => {
+    return {
+      ...state,
+      initPasswordReset: {
+        isLoading: true,
+        isSuccess: false,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.InitResetPasswordSuccessAction, state => {
+    return {
+      ...state,
+      initPasswordReset: {
+        isLoading: false,
+        isSuccess: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.InitResetPasswordFailAction, (state, payload) => {
+    return {
+      ...state,
+      initPasswordReset: {
+        isLoading: false,
+        isSuccess: false,
+        error: payload.error,
+      },
+    };
+  }),
+  on(AuthActions.ResetPasswordAction, state => {
+    return {
+      ...state,
+      passwordReset: {
+        isLoading: true,
+        error: null,
+        isSuccess: false,
+      },
+    };
+  }),
+  on(AuthActions.ResetPasswordSuccessAction, state => {
+    return {
+      ...state,
+      passwordReset: {
+        isLoading: false,
+        isSuccess: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.ResetPasswordFailAction, (state, payload) => {
+    return {
+      ...state,
+      passwordReset: {
+        isLoading: false,
+        isSuccess: false,
+        error: payload.error,
+      },
+    };
+  }),
+  on(AuthActions.ActivateUserAction, state => {
+    return {
+      ...state,
+      activateUser: {
+        isLoading: true,
+        isSuccess: false,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.ActivateUserSuccessAction, state => {
+    return {
+      ...state,
+      activateUser: {
+        isLoading: false,
+        isSuccess: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.ActivateUserFailAction, (state, payload) => {
+    return {
+      ...state,
+      activateUser: {
+        isLoading: false,
+        isSuccess: false,
         error: payload.error,
       },
     };

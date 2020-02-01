@@ -1,9 +1,13 @@
-<router-outlet></router-outlet>
+<div class="wrapper">
+  <div class="background-wrapper"></div>
 
-<button (click)="loginWithGoogle()">
-  Login with Google
-</button>
+  <div class="form-wrapper">
+    <router-outlet></router-outlet>
+  </div>
 
-<button (click)="loginWithFacebook()">
-  Login with Facebook
-</button>
+  <div class="header-wrapper">
+    <h1 class="header-title">WheelsCare</h1>
+
+    <h4 class="heading-4">Twój samochód pod kontrolą</h4>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } f
 export class SocialAuthService {
   constructor(
     private socialAuthService: AuthService,
-  ) { }
+  ) {}
 
   public loginWithGoogle(): Observable<SocialUser> {
     return from(this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID));

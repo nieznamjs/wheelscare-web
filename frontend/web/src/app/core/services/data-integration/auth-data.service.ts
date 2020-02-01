@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { LoginResponse, RegisterUserBody, User } from '@interfaces';
+import { IGeneralSuccessResponse, IRegisterUserBody, IUser } from '@purbanski-deftcode/wc-common';
 import { ConfigService } from '@services/utils/config.service';
 
 @Injectable({
@@ -16,11 +16,11 @@ export class AuthDataService {
     private config: ConfigService,
   ) {}
 
-  public registerUser(newUser: RegisterUserBody): Observable<User> {
-    return this.http.post<User>(`${this.authApiUrl}/register`, newUser);
+  public registerUser(newUser: IRegisterUserBody): Observable<IUser> {
+    return this.http.post<IUser>(`${this.authApiUrl}/register`, newUser);
   }
 
-  public login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.authApiUrl}/login`, { email, password });
+  public login(email: string, password: string): Observable<IGeneralSuccessResponse> {
+    return this.http.post<IGeneralSuccessResponse>(`${this.authApiUrl}/login`, { email, password });
   }
 }

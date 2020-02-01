@@ -1,4 +1,64 @@
-.field {
+@import 'styles/colors';
+
+:host {
+  text-align: center;
+}
+
+.heading-2 {
+  margin-bottom: 50px;
+}
+
+.btn {
+  width: 100%;
+}
+
+.social-btn {
+  position: relative;
+  padding-left: 40px;
+}
+
+.social-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.btn-google {
+  background-color: $google;
+  color: $white;
+}
+
+.divider {
   display: block;
-  width: 400px;
+  margin: 25px 0;
+  text-transform: uppercase;
+}
+
+.social-buttons {
+  margin-bottom: 70px;
+
+  .btn:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+
+.redirect-link {
+  display: block;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
+.error-message {
+  margin-top: 10px;
+}
+
+.loader {
+  margin-left: 5px;
+}
+
+.redirect-link {
+  margin-top: 60px;
 }

@@ -1,9 +1,13 @@
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field class="field">
+<h2 class="heading-2">Zaloguj się</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>E-mail</mat-label>
+
     <input
       matInput
       type="email"
-      placeholder="E-mail"
+      placeholder="Wprowadź adres e-mail"
       formControlName="email"
       required
       autocomplete="email"
@@ -18,15 +22,25 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field">
+  <mat-form-field class="field field-alt" appearance="outline">
+    <mat-label>Hasło</mat-label>
+
     <input
       matInput
-      type="password"
-      placeholder="Hasło"
+      [type]="hidePassword ? 'password' : 'text'"
+      placeholder="Wprowadź hasło"
       formControlName="password"
       required
       autocomplete="current-password"
       data-cy="password-field">
+
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="hidePassword = !hidePassword">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
 
     <mat-error class="error" *ngIf="getFormControl('password').hasError('required')">
       Hasło jest wymagane
@@ -37,14 +51,31 @@
     </mat-error>
   </mat-form-field>
 
-  <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="isLoading$ | async">
-    Zaloguj się
+  <button class="btn" mat-raised-button color="primary" data-cy="login-btn" [disabled]="(isLoading$ | async) || form.invalid">
+    <span *ngIf="!(isLoading$ | async)">Zaloguj się</span>
+
+    <wcw-loader class="loader" color="accent" size="24" *ngIf="isLoading$ | async"></wcw-loader>
   </button>
 
-  <mat-error *ngIf="(loginError$ | async) as error" class="login-error">
+  <mat-error class="error-message" *ngIf="(loginError$ | async) as error">
     {{ error }}
   </mat-error>
-  <mat-spinner color="primary" [diameter]="50" *ngIf="isLoading$ | async" class="loading-spinner"></mat-spinner>
 </form>
 
-<a routerLink="/auth/register">Rejestracja</a>
+<span class="divider">Lub</span>
+
+<div class="social-buttons">
+  <button class="btn social-btn" mat-raised-button color="primary">
+    <mat-icon svgIcon="fb" class="social-icon"></mat-icon> Zaloguj się za pomocą Facebooka
+  </button>
+
+  <button class="btn social-btn btn-google" mat-raised-button>
+    <mat-icon svgIcon="google" class="social-icon"></mat-icon> Zaloguj się za pomocą Google
+  </button>
+</div>
+
+<div class="redirect-links">
+  <span class="redirect-link">Nie posiadasz konta? <a routerLink="/auth/register">Utwórz konto</a></span>
+
+  <span class="redirect-link">Nie pamiętasz hasła? <a routerLink="/auth/init-password-reset">Zresetuj hasło</a></span>
+</div>

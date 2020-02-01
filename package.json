@@ -26,6 +26,7 @@
     "@ngrx/schematics": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
+    "@purbanski-deftcode/wc-common": "^1.1.0",
     "angularx-social-login": "^2.2.1",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
