@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatIconRegistry,
-  MatInputModule,
-  MatProgressSpinnerModule,
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { LoaderComponent } from '@components/loader/loader.component';
