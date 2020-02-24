@@ -10,6 +10,7 @@ import { HttpStatusCodes } from '@shared/constants/http-status-codes';
 import { ErrorMessages } from '@shared/constants/error-messages';
 import * as AuthActions from '@store/auth-store/auth-actions';
 import { UsersDataService } from '@services/data-integration/users-data.service';
+import { HttpErrorMessages } from '@shared/constants/http-error-messages';
 
 @Injectable()
 export class AuthEffects {
@@ -26,12 +27,21 @@ export class AuthEffects {
       return this.authService.login(action.payload.email, action.payload.password)
         .pipe(
           map(() =>  {
-            this.router.navigate(['/app']);
+            this.router.navigate(['/dashboard']);
             return AuthActions.LoginSuccessAction();
           }),
           catchError((err: HttpErrorResponse) => {
             const isUnauthorizedStatusCode = err.error.statusCode === HttpStatusCodes.Unauthorized;
-            const error = isUnauthorizedStatusCode ? ErrorMessages.Unauthorized : ErrorMessages.GeneralServerError;
+            const isUserNotActive = err.error.message === HttpErrorMessages.UserIsNotActive;
+            let error = ErrorMessages.GeneralServerError;
+
+            if (isUnauthorizedStatusCode) {
+              error = ErrorMessages.Unauthorized;
+            }
+
+            if (isUserNotActive) {
+              error = ErrorMessages.UserIsNotActive;
+            }
 
             return of(AuthActions.LoginFailAction({ error }));
           }),
