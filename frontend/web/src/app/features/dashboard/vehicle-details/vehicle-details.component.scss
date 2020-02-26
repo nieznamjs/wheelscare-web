@@ -1,0 +1,68 @@
+@import "styles/variables";
+@import "styles/colors";
+
+.vehicle-name {
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.vehicle {
+  padding: 20px;
+  box-shadow: $general-shadow;
+  background-color: $white;
+  border-radius: 3px;
+}
+
+.vehicle-details {
+  display: flex;
+  align-items: center;
+}
+
+.vehicle-img {
+  margin-right: 20px;
+  max-width: 300px;
+  max-height: 200px;
+}
+
+.vehicle-data {
+  display: flex;
+  padding: 30px 0;
+}
+
+.data-column {
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
+.data-row {
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  mat-icon {
+    vertical-align: top;
+  }
+}
+
+.vehicle-actions {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid $gray;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.action-btn {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.highlight-yellow {
+  color: $warning;
+}
+
+.highlight-red {
+  color: $error;
+}

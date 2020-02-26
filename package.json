@@ -30,6 +30,7 @@
     "angularx-social-login": "^2.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "tui-calendar": "^1.12.11",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
