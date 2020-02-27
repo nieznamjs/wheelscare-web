@@ -7,9 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
+import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
+import { GeneralComponent } from '@components/modals/add-vehicle-modal/general/general.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -17,6 +21,8 @@ const materialModules = [
   MatButtonModule,
   MatProgressSpinnerModule,
   MatIconModule,
+  MatDialogModule,
+  MatStepperModule,
 ];
 
 interface CustomSvgIconConfig {
@@ -43,7 +49,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
   ],
-  declarations: [LoaderComponent, SidebarComponent],
+  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

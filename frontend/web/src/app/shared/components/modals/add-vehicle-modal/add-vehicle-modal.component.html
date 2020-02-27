@@ -1,0 +1,17 @@
+<mat-horizontal-stepper linear>
+  <mat-step [stepControl]="generalForm">
+    <ng-template matStepLabel>
+      Ogólne
+    </ng-template>
+
+    <wcw-general [formGroup]="generalForm"></wcw-general>
+  </mat-step>
+
+  <mat-step [stepControl]="generalForm">
+    <ng-template matStepLabel>
+      Ogólne
+    </ng-template>
+
+    <wcw-general [formGroup]="generalForm"></wcw-general>
+  </mat-step>
+</mat-horizontal-stepper>

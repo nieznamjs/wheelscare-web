@@ -1,0 +1,16 @@
+<form [formGroup]="formGroup">
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>Nazwa</mat-label>
+
+    <input
+      matInput
+      type="text"
+      placeholder="Wprowadź nazwę"
+      formControlName="name"
+      required>
+
+    <mat-error class="error" *ngIf="getFormControl('name').hasError('required')">
+      Nazwa jest wymagana
+    </mat-error>
+  </mat-form-field>
+</form>
