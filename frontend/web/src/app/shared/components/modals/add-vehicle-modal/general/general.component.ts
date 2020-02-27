@@ -14,11 +14,10 @@ export class GeneralComponent implements OnInit {
 
   constructor(private formsService: FormsService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
   public getFormControl(name: string): AbstractControl {
     return this.formsService.getFormControl(this.formGroup, name);
   }
-
 }

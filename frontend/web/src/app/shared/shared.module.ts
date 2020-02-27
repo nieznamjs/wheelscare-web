@@ -14,6 +14,7 @@ import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
 import { GeneralComponent } from '@components/modals/add-vehicle-modal/general/general.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const materialModules = [
   MatFormFieldModule,
@@ -23,6 +24,7 @@ const materialModules = [
   MatIconModule,
   MatDialogModule,
   MatStepperModule,
+  MatSelectModule,
 ];
 
 interface CustomSvgIconConfig {
