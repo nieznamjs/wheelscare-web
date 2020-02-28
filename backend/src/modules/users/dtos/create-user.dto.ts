@@ -1,7 +1,7 @@
 import { IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { BaseUserDto } from './base-user.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { USER_PASSWORD_REGEX } from '@constants';
+import { USER_PASSWORD_REGEX } from '@purbanski-deftcode/wc-common';
 
 export class CreateUserDto extends BaseUserDto {
   @ApiProperty({ example: 'somestrongpassword' })
