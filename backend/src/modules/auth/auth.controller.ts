@@ -8,7 +8,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { Routes, Cookies, Environments } from '@constants';
+import { Cookies, Environments, Errors, Routes } from '@constants';
 import { AppConfigService } from '@config';
 import { SuccessResponseDto } from '@dtos';
 
@@ -16,7 +16,8 @@ import { AuthService } from './auth.service';
 import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { UserResponseDto } from '../users/dtos/user-response.dto';
+import { UserResponseDto } from '../users/dtos';
+import { errorSchemaFactory } from '../../common/helpers';
 
 @ApiTags(Routes.Auth)
 @Controller(Routes.Auth)
@@ -28,7 +29,6 @@ export class AuthController {
 
   @Post('register')
   @ApiCreatedResponse({ description: 'Will return created user', type: UserResponseDto })
-  @ApiForbiddenResponse({ description: 'Not enough permissions' })
   public async registerUser(@Body() userData: RegisterUserDto): Promise<User> {
     return this.authService.register(userData);
   }
@@ -36,8 +36,8 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: SuccessResponseDto, description: 'Beside success response it should return cookie with auth token' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized user' })
-  @ApiForbiddenResponse({ description: 'User not active'})
+  @ApiUnauthorizedResponse({ description: 'Unauthorized user', schema: errorSchemaFactory(HttpStatus.UNAUTHORIZED, Errors.UnauthorizedUser) })
+  @ApiForbiddenResponse({ description: 'User not active', schema: errorSchemaFactory(HttpStatus.FORBIDDEN, Errors.UserIsNotActive) })
   public async login(@Body() loginUsernDto: LoginUserDto, @Res() res: Response): Promise<void> {
     const { token } = await this.authService.authenticate(loginUsernDto);
 

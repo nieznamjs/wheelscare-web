@@ -10,7 +10,7 @@ import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { CreateUserDto } from '../users/dtos';
 
 @Injectable()
 export class AuthService {

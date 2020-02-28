@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { ReadAllResponse } from '@interfaces';
 import { FindAllQueryDto, SuccessResponseDto } from '@dtos';
-import { Routes } from '@constants';
+import { Errors, Routes } from '@constants';
 
 import { User } from './users.entity';
 import { UsersService } from './users.service';
@@ -16,6 +16,7 @@ import {
   UserResponseDto,
 } from './dtos';
 import { AccountActivationGuard, ResetPasswordGuard } from './guards';
+import { errorSchemaFactory } from '../../common/helpers';
 
 @ApiTags(Routes.Users)
 @Controller(Routes.Users)
@@ -32,14 +33,14 @@ export class UsersController {
 
   @Get(':id')
   @ApiOkResponse({ type: UserResponseDto, description: 'Single user' })
-  @ApiNotFoundResponse({ description: 'User not found' })
+  @ApiNotFoundResponse({ description: 'User not found', schema: errorSchemaFactory(HttpStatus.NOT_FOUND, Errors.UserNotFound) })
   public async readOne(@Param('id') id: string): Promise<User> {
     return this.usersService.readOne(id);
   }
 
   @Post()
   @ApiCreatedResponse({ type: BaseUserDto, description: 'Created user' })
-  @ApiConflictResponse({ description: 'User already exists' })
+  @ApiConflictResponse({ description: 'User already exists', schema: errorSchemaFactory(HttpStatus.CONFLICT, Errors.UserAlreadyExists) })
   public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
