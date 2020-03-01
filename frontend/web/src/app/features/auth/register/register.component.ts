@@ -45,6 +45,10 @@ export class RegisterComponent implements OnInit {
     return this.formsService.getFormControl(this.form, name);
   }
 
+  public registerViaGoogle(): void {
+    this.authFacade.registerUserViaGoogle();
+  }
+
   public onSubmit(): void {
     if (this.form.invalid) { return; }
 

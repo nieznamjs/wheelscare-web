@@ -16,4 +16,5 @@ export default Joi.object({
   CLIENT_URL: Joi.string().required(),
   LOG_LEVEL: Joi.string().default('debug'),
   SYSTEM_EMAIL: Joi.string().email().required(),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
 });

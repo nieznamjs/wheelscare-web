@@ -1,19 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { OAuth2Client, TokenPayload } from 'google-auth-library';
 
 import { HashService, MailService, QueryService, TemplateService, TokenService } from '@services';
 import { FindAllQueryDto } from '@dtos';
 import { AppConfigService } from '@config';
 import { EQUAL, MailSubjects, Templates, TokenTypes } from '@constants';
-import { UnauthorizedUserError, UserNotActiveError } from '@errors';
+import { InvalidTokenError, UnauthorizedUserError, UserNotActiveError } from '@errors';
 
 import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
-import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { CreateUserDto } from '../users/dtos';
 
 @Injectable()
 export class AuthService {
+  private googleAuthClient: OAuth2Client;
+
   constructor(
     private readonly usersService: UsersService,
     private readonly hashService: HashService,
@@ -22,7 +25,9 @@ export class AuthService {
     private readonly appConfigService: AppConfigService,
     private readonly templateService: TemplateService,
     private readonly mailService: MailService,
-  ) {}
+  ) {
+    this.googleAuthClient = new OAuth2Client(this.appConfigService.auth.googleClientId);
+  }
 
   public async register(userData: RegisterUserDto): Promise<User> {
     const createdUser = await this.usersService.create(userData as CreateUserDto);
@@ -32,20 +37,36 @@ export class AuthService {
     return createdUser;
   }
 
-  public async authenticate(loginData: LoginUserDto): Promise<{ token: string }> {
-    const query = new FindAllQueryDto({
-      queries: [
-        {
-          email: { operator: EQUAL, value: loginData.email },
-        },
-      ],
-      select: ['id', 'password', 'active'],
+  public async registerViaGoogle(token: string): Promise<{ token: string }> {
+    const googleTokenPayload = await this.getGoogleTokenPayload(token);
+    const user = await this.usersService.create({
+      email: googleTokenPayload.email,
+      password: null,
+      active: true,
     });
 
-    const res = await this.queryService.findAll<User>(User, query);
-    const user = res.data[0];
+    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
+      userId: user.id,
+      type: TokenTypes.Auth,
+    });
 
-    if (!user) { throw new UnauthorizedUserError(); }
+    return { token: authToken };
+  }
+
+  public async loginViaGoogle(token: string): Promise<{ token: string }> {
+    const googleTokenPayload = await this.getGoogleTokenPayload(token);
+    const user = await this.findUserByEmail(googleTokenPayload.email);
+
+    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
+      userId: user.id,
+      type: TokenTypes.Auth,
+    });
+
+    return { token: authToken };
+  }
+
+  public async authenticate(loginData: LoginUserDto): Promise<{ token: string }> {
+    const user = await this.findUserByEmail(loginData.email);
 
     const arePasswordsEqual = await this.hashService.compare(loginData.password, user.password);
 
@@ -58,6 +79,38 @@ export class AuthService {
     });
 
     return { token };
+  }
+
+  private async getGoogleTokenPayload(token: string): Promise<TokenPayload> {
+    const ticket = await this.googleAuthClient.verifyIdToken({
+      idToken: token,
+      audience: this.appConfigService.auth.googleClientId,
+    });
+    const payload = ticket.getPayload();
+
+    if (!payload.email || !payload.sub) {
+      throw new InvalidTokenError();
+    }
+
+    return payload;
+  }
+
+  private async findUserByEmail(email: string): Promise<User> {
+    const query = new FindAllQueryDto({
+      queries: [
+        {
+          email: { operator: EQUAL, value: email },
+        },
+      ],
+      select: ['id', 'password', 'active'],
+    });
+
+    const res = await this.queryService.findAll<User>(User, query);
+    const user = res.data[0];
+
+    if (!user) { throw new UnauthorizedUserError(); }
+
+    return user;
   }
 
   private async sendAccountActivationEmail(user: User): Promise<void> {

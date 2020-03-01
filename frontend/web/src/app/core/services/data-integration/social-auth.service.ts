@@ -1,20 +1,48 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { map, switchMap } from 'rxjs/operators';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from '../utils/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocialAuthService {
+  private readonly authApiUrl = `${this.config.apiUrl}/auth`;
+
   constructor(
     private socialAuthService: AuthService,
+    private httpClient: HttpClient,
+    private config: ConfigService,
   ) {}
 
-  public loginWithGoogle(): Observable<SocialUser> {
-    return from(this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID));
+  public registerViaGoogle(): Observable<IGeneralSuccessResponse> {
+    return this.getGoogleToken().pipe(
+      switchMap(token => {
+        return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/register/google`, { token });
+      })
+    );
   }
 
-  public loginWithFacebook(): Observable<SocialUser> {
-    return from(this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID));
+  public loginViaGoogle(): Observable<IGeneralSuccessResponse> {
+    return this.getGoogleToken().pipe(
+      switchMap(token => {
+        return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/login/google`, { token });
+      })
+    );
+  }
+
+  private getGoogleToken(): Observable<string> {
+    return from(this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)).pipe(
+      map(res => res.idToken)
+    );
+  }
+
+  private getFacebookToken(): Observable<string> {
+    return from(this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)).pipe(
+      map(res => res.idToken)
+    );
   }
 }

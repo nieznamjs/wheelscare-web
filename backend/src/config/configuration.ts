@@ -18,5 +18,6 @@ export default () => ({
     passwordResetSecret: process.env.PASSWORD_RESET_SECRET,
     accountActivationSecret: process.env.ACCOUNT_ACTIVATION_SECRET,
     accountActivationTokenExpiration: 3600,
+    googleClientId: process.env.GOOGLE_CLIENT_ID,
   },
 });
