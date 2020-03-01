@@ -53,6 +53,25 @@ export const authReducer = createReducer(
       },
     };
   }),
+  on(AuthActions.LoginViaFacebookSuccessAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isUserLogged: true,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaFacebookFailAction, (state, payload) => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isUserLogged: false,
+        error: payload.error,
+      },
+    };
+  }),
   on(AuthActions.RegisterUserAction, state => {
     return {
       ...state,
@@ -93,6 +112,25 @@ export const authReducer = createReducer(
     };
   }),
   on(AuthActions.RegisterUserViaGoogleFailAction, (state, payload) => {
+    return {
+      ...state,
+      registerUser: {
+        isLoading: false,
+        error: payload.error,
+        isSuccess: false,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaFacebookAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isUserLogged: true,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaFacebookFailAction, (state, payload) => {
     return {
       ...state,
       registerUser: {

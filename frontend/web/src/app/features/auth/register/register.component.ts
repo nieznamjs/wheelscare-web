@@ -49,6 +49,10 @@ export class RegisterComponent implements OnInit {
     this.authFacade.registerUserViaGoogle();
   }
 
+  public registerViaFacebook(): void {
+    this.authFacade.registerUserViaFacebook();
+  }
+
   public onSubmit(): void {
     if (this.form.invalid) { return; }
 

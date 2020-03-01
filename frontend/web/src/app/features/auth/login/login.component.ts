@@ -45,6 +45,10 @@ export class LoginComponent implements OnInit {
     this.authFacade.loginViaGoogle();
   }
 
+  public loginViaFacebook(): void {
+    this.authFacade.loginViaFacebook();
+  }
+
   public onSubmit(): void {
     if (this.form.invalid) { return; }
 

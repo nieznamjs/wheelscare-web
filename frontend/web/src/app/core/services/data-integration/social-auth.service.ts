@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
 import { HttpClient } from '@angular/common/http';
@@ -34,6 +34,22 @@ export class SocialAuthService {
     );
   }
 
+  public registerViaFacebook(): Observable<IGeneralSuccessResponse> {
+    return this.getFacebookToken().pipe(
+      switchMap(token => {
+        return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/register/facebook`, { token });
+      })
+    );
+  }
+
+  public loginViaFacebook(): Observable<IGeneralSuccessResponse> {
+    return this.getFacebookToken().pipe(
+      switchMap(token => {
+        return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/login/facebook`, { token });
+      })
+    );
+  }
+
   private getGoogleToken(): Observable<string> {
     return from(this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)).pipe(
       map(res => res.idToken)
@@ -42,7 +58,7 @@ export class SocialAuthService {
 
   private getFacebookToken(): Observable<string> {
     return from(this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)).pipe(
-      map(res => res.idToken)
+      map(res => res.authToken)
     );
   }
 }

@@ -57,6 +57,22 @@ export class AuthEffects {
     }),
   ));
 
+  public loginViaFacebookEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.LoginViaFacebookAction),
+    switchMap(() => {
+      return this.socialAuthService.loginViaFacebook()
+        .pipe(
+          map(() =>  {
+            this.router.navigate(['/app']);
+            return AuthActions.LoginViaFacebookSuccessAction();
+          }),
+          catchError(() => {
+            return of(AuthActions.LoginViaFacebookFailAction({ error: ErrorMessages.GeneralServerError }));
+          }),
+        );
+    }),
+  ));
+
   public registerUserEffect$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.RegisterUserAction),
     switchMap(({ payload }) => {
@@ -83,7 +99,23 @@ export class AuthEffects {
             return AuthActions.RegisterUserViaGoogleSuccessAction();
           }),
           catchError(() => {
-            return of(AuthActions.RegisterUserFailAction({ error: ErrorMessages.GeneralServerError }));
+            return of(AuthActions.RegisterUserViaGoogleFailAction({ error: ErrorMessages.GeneralServerError }));
+          }),
+        );
+    }),
+  ));
+
+  public registerUserViaFacebookEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.RegisterUserViaFacebookAction),
+    switchMap(() => {
+      return this.socialAuthService.registerViaFacebook()
+        .pipe(
+          map(() => {
+            this.router.navigate(['/app']);
+            return AuthActions.RegisterUserViaFacebookSuccessAction();
+          }),
+          catchError(() => {
+            return of(AuthActions.RegisterUserViaFacebookFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
     }),
