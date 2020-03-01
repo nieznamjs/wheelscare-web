@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
+import got from 'got';
 
 import { HashService, MailService, QueryService, TemplateService, TokenService } from '@services';
 import { FindAllQueryDto } from '@dtos';
@@ -12,6 +13,7 @@ import { RegisterUserDto } from './dtos/register-user.dto';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { CreateUserDto } from '../users/dtos';
+import { FacebookTokenPayload } from './interfaces/facebook-token-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -53,9 +55,37 @@ export class AuthService {
     return { token: authToken };
   }
 
+  public async registerViaFacebook(token: string): Promise<{ token: string }> {
+    const googleTokenPayload = await this.getFacebookTokenPayload(token);
+    const user = await this.usersService.create({
+      email: googleTokenPayload.email,
+      password: null,
+      active: true,
+    });
+
+    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
+      userId: user.id,
+      type: TokenTypes.Auth,
+    });
+
+    return { token: authToken };
+  }
+
   public async loginViaGoogle(token: string): Promise<{ token: string }> {
     const googleTokenPayload = await this.getGoogleTokenPayload(token);
     const user = await this.findUserByEmail(googleTokenPayload.email);
+
+    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
+      userId: user.id,
+      type: TokenTypes.Auth,
+    });
+
+    return { token: authToken };
+  }
+
+  public async loginViaFacebook(token: string): Promise<{ token: string }> {
+    const facebookTokenPayload = await this.getFacebookTokenPayload(token);
+    const user = await this.findUserByEmail(facebookTokenPayload.email);
 
     const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
       userId: user.id,
@@ -131,5 +161,16 @@ export class AuthService {
       body: template,
       subject: MailSubjects.AccountActivation,
     });
+  }
+
+  private async getFacebookTokenPayload(token: string): Promise<FacebookTokenPayload> {
+    const url = `https://graph.facebook.com/me?fields=id,email&access_token=${token}`;
+    const { body } = await got(url, { responseType: 'json' });
+
+    if (!body.email || !body.id) {
+      throw new InvalidTokenError();
+    }
+
+    return body;
   }
 }
