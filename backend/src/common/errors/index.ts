@@ -8,3 +8,4 @@ export * from './user-role-not-allowed';
 export * from './user-not-active';
 export * from './user-not-found';
 export * from './user-already-exists';
+export * from './expired-token';
