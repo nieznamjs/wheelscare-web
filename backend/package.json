@@ -40,6 +40,8 @@
     "cors": "^2.8.5",
     "express-pino-logger": "^4.0.0",
     "faker": "^4.1.0",
+    "google-auth-library": "^5.10.1",
+    "got": "^10.6.0",
     "handlebars": "^4.5.3",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.16.1",

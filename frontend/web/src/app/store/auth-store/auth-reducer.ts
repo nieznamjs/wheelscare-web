@@ -34,6 +34,66 @@ export const authReducer = createReducer(
       },
     };
   }),
+  on(AuthActions.LoginViaGoogleAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaGoogleSuccessAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: false,
+        isUserLogged: true,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaGoogleFailAction, (state, payload) => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: false,
+        error: payload.error,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaFacebookAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: true,
+        error: null,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaFacebookSuccessAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: false,
+        isUserLogged: true,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaFacebookFailAction, (state, payload) => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: false,
+        error: payload.error,
+      },
+    };
+  }),
   on(AuthActions.RegisterUserAction, state => {
     return {
       ...state,
@@ -55,6 +115,74 @@ export const authReducer = createReducer(
     };
   }),
   on(AuthActions.RegisterUserFailAction, (state, payload) => {
+    return {
+      ...state,
+      registerUser: {
+        isLoading: false,
+        error: payload.error,
+        isSuccess: false,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaGoogleAction, state => {
+    return {
+      ...state,
+      registerUser: {
+        ...state.registerUser,
+        error: null,
+        isLoading: true,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaGoogleSuccessAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isUserLogged: true,
+      },
+      registerUser: {
+        ...state.registerUser,
+        isLoading: false,
+        isSuccess: true,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaGoogleFailAction, (state, payload) => {
+    return {
+      ...state,
+      registerUser: {
+        isLoading: false,
+        error: payload.error,
+        isSuccess: false,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaFacebookAction, state => {
+    return {
+      ...state,
+      registerUser: {
+        ...state.registerUser,
+        error: null,
+        isLoading: true,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaFacebookSuccessAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isUserLogged: true,
+      },
+      registerUser: {
+        ...state.registerUser,
+        isLoading: false,
+        isSuccess: true,
+      }
+    };
+  }),
+  on(AuthActions.RegisterUserViaFacebookFailAction, (state, payload) => {
     return {
       ...state,
       registerUser: {

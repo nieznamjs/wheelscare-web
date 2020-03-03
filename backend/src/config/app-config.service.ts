@@ -14,6 +14,7 @@ interface AuthConfig {
   passwordResetSecret: string;
   accountActivationSecret: string;
   accountActivationTokenExpiration: number;
+  googleClientId: string;
 }
 
 interface EmailConfig {

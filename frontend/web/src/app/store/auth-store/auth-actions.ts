@@ -5,9 +5,21 @@ enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
   LOGIN_SUCCESS = '[WCW] Login Success',
   LOGIN_FAIL = '[WCW] Login Fail',
+  LOGIN_VIA_GOOGLE = '[WCW] Login via google',
+  LOGIN_VIA_GOOGLE_SUCCESS = '[WCW] Login via google Success',
+  LOGIN_VIA_GOOGLE_FAIL = '[WCW] Login via google Fail',
+  LOGIN_VIA_FACEBOOK = '[WCW] Login via facebook',
+  LOGIN_VIA_FACEBOOK_SUCCESS = '[WCW] Login via facebook Success',
+  LOGIN_VIA_FACEBOOK_FAIL = '[WCW] Login via facebook Fail',
   REGISTER_USER = '[WCW] Register User',
   REGISTER_USER_SUCCESS = '[WCW] Register User Success',
   REGISTER_USER_FAIL = '[WCW] Register User Fail',
+  REGISTER_USER_VIA_GOOGLE = '[WCW] Register user via google',
+  REGISTER_USER_VIA_GOOGLE_SUCCESS = '[WCW] Register user via google success',
+  REGISTER_USER_VIA_GOOGLE_FAIL = '[WCW] Register user via google fail',
+  REGISTER_USER_VIA_FACEBOOK = '[WCW] Register user via facebook',
+  REGISTER_USER_VIA_FACEBOOK_SUCCESS = '[WCW] Register user via facebook success',
+  REGISTER_USER_VIA_FACEBOOK_FAIL = '[WCW] Register user via facebook fail',
   INIT_RESET_PASSWORD = '[WCW] Init Reset Password',
   INIT_RESET_PASSWORD_SUCCESS = '[WCW] Init Reset Password Success',
   INIT_RESET_PASSWORD_FAIL = '[WCW] Init Reset Password Fail',
@@ -33,6 +45,32 @@ export const LoginFailAction = createAction(
   props<{ error: string }>(),
 );
 
+export const LoginViaGoogleAction = createAction(
+  AuthActionsTypes.LOGIN_VIA_GOOGLE,
+);
+
+export const LoginViaGoogleSuccessAction = createAction(
+  AuthActionsTypes.LOGIN_VIA_GOOGLE_SUCCESS,
+);
+
+export const LoginViaGoogleFailAction = createAction(
+  AuthActionsTypes.LOGIN_VIA_GOOGLE_FAIL,
+  props<{ error: string }>(),
+);
+
+export const LoginViaFacebookAction = createAction(
+  AuthActionsTypes.LOGIN_VIA_FACEBOOK,
+);
+
+export const LoginViaFacebookSuccessAction = createAction(
+  AuthActionsTypes.LOGIN_VIA_FACEBOOK_SUCCESS,
+);
+
+export const LoginViaFacebookFailAction = createAction(
+  AuthActionsTypes.LOGIN_VIA_FACEBOOK_FAIL,
+  props<{ error: string }>(),
+);
+
 export const RegisterUserAction = createAction(
   AuthActionsTypes.REGISTER_USER,
   props<{ payload: { newUser: IRegisterUserBody }}>(),
@@ -44,6 +82,32 @@ export const RegisterUserSuccessAction = createAction(
 
 export const RegisterUserFailAction = createAction(
   AuthActionsTypes.REGISTER_USER_FAIL,
+  props<{ error: string }>(),
+);
+
+export const RegisterUserViaGoogleAction = createAction(
+  AuthActionsTypes.REGISTER_USER_VIA_GOOGLE,
+);
+
+export const RegisterUserViaGoogleSuccessAction = createAction(
+  AuthActionsTypes.REGISTER_USER_VIA_GOOGLE_SUCCESS,
+);
+
+export const RegisterUserViaGoogleFailAction = createAction(
+  AuthActionsTypes.REGISTER_USER_VIA_GOOGLE_FAIL,
+  props<{ error: string }>(),
+);
+
+export const RegisterUserViaFacebookAction = createAction(
+  AuthActionsTypes.REGISTER_USER_VIA_FACEBOOK,
+);
+
+export const RegisterUserViaFacebookSuccessAction = createAction(
+  AuthActionsTypes.REGISTER_USER_VIA_FACEBOOK_SUCCESS,
+);
+
+export const RegisterUserViaFacebookFailAction = createAction(
+  AuthActionsTypes.REGISTER_USER_VIA_FACEBOOK_FAIL,
   props<{ error: string }>(),
 );
 
