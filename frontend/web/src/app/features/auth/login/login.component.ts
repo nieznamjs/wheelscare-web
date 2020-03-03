@@ -41,6 +41,14 @@ export class LoginComponent implements OnInit {
     return this.formsService.getFormControl(this.form, name);
   }
 
+  public loginViaGoogle(): void {
+    this.authFacade.loginViaGoogle();
+  }
+
+  public loginViaFacebook(): void {
+    this.authFacade.loginViaFacebook();
+  }
+
   public onSubmit(): void {
     if (this.form.invalid) { return; }
 

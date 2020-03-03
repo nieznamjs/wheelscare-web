@@ -17,7 +17,14 @@ import {
   selectRegisteredSuccessfully,
   selectRegisterUserError,
 } from './auth-selectors';
-import { ActivateUserAction, InitResetPasswordAction, LoginAction, RegisterUserAction, ResetPasswordAction } from './auth-actions';
+import {
+  ActivateUserAction,
+  InitResetPasswordAction,
+  LoginAction, LoginViaFacebookAction,
+  LoginViaGoogleAction,
+  RegisterUserAction, RegisterUserViaFacebookAction, RegisterUserViaGoogleAction,
+  ResetPasswordAction
+} from './auth-actions';
 import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
 
 @Injectable()
@@ -48,8 +55,24 @@ export class AuthFacade {
     this.store.dispatch(LoginAction({ payload: { email, password }}));
   }
 
+  public loginViaGoogle(): void {
+    this.store.dispatch(LoginViaGoogleAction());
+  }
+
+  public loginViaFacebook(): void {
+    this.store.dispatch(LoginViaFacebookAction());
+  }
+
   public registerUser(newUser: IRegisterUserBody): void {
     this.store.dispatch(RegisterUserAction({ payload: { newUser }}));
+  }
+
+  public registerUserViaGoogle(): void {
+    this.store.dispatch(RegisterUserViaGoogleAction());
+  }
+
+  public registerUserViaFacebook(): void {
+    this.store.dispatch(RegisterUserViaFacebookAction());
   }
 
   public initPasswordReset(email: string): void {
