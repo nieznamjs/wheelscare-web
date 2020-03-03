@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
-import { USER_PASSWORD_REGEX } from '@constants';
+import { USER_PASSWORD_REGEX } from '@purbanski-deftcode/wc-common';
 
 export class PasswordResetDto {
   @ApiProperty({ example: 'somestrongpassword' })

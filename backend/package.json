@@ -31,6 +31,7 @@
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/swagger": "^4.1.10",
     "@nestjs/typeorm": "^6.2.0",
+    "@purbanski-deftcode/wc-common": "^1.5.0",
     "@sendgrid/mail": "^6.4.0",
     "aws-sdk": "^2.598.0",
     "bcrypt": "^3.0.7",

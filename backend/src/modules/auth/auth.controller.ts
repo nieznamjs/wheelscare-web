@@ -8,7 +8,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
-import { Routes, Cookies, Environments } from '@constants';
+import { Cookies, Environments, Routes } from '@constants';
 import { AppConfigService } from '@config';
 import { SuccessResponseDto } from '@dtos';
 
@@ -17,6 +17,8 @@ import { User } from '../users/users.entity';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { UserResponseDto } from '../users/dtos';
+import { errorSchemaFactory } from '../../common/helpers';
+import { ApiErrors } from '@purbanski-deftcode/wc-common';
 import { RegisterUserViaGoogleDto } from './dtos/register-user-via-google.dto';
 import { LoginUserViaGoogleDto } from './dtos/login-user-via-google.dto';
 import { RegisterUserViaFacebookDto } from './dtos/register-user-via-facebook.dto';
@@ -65,8 +67,8 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: SuccessResponseDto, description: 'Besides success response it should return cookie with auth token' })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized user' })
-  @ApiForbiddenResponse({ description: 'User not active'})
+  @ApiUnauthorizedResponse({ description: 'Unauthorized user', schema: errorSchemaFactory(HttpStatus.UNAUTHORIZED, ApiErrors.UnauthorizedUser) })
+  @ApiForbiddenResponse({ description: 'User not active', schema: errorSchemaFactory(HttpStatus.FORBIDDEN, ApiErrors.UserIsNotActive) })
   public async login(@Body() loginUsernDto: LoginUserDto, @Res() res: Response): Promise<void> {
     const { token } = await this.authService.authenticate(loginUsernDto);
 
