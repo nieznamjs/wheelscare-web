@@ -34,11 +34,22 @@ export const authReducer = createReducer(
       },
     };
   }),
+  on(AuthActions.LoginViaGoogleAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: true,
+        error: null,
+      },
+    };
+  }),
   on(AuthActions.LoginViaGoogleSuccessAction, state => {
     return {
       ...state,
       login: {
         ...state.login,
+        isLoading: false,
         isUserLogged: true,
       },
     };
@@ -48,8 +59,18 @@ export const authReducer = createReducer(
       ...state,
       login: {
         ...state.login,
-        isUserLogged: false,
+        isLoading: false,
         error: payload.error,
+      },
+    };
+  }),
+  on(AuthActions.LoginViaFacebookAction, state => {
+    return {
+      ...state,
+      login: {
+        ...state.login,
+        isLoading: true,
+        error: null,
       },
     };
   }),
@@ -58,6 +79,7 @@ export const authReducer = createReducer(
       ...state,
       login: {
         ...state.login,
+        isLoading: false,
         isUserLogged: true,
       },
     };
@@ -67,7 +89,7 @@ export const authReducer = createReducer(
       ...state,
       login: {
         ...state.login,
-        isUserLogged: false,
+        isLoading: false,
         error: payload.error,
       },
     };
@@ -105,9 +127,24 @@ export const authReducer = createReducer(
   on(AuthActions.RegisterUserViaGoogleAction, state => {
     return {
       ...state,
+      registerUser: {
+        ...state.registerUser,
+        error: null,
+        isLoading: true,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaGoogleSuccessAction, state => {
+    return {
+      ...state,
       login: {
         ...state.login,
         isUserLogged: true,
+      },
+      registerUser: {
+        ...state.registerUser,
+        isLoading: false,
+        isSuccess: true,
       },
     };
   }),
@@ -124,10 +161,25 @@ export const authReducer = createReducer(
   on(AuthActions.RegisterUserViaFacebookAction, state => {
     return {
       ...state,
+      registerUser: {
+        ...state.registerUser,
+        error: null,
+        isLoading: true,
+      },
+    };
+  }),
+  on(AuthActions.RegisterUserViaFacebookSuccessAction, state => {
+    return {
+      ...state,
       login: {
         ...state.login,
         isUserLogged: true,
       },
+      registerUser: {
+        ...state.registerUser,
+        isLoading: false,
+        isSuccess: true,
+      }
     };
   }),
   on(AuthActions.RegisterUserViaFacebookFailAction, (state, payload) => {
