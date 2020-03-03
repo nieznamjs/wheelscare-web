@@ -25,3 +25,9 @@ export class InvalidPasswordResetRequestError extends HttpException {
     super(ApiErrors.BadRequestData, HttpStatus.BAD_REQUEST);
   }
 }
+
+export class ExpiredTokenError extends HttpException {
+  constructor() {
+    super(ApiErrors.ExpiredToken, HttpStatus.UNAUTHORIZED);
+  }
+}
