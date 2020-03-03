@@ -1,4 +1,4 @@
-import { Errors } from '@constants';
 import { HttpStatus } from '@nestjs/common';
+import { ApiErrors } from '@purbanski-deftcode/wc-common';
 
-export const errorSchemaFactory = (statusCode: HttpStatus, message: Errors) => ({ example: { statusCode, message } });
+export const errorSchemaFactory = (statusCode: HttpStatus, message: ApiErrors) => ({ example: { statusCode, message } });

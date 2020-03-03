@@ -3,7 +3,7 @@ import { ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResp
 
 import { ReadAllResponse } from '@interfaces';
 import { FindAllQueryDto, SuccessResponseDto } from '@dtos';
-import { Errors, Routes } from '@constants';
+import { Routes } from '@constants';
 
 import { User } from './users.entity';
 import { UsersService } from './users.service';
@@ -17,6 +17,7 @@ import {
 } from './dtos';
 import { AccountActivationGuard, ResetPasswordGuard } from './guards';
 import { errorSchemaFactory } from '../../common/helpers';
+import { ApiErrors } from '@purbanski-deftcode/wc-common';
 
 @ApiTags(Routes.Users)
 @Controller(Routes.Users)
@@ -33,14 +34,14 @@ export class UsersController {
 
   @Get(':id')
   @ApiOkResponse({ type: UserResponseDto, description: 'Single user' })
-  @ApiNotFoundResponse({ description: 'User not found', schema: errorSchemaFactory(HttpStatus.NOT_FOUND, Errors.UserNotFound) })
+  @ApiNotFoundResponse({ description: 'User not found', schema: errorSchemaFactory(HttpStatus.NOT_FOUND, ApiErrors.UserNotFound) })
   public async readOne(@Param('id') id: string): Promise<User> {
     return this.usersService.readOne(id);
   }
 
   @Post()
   @ApiCreatedResponse({ type: BaseUserDto, description: 'Created user' })
-  @ApiConflictResponse({ description: 'User already exists', schema: errorSchemaFactory(HttpStatus.CONFLICT, Errors.UserAlreadyExists) })
+  @ApiConflictResponse({ description: 'User already exists', schema: errorSchemaFactory(HttpStatus.CONFLICT, ApiErrors.UserAlreadyExists) })
   public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }

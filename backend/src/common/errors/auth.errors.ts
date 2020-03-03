@@ -1,27 +1,27 @@
 // tslint:disable:max-classes-per-file
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { Errors } from '@constants';
+import { ApiErrors } from '@purbanski-deftcode/wc-common';
 
 export class InvalidTokenError extends HttpException {
   constructor() {
-    super(Errors.InvalidToken, HttpStatus.UNAUTHORIZED);
+    super(ApiErrors.InvalidToken, HttpStatus.UNAUTHORIZED);
   }
 }
 
 export class MissingAuthHeaderError extends HttpException {
   constructor() {
-    super(Errors.MissingAuthorizationHeader, HttpStatus.UNAUTHORIZED);
+    super(ApiErrors.MissingAuthorizationHeader, HttpStatus.UNAUTHORIZED);
   }
 }
 
 export class UnauthorizedUserError extends HttpException {
   constructor() {
-    super(Errors.UnauthorizedUser, HttpStatus.UNAUTHORIZED);
+    super(ApiErrors.UnauthorizedUser, HttpStatus.UNAUTHORIZED);
   }
 }
 
 export class InvalidPasswordResetRequestError extends HttpException {
   constructor() {
-    super(Errors.BadRequestData, HttpStatus.BAD_REQUEST);
+    super(ApiErrors.BadRequestData, HttpStatus.BAD_REQUEST);
   }
 }
