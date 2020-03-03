@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
-import { HttpClient } from '@angular/common/http';
+
 import { ConfigService } from '../utils/config.service';
 
 @Injectable({
