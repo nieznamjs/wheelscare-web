@@ -17,6 +17,7 @@ import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
 import { GeneralComponent } from '@components/modals/add-vehicle-modal/general/general.component';
 import { EngineComponent } from '@components/modals/add-vehicle-modal/engine/engine.component';
+import { BodyComponent } from '@components/modals/add-vehicle-modal/body/body.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -54,7 +55,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
   ],
-  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent, EngineComponent],
+  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent, EngineComponent, BodyComponent],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

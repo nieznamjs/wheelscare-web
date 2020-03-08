@@ -1,8 +1,14 @@
-<h3 class="heading-4" mat-dialog-title>
-  Dodaj pojazd
-</h3>
+<div class="row">
+  <h3 class="heading-4" mat-dialog-title>
+    Dodaj pojazd
+  </h3>
 
-<mat-horizontal-stepper mat-dialog-content>
+  <button mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-horizontal-stepper mat-dialog-content linear>
   <mat-step [stepControl]="generalForm">
     <ng-template matStepLabel>
       Ogólne
@@ -17,5 +23,13 @@
     </ng-template>
 
     <wcw-engine [formGroup]="engineForm"></wcw-engine>
+  </mat-step>
+
+  <mat-step [stepControl]="bodyForm">
+    <ng-template matStepLabel>
+      Nadwozie
+    </ng-template>
+
+    <wcw-body [formGroup]="bodyForm" (saved)="save()"></wcw-body>
   </mat-step>
 </mat-horizontal-stepper>

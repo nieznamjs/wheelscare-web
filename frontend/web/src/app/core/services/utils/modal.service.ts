@@ -12,6 +12,8 @@ export class ModalService {
   ) { }
 
   public open(component: ComponentType<any>): MatDialogRef<ComponentType<any>> {
-    return this.dialog.open(component);
+    return this.dialog.open(component, {
+      disableClose: true,
+    });
   }
 }

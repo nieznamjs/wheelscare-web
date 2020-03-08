@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'wcw-add-vehicle-modal',
@@ -11,12 +12,23 @@ export class AddVehicleModalComponent implements OnInit {
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<AddVehicleModalComponent>,
+  ) {}
 
   public ngOnInit(): void {
     this.generalForm = this.createGeneralForm();
     this.engineForm = this.createEngineForm();
     this.bodyForm = this.createBodyForm();
+  }
+
+  public close(): void {
+    this.dialogRef.close();
+  }
+
+  public save(): void {
+    // TODO
   }
 
   private createGeneralForm(): FormGroup {

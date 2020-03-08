@@ -1,0 +1,29 @@
+.actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 20px;
+  margin-top: 20px;
+  grid-auto-flow: column;
+}
+
+.field-radio,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .radio-value {
+    margin-bottom: 5px;
+  }
+}
