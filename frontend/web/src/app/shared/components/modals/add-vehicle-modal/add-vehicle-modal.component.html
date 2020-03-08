@@ -2,7 +2,7 @@
   Dodaj pojazd
 </h3>
 
-<mat-horizontal-stepper linear mat-dialog-content>
+<mat-horizontal-stepper mat-dialog-content>
   <mat-step [stepControl]="generalForm">
     <ng-template matStepLabel>
       Ogólne
@@ -11,11 +11,11 @@
     <wcw-general [formGroup]="generalForm"></wcw-general>
   </mat-step>
 
-  <mat-step [stepControl]="generalForm">
+  <mat-step [stepControl]="engineForm">
     <ng-template matStepLabel>
-      Ogólne
+      Silnik i napęd
     </ng-template>
 
-    <wcw-general [formGroup]="generalForm"></wcw-general>
+    <wcw-engine [formGroup]="engineForm"></wcw-engine>
   </mat-step>
 </mat-horizontal-stepper>

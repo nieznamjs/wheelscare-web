@@ -9,12 +9,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
 import { GeneralComponent } from '@components/modals/add-vehicle-modal/general/general.component';
-import { MatSelectModule } from '@angular/material/select';
+import { EngineComponent } from '@components/modals/add-vehicle-modal/engine/engine.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -25,6 +27,7 @@ const materialModules = [
   MatDialogModule,
   MatStepperModule,
   MatSelectModule,
+  MatRadioModule,
 ];
 
 interface CustomSvgIconConfig {
@@ -51,7 +54,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
   ],
-  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent],
+  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent, EngineComponent],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

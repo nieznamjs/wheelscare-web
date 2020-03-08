@@ -4,11 +4,11 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { FormsService } from '@services/utils/forms.service';
 
 @Component({
-  selector: 'wcw-general',
-  templateUrl: './general.component.html',
-  styleUrls: ['./general.component.scss']
+  selector: 'wcw-engine',
+  templateUrl: './engine.component.html',
+  styleUrls: ['./engine.component.scss']
 })
-export class GeneralComponent {
+export class EngineComponent {
 
   @Input() public formGroup: FormGroup;
 

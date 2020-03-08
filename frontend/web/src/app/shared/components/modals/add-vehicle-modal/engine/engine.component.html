@@ -1,0 +1,80 @@
+<form [formGroup]="formGroup" class="form">
+  <div class="row">
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Moc</mat-label>
+
+      <input
+        matInput
+        type="text"
+        placeholder="Wprowadź moc"
+        formControlName="power"
+        required>
+
+      <mat-error class="error" *ngIf="getFormControl('power').hasError('required')">
+        Moc jest wymagana
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Rodzaj paliwa</mat-label>
+
+      <mat-select placeholder="Wybierz rodzaj paliwa" formControlName="fuelType" required>
+        <mat-option value="Benzyna">Benzyna</mat-option>
+        <mat-option value="Diesel">Diesel</mat-option>
+        <mat-option value="Benzyna+LPG">Benzyna+LPG</mat-option>
+        <mat-option value="Hybryda">Hybryda</mat-option>
+        <mat-option value="Elektryczny">Elektryczny</mat-option>
+      </mat-select>
+
+      <mat-error class="error" *ngIf="getFormControl('fuelType').hasError('required')">
+        Rodzaj paliwa jest wymagany
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field" appearance="outline" *ngIf="formGroup.get('fuelType').value !== 'Elektryczny'">
+      <mat-label>Pojemność</mat-label>
+
+      <input
+        matInput
+        type="text"
+        placeholder="Wprowadź pojemność"
+        formControlName="capacity"
+        required>
+
+      <mat-error class="error" *ngIf="getFormControl('capacity').hasError('required')">
+        Pojemność jest wymagana
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <div class="field field-radio" appearance="outline">
+      <mat-label class="label">Skrzynia biegów</mat-label>
+
+      <mat-radio-group class="radio-group" formControlName="gearbox" required>
+        <mat-radio-button class="radio-value" value="manual">Manualna</mat-radio-button>
+        <mat-radio-button class="radio-value" value="automatic">Automatyczna</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="field field-radio" appearance="outline">
+      <mat-label class="label">Napęd</mat-label>
+
+      <mat-radio-group class="radio-group" formControlName="gearbox" required>
+        <mat-radio-button class="radio-value" value="FWD">Na przednie koła</mat-radio-button>
+        <mat-radio-button class="radio-value" value="RWD">Na tylne koła</mat-radio-button>
+        <mat-radio-button class="radio-value" value="AWD">4x4</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</form>
+
+<div mat-dialog-actions class="actions">
+  <button mat-stroked-button matStepperPrevious>
+    Cofnij
+  </button>
+
+  <button mat-raised-button color="primary" matStepperNext>
+    Dalej
+  </button>
+</div>

@@ -35,7 +35,7 @@ export class AddVehicleModalComponent implements OnInit {
     return this.fb.group({
       capacity: [ null, Validators.required ],
       power: [ null, Validators.required ],
-      fuel: [ null, Validators.required ],
+      fuelType: [ null, Validators.required ],
       gearbox: [ null, Validators.required ],
       drive: [ null, Validators.required ],
     });
