@@ -1,10 +1,17 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { equal } from 'assert';
 
 import { TokenTypes } from '@constants';
-import { MissingAuthHeaderError, InvalidTokenError, InvalidPasswordResetRequestError  } from '@errors';
+import {
+  MissingAuthHeaderError,
+  InvalidTokenError,
+  InvalidPasswordResetRequestError,
+  ExpiredTokenError,
+} from '@errors';
 import { TokenService } from '@services';
 import { AppConfigService } from '@config';
 import { UsersService } from '../users.service';
+import { TokenExpiredError } from 'jsonwebtoken';
 
 @Injectable()
 export class ResetPasswordGuard implements CanActivate {
@@ -32,10 +39,12 @@ export class ResetPasswordGuard implements CanActivate {
       const passwordResetTokenSecret = this.usersService.createPasswordResetTokenSecret(this.config.auth.passwordResetSecret, id);
       const payload = await this.tokenService.decodeToken(token, passwordResetTokenSecret) as { type: string };
 
-      if (payload.type !== TokenTypes.ResetPassword) {
-        throw new InvalidTokenError();
-      }
+      equal(payload.type, TokenTypes.ResetPassword);
     } catch (error) {
+      if (error instanceof TokenExpiredError) {
+        throw new ExpiredTokenError();
+      }
+
       throw new InvalidTokenError();
     }
 

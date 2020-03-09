@@ -10,6 +10,7 @@ import { HttpStatusCodes } from '@shared/constants/http-status-codes';
 import { ErrorMessages } from '@shared/constants/error-messages';
 import * as AuthActions from '@store/auth-store/auth-actions';
 import { UsersDataService } from '@services/data-integration/users-data.service';
+import { SocialAuthService } from '@services/data-integration/social-auth.service';
 import { HttpErrorMessages } from '@shared/constants/http-error-messages';
 
 @Injectable()
@@ -17,6 +18,7 @@ export class AuthEffects {
   constructor(
     private authService: AuthDataService,
     private usersService: UsersDataService,
+    private socialAuthService: SocialAuthService,
     private actions$: Actions,
     private router: Router,
   ) {}
@@ -49,6 +51,38 @@ export class AuthEffects {
     }),
   ));
 
+  public loginViaGoogleEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.LoginViaGoogleAction),
+    switchMap(() => {
+      return this.socialAuthService.loginViaGoogle()
+        .pipe(
+          map(() =>  {
+            this.router.navigate(['/app']);
+            return AuthActions.LoginViaGoogleSuccessAction();
+          }),
+          catchError(() => {
+            return of(AuthActions.LoginViaGoogleFailAction({ error: ErrorMessages.GeneralServerError }));
+          }),
+        );
+    }),
+  ));
+
+  public loginViaFacebookEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.LoginViaFacebookAction),
+    switchMap(() => {
+      return this.socialAuthService.loginViaFacebook()
+        .pipe(
+          map(() =>  {
+            this.router.navigate(['/app']);
+            return AuthActions.LoginViaFacebookSuccessAction();
+          }),
+          catchError(() => {
+            return of(AuthActions.LoginViaFacebookFailAction({ error: ErrorMessages.GeneralServerError }));
+          }),
+        );
+    }),
+  ));
+
   public registerUserEffect$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.RegisterUserAction),
     switchMap(({ payload }) => {
@@ -60,6 +94,38 @@ export class AuthEffects {
             const error = isConflictStatusCode ? ErrorMessages.UserAlreadyExists : ErrorMessages.GeneralServerError;
 
             return of(AuthActions.RegisterUserFailAction({ error }));
+          }),
+        );
+    }),
+  ));
+
+  public registerUserViaGoogleEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.RegisterUserViaGoogleAction),
+    switchMap(() => {
+      return this.socialAuthService.registerViaGoogle()
+        .pipe(
+          map(() => {
+            this.router.navigate(['/app']);
+            return AuthActions.RegisterUserViaGoogleSuccessAction();
+          }),
+          catchError(() => {
+            return of(AuthActions.RegisterUserViaGoogleFailAction({ error: ErrorMessages.GeneralServerError }));
+          }),
+        );
+    }),
+  ));
+
+  public registerUserViaFacebookEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.RegisterUserViaFacebookAction),
+    switchMap(() => {
+      return this.socialAuthService.registerViaFacebook()
+        .pipe(
+          map(() => {
+            this.router.navigate(['/app']);
+            return AuthActions.RegisterUserViaFacebookSuccessAction();
+          }),
+          catchError(() => {
+            return of(AuthActions.RegisterUserViaFacebookFailAction({ error: ErrorMessages.GeneralServerError }));
           }),
         );
     }),

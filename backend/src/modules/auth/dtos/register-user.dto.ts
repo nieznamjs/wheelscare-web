@@ -1,6 +1,6 @@
 import { IsEmail, IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { USER_PASSWORD_REGEX } from '@constants';
+import { USER_PASSWORD_REGEX } from '@purbanski-deftcode/wc-common';
 
 export class RegisterUserDto {
   @ApiProperty({ example: 'contact@example.com' }) @IsEmail() public email: string;
