@@ -14,9 +14,6 @@
 .event {
   display: flex;
   padding: 10px 20px;
-  box-shadow: $general-shadow;
-  background-color: $white;
-  border-radius: 3px;
 
   &:not(:last-child) {
     margin-bottom: 10px;

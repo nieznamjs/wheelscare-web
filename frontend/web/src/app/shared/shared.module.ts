@@ -55,7 +55,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
   ],
-  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent, EngineComponent, BodyComponent],
+  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent, EngineComponent, BodyComponent ],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

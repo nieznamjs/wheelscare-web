@@ -1,5 +1,6 @@
 @import "fonts";
 @import "colors";
+@import "variables";
 
 html,
 body {
@@ -29,4 +30,10 @@ a {
 
 .mat-select-value {
   color: currentColor;
+}
+
+.box-default {
+  box-shadow: $general-shadow;
+  border-radius: $general-border-radius;
+  background-color: $white;
 }

@@ -26,7 +26,7 @@
     "@ngrx/schematics": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
-    "@purbanski-deftcode/wc-common": "^1.2.0",
+    "@purbanski-deftcode/wc-common": "^1.5.0",
     "angularx-social-login": "^2.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
