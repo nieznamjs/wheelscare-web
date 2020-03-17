@@ -11,7 +11,7 @@ export class ModalService {
     private dialog: MatDialog,
   ) { }
 
-  public open(component: ComponentType<any>, options: MatDialogConfig): MatDialogRef<ComponentType<any>> {
+  public open<T>(component: ComponentType<T>, options: MatDialogConfig): MatDialogRef<T> {
     return this.dialog.open(component, { ...options });
   }
 }
