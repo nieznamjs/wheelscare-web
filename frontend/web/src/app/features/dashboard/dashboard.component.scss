@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  padding: 50px 20px 50px 76px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.box {
+  &-left {
+    flex: 4;
+    margin-right: 50px;
+  }
+
+  &-right {
+    flex: 6;
+  }
+}
+
+.list {
+  display: block;
+  height: 50%;
+
+  &:not(:last-child) {
+    margin-bottom: 50px;
+  }
+}
+
+.calendar {
+  display: block;
+  margin-top: 50px;
+}

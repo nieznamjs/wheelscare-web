@@ -1,0 +1,83 @@
+<form [formGroup]="formGroup" class="form">
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>Kolor lakieru</mat-label>
+
+    <mat-select placeholder="Wybierz kolor lakieru" formControlName="color" required>
+      <mat-option value="Czerwony (najszybszy)">Czerwony (najszybszy)</mat-option>
+      <mat-option value="Czarny">Czarny</mat-option>
+      <mat-option value="Biały">Biały</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('color').hasError('required')">
+      Kolor lakieru jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>Rodzaj lakieru</mat-label>
+
+    <mat-select placeholder="Wybierz rodzaj lakieru" formControlName="paintType" required>
+      <mat-option value="Metalik">Metalik</mat-option>
+      <mat-option value="Perłowy">Perłowy</mat-option>
+      <mat-option value="Mat">Mat</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('paintType').hasError('required')">
+      Rodzaj lakieru jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>Liczba drzwi</mat-label>
+
+    <mat-select placeholder="Wybierz liczbę drzwi" formControlName="doorsNumber" required>
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4">4</mat-option>
+      <mat-option value="5">5</mat-option>
+      <mat-option value="6">6</mat-option>
+      <mat-option value="7">7</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('doorsNumber').hasError('required')">
+      Liczba drzwi jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field" appearance="outline">
+    <mat-label>Liczba miejsc</mat-label>
+
+    <mat-select placeholder="Wybierz liczbę drzwi" formControlName="doorsNumber" required>
+      <mat-option value="2">2</mat-option>
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4">4</mat-option>
+      <mat-option value="5">5</mat-option>
+      <mat-option value="6">6</mat-option>
+      <mat-option value="7">7</mat-option>
+      <mat-option value="8">8</mat-option>
+      <mat-option value="9">9</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('seatsNumber').hasError('required')">
+      Liczba miejsc jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <div class="field field-radio">
+    <mat-label class="label">Kierownika po prawej (Anglik)</mat-label>
+
+    <mat-radio-group class="radio-group" formControlName="isEnglishman" required #isEnglishman>
+      <mat-radio-button class="radio-value" [value]="false" checked>Nie</mat-radio-button>
+      <mat-radio-button class="radio-value" [value]="true">Tak</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</form>
+
+<div mat-dialog-actions class="actions">
+  <button mat-stroked-button matStepperPrevious>
+    Cofnij
+  </button>
+
+  <button mat-raised-button color="primary" (click)="save()">
+    Zapisz
+  </button>
+</div>

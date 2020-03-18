@@ -1,0 +1,13 @@
+.form {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  margin-top: 20px;
+  grid-auto-flow: column;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}

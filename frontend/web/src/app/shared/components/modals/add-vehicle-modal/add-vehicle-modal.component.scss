@@ -1,0 +1,11 @@
+@import "styles/colors";
+
+:host {
+  color: $font-primary;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

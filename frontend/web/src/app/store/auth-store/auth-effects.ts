@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { ApiErrors } from '@purbanski-deftcode/wc-common';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';
@@ -28,12 +29,21 @@ export class AuthEffects {
       return this.authService.login(action.payload.email, action.payload.password)
         .pipe(
           map(() =>  {
-            this.router.navigate(['/app']);
+            this.router.navigate(['/dashboard']);
             return AuthActions.LoginSuccessAction();
           }),
           catchError((err: HttpErrorResponse) => {
             const isUnauthorizedStatusCode = err.error.statusCode === HttpStatusCodes.Unauthorized;
-            const error = isUnauthorizedStatusCode ? ErrorMessages.Unauthorized : ErrorMessages.GeneralServerError;
+            const isUserNotActive = err.error.message === ApiErrors.UserIsNotActive;
+            let error = ErrorMessages.GeneralServerError;
+
+            if (isUnauthorizedStatusCode) {
+              error = ErrorMessages.Unauthorized;
+            }
+
+            if (isUserNotActive) {
+              error = ErrorMessages.UserIsNotActive;
+            }
 
             return of(AuthActions.LoginFailAction({ error }));
           }),
@@ -47,7 +57,7 @@ export class AuthEffects {
       return this.socialAuthService.loginViaGoogle()
         .pipe(
           map(() =>  {
-            this.router.navigate(['/app']);
+            this.router.navigate(['/dashboard']);
             return AuthActions.LoginViaGoogleSuccessAction();
           }),
           catchError(() => {
@@ -63,7 +73,7 @@ export class AuthEffects {
       return this.socialAuthService.loginViaFacebook()
         .pipe(
           map(() =>  {
-            this.router.navigate(['/app']);
+            this.router.navigate(['/dashboard']);
             return AuthActions.LoginViaFacebookSuccessAction();
           }),
           catchError(() => {
@@ -95,7 +105,7 @@ export class AuthEffects {
       return this.socialAuthService.registerViaGoogle()
         .pipe(
           map(() => {
-            this.router.navigate(['/app']);
+            this.router.navigate(['/dashboard']);
             return AuthActions.RegisterUserViaGoogleSuccessAction();
           }),
           catchError(() => {
@@ -111,7 +121,7 @@ export class AuthEffects {
       return this.socialAuthService.registerViaFacebook()
         .pipe(
           map(() => {
-            this.router.navigate(['/app']);
+            this.router.navigate(['/dashboard']);
             return AuthActions.RegisterUserViaFacebookSuccessAction();
           }),
           catchError(() => {

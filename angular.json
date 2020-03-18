@@ -32,7 +32,9 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "frontend/web/src/styles.scss"
+              "frontend/web/src/styles.scss",
+              "./node_modules/tui-calendar/dist/tui-calendar.css",
+              "./node_modules/tui-date-picker/dist/tui-date-picker.css"
             ],
             "scripts": []
           },

@@ -1,0 +1,41 @@
+@import "styles/variables";
+@import "styles/colors";
+
+.vehicles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-vehicle-btn {
+  color: $white;
+}
+
+.vehicles-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+
+.vehicle {
+  display: flex;
+  padding: 10px 20px;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &.active {
+    background-color: $gray-light;
+  }
+}
+
+.vehicle-desc {
+  font-size: 14px;
+}
+
+.vehicle-logo {
+  width: 80px;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
