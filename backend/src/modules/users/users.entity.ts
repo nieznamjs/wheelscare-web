@@ -11,4 +11,10 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   public active: boolean;
+
+  @Column({ select: false, unique: true, nullable: true, type: 'bigint' })
+  public facebookId: number;
+
+  @Column({ select: false, unique: true, nullable: true })
+  public googleId: string;
 }

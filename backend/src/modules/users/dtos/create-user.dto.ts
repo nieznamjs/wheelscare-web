@@ -11,4 +11,7 @@ export class CreateUserDto extends BaseUserDto {
   @MaxLength(24)
   @Matches(USER_PASSWORD_REGEX)
   public readonly password: string;
+
+  public facebookId?: number;
+  public googleId?: string;
 }
