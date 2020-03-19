@@ -99,38 +99,6 @@ export class AuthEffects {
     }),
   ));
 
-  public registerUserViaGoogleEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.RegisterUserViaGoogleAction),
-    switchMap(() => {
-      return this.socialAuthService.registerViaGoogle()
-        .pipe(
-          map(() => {
-            this.router.navigate(['/dashboard']);
-            return AuthActions.RegisterUserViaGoogleSuccessAction();
-          }),
-          catchError(() => {
-            return of(AuthActions.RegisterUserViaGoogleFailAction({ error: ErrorMessages.GeneralServerError }));
-          }),
-        );
-    }),
-  ));
-
-  public registerUserViaFacebookEffect$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthActions.RegisterUserViaFacebookAction),
-    switchMap(() => {
-      return this.socialAuthService.registerViaFacebook()
-        .pipe(
-          map(() => {
-            this.router.navigate(['/dashboard']);
-            return AuthActions.RegisterUserViaFacebookSuccessAction();
-          }),
-          catchError(() => {
-            return of(AuthActions.RegisterUserViaFacebookFailAction({ error: ErrorMessages.GeneralServerError }));
-          }),
-        );
-    }),
-  ));
-
   public initPasswordReset$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.InitResetPasswordAction),
     switchMap(({ payload }) => {

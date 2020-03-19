@@ -19,26 +19,10 @@ export class SocialAuthService {
     private config: ConfigService,
   ) {}
 
-  public registerViaGoogle(): Observable<IGeneralSuccessResponse> {
-    return this.getGoogleToken().pipe(
-      switchMap(token => {
-        return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/register/google`, { token });
-      })
-    );
-  }
-
   public loginViaGoogle(): Observable<IGeneralSuccessResponse> {
     return this.getGoogleToken().pipe(
       switchMap(token => {
         return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/login/google`, { token });
-      })
-    );
-  }
-
-  public registerViaFacebook(): Observable<IGeneralSuccessResponse> {
-    return this.getFacebookToken().pipe(
-      switchMap(token => {
-        return this.httpClient.post<IGeneralSuccessResponse>(`${this.authApiUrl}/register/facebook`, { token });
       })
     );
   }

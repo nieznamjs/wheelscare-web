@@ -67,14 +67,6 @@ export class AuthFacade {
     this.store.dispatch(RegisterUserAction({ payload: { newUser }}));
   }
 
-  public registerUserViaGoogle(): void {
-    this.store.dispatch(RegisterUserViaGoogleAction());
-  }
-
-  public registerUserViaFacebook(): void {
-    this.store.dispatch(RegisterUserViaFacebookAction());
-  }
-
   public initPasswordReset(email: string): void {
     this.store.dispatch(InitResetPasswordAction({ payload: { email }}));
   }

@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
 import got from 'got';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { HashService, MailService, QueryService, TemplateService, TokenService } from '@services';
-import { FindAllQueryDto } from '@dtos';
 import { AppConfigService } from '@config';
-import { EQUAL, MailSubjects, Templates, TokenTypes } from '@constants';
+import { MailSubjects, Templates, TokenTypes } from '@constants';
 import { InvalidTokenError, UnauthorizedUserError, UserNotActiveError } from '@errors';
 
 import { User } from '../users/users.entity';
@@ -27,6 +28,7 @@ export class AuthService {
     private readonly appConfigService: AppConfigService,
     private readonly templateService: TemplateService,
     private readonly mailService: MailService,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {
     this.googleAuthClient = new OAuth2Client(this.appConfigService.auth.googleClientId);
   }
@@ -39,74 +41,42 @@ export class AuthService {
     return createdUser;
   }
 
-  public async registerViaGoogle(token: string): Promise<{ token: string }> {
-    const googleTokenPayload = await this.getGoogleTokenPayload(token);
-    const user = await this.usersService.create({
-      email: googleTokenPayload.email,
-      password: null,
-      active: true,
-    });
-
-    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
-      userId: user.id,
-      type: TokenTypes.Auth,
-    });
-
-    return { token: authToken };
-  }
-
-  public async registerViaFacebook(token: string): Promise<{ token: string }> {
-    const googleTokenPayload = await this.getFacebookTokenPayload(token);
-    const user = await this.usersService.create({
-      email: googleTokenPayload.email,
-      password: null,
-      active: true,
-    });
-
-    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
-      userId: user.id,
-      type: TokenTypes.Auth,
-    });
-
-    return { token: authToken };
-  }
-
   public async loginViaGoogle(token: string): Promise<{ token: string }> {
     const googleTokenPayload = await this.getGoogleTokenPayload(token);
-    const user = await this.findUserByEmail(googleTokenPayload.email);
+    const userByGoogleId = await this.userRepository.findOne({ googleId: googleTokenPayload.sub });
 
-    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
-      userId: user.id,
-      type: TokenTypes.Auth,
-    });
+    if (!userByGoogleId) {
+      return this.registerViaGoogle(googleTokenPayload.email, googleTokenPayload.sub);
+    }
+
+    const user = await this.findUserByEmailOrUnauthorize(googleTokenPayload.email);
+    const authToken = await this.generateAuthToken(user.id);
 
     return { token: authToken };
   }
 
   public async loginViaFacebook(token: string): Promise<{ token: string }> {
     const facebookTokenPayload = await this.getFacebookTokenPayload(token);
-    const user = await this.findUserByEmail(facebookTokenPayload.email);
+    const userByFacebookId = await this.userRepository.findOne({ facebookId: facebookTokenPayload.id });
 
-    const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
-      userId: user.id,
-      type: TokenTypes.Auth,
-    });
+    if (!userByFacebookId) {
+      return this.registerViaFacebook(facebookTokenPayload.email, facebookTokenPayload.id);
+    }
+
+    const user = await this.findUserByEmailOrUnauthorize(facebookTokenPayload.email);
+    const authToken = await this.generateAuthToken(user.id);
 
     return { token: authToken };
   }
 
   public async authenticate(loginData: LoginUserDto): Promise<{ token: string }> {
-    const user = await this.findUserByEmail(loginData.email);
-
+    const user = await this.findUserByEmailOrUnauthorize(loginData.email);
     const arePasswordsEqual = await this.hashService.compare(loginData.password, user.password);
 
     if (!arePasswordsEqual) { throw new UnauthorizedUserError(); }
     if (!user.active) { throw new UserNotActiveError(); }
 
-    const token = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
-      userId: user.id,
-      type: TokenTypes.Auth,
-    });
+    const token = await this.generateAuthToken(user.id);
 
     return { token };
   }
@@ -125,18 +95,41 @@ export class AuthService {
     return payload;
   }
 
-  private async findUserByEmail(email: string): Promise<User> {
-    const query = new FindAllQueryDto({
-      queries: [
-        {
-          email: { operator: EQUAL, value: email },
-        },
-      ],
-      select: ['id', 'password', 'active'],
+  private async registerViaGoogle(email: string, googleId: string): Promise<{ token: string }> {
+    const user = await this.usersService.create({
+      email,
+      password: null,
+      active: true,
+      googleId,
     });
 
-    const res = await this.queryService.findAll<User>(User, query);
-    const user = res.data[0];
+    const authToken = await this.generateAuthToken(user.id);
+
+    return { token: authToken };
+  }
+
+  private async registerViaFacebook(email: string, facebookId: number): Promise<{ token: string }> {
+    const user = await this.usersService.create({
+      email,
+      password: null,
+      active: true,
+      facebookId,
+    });
+
+    const authToken = await this.generateAuthToken(user.id);
+
+    return { token: authToken };
+  }
+
+  private async generateAuthToken(userId: string): Promise<string> {
+    return this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
+      userId,
+      type: TokenTypes.Auth,
+    });
+  }
+
+  private async findUserByEmailOrUnauthorize(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({ email });
 
     if (!user) { throw new UnauthorizedUserError(); }
 
