@@ -14,6 +14,7 @@ import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { CreateUserDto } from '../users/dtos';
 import { FacebookTokenPayload } from './interfaces/facebook-token-payload.interface';
+import { UserRoles } from '@purbanski-deftcode/wc-common';
 
 @Injectable()
 export class AuthService {
@@ -45,6 +46,7 @@ export class AuthService {
       email: googleTokenPayload.email,
       password: null,
       active: true,
+      role: UserRoles.Member,
     });
 
     const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
@@ -61,6 +63,7 @@ export class AuthService {
       email: googleTokenPayload.email,
       password: null,
       active: true,
+      role: UserRoles.Member,
     });
 
     const authToken = await this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {

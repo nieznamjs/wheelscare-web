@@ -1,5 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from '@entities';
+import { UserRoles } from '@purbanski-deftcode/wc-common';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -11,4 +12,7 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   public active: boolean;
+
+  @Column()
+  public role: UserRoles;
 }
