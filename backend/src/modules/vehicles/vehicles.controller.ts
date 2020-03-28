@@ -15,6 +15,7 @@ import { VehicleResponseDto } from './dtos/vehicle-response.dto';
 import { VehiclesService } from './vehicles.service';
 import { VehiclesResponseDto } from './dtos/vehicles-response.dto';
 import { UpdateVehicleDto } from './dtos/update-vehicle.dto';
+import { VehiclesBrandsResponseDto } from './dtos/vehicles-brands-response.dto';
 
 @ApiTags(Routes.Vehicles)
 @Controller(Routes.Vehicles)
@@ -28,6 +29,12 @@ export class VehiclesController {
   @ApiOkResponse({ type: VehiclesResponseDto, description: 'List of vehicles' })
   public async read(@Query() findAllQueryDto: FindAllQueryDto): Promise<ReadAllResponse<Vehicle>> {
     return this.vehiclesService.read(findAllQueryDto);
+  }
+
+  @Get('/brands')
+  @ApiOkResponse({ type: VehiclesBrandsResponseDto, description: 'List of brands with models and generations' })
+  public async getBrands(): Promise<VehiclesBrandsResponseDto> {
+    return { brands: this.vehiclesService.getBrands() };
   }
 
   @Get(':id')

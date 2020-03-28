@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRoles } from '@purbanski-deftcode/wc-common';
+import { IVehicleBrands, UserRoles, VEHICLE_BRANDS } from '@purbanski-deftcode/wc-common';
 
 import { FindAllQueryDto } from '@dtos';
 import { QueryService } from '@services';
@@ -74,5 +74,9 @@ export class VehiclesService {
     await this.vehicleRepository.update(vehicle.id, vehicle);
 
     return this.vehicleRepository.findOne(vehicle.id);
+  }
+
+  public getBrands(): IVehicleBrands {
+    return VEHICLE_BRANDS;
   }
 }
