@@ -6,7 +6,7 @@ import {
   VehicleTransmissionTypes,
   VehicleTypes,
 } from '@purbanski-deftcode/wc-common';
-import { IsBoolean, IsEnum, IsNumber, IsString, Length } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import * as faker from 'faker';
 
@@ -36,7 +36,6 @@ export class CreateVehicleDto {
   public transmissionType: VehicleTransmissionTypes;
 
   @IsNumber()
-  @Length(4, 4)
   @ApiProperty({ example: 2012 })
   public yearOfProduction: number;
 

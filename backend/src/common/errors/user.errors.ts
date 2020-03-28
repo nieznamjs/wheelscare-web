@@ -19,3 +19,9 @@ export class UserNotFoundError extends HttpException {
     super(ApiErrors.UserNotFound, HttpStatus.NOT_FOUND);
   }
 }
+
+export class UserRoleNotAllowedError extends HttpException {
+  constructor() {
+    super(ApiErrors.UserRoleNotAllowed, HttpStatus.FORBIDDEN);
+  }
+}

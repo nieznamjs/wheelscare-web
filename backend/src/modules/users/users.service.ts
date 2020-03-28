@@ -48,6 +48,7 @@ export class UsersService {
     }
 
     const user = this.userRepository.create(userDto);
+    user.password = await this.hashService.encrypt(user.password);
     const createdUser = await this.userRepository.save(user);
 
     return this.userRepository.findOne(createdUser.id);

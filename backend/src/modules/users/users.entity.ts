@@ -13,7 +13,7 @@ export class User extends BaseEntity {
   @Column({ default: false })
   public active: boolean;
 
-  @Column()
+  @Column({ default: UserRoles.Member })
   public role: UserRoles;
 
   @Column({ select: false, unique: true, nullable: true, type: 'bigint' })

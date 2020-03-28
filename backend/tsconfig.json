@@ -18,7 +18,8 @@
       "@constants": ["src/common/constants"],
       "@errors": ["src/common/errors"],
       "@entities": ["src/common/entities"],
-      "@shared": ["../shared"]
+      "@guards": ["src/common/guards"],
+      "@decorators": ["src/common/decorators"]
     }
   },
   "exclude": ["node_modules", "dist"]
