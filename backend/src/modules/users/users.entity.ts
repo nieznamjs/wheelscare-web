@@ -15,4 +15,10 @@ export class User extends BaseEntity {
 
   @Column()
   public role: UserRoles;
+
+  @Column({ select: false, unique: true, nullable: true, type: 'bigint' })
+  public facebookId: number;
+
+  @Column({ select: false, unique: true, nullable: true })
+  public googleId: string;
 }

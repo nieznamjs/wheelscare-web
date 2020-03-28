@@ -14,12 +14,6 @@ enum AuthActionsTypes {
   REGISTER_USER = '[WCW] Register User',
   REGISTER_USER_SUCCESS = '[WCW] Register User Success',
   REGISTER_USER_FAIL = '[WCW] Register User Fail',
-  REGISTER_USER_VIA_GOOGLE = '[WCW] Register user via google',
-  REGISTER_USER_VIA_GOOGLE_SUCCESS = '[WCW] Register user via google success',
-  REGISTER_USER_VIA_GOOGLE_FAIL = '[WCW] Register user via google fail',
-  REGISTER_USER_VIA_FACEBOOK = '[WCW] Register user via facebook',
-  REGISTER_USER_VIA_FACEBOOK_SUCCESS = '[WCW] Register user via facebook success',
-  REGISTER_USER_VIA_FACEBOOK_FAIL = '[WCW] Register user via facebook fail',
   INIT_RESET_PASSWORD = '[WCW] Init Reset Password',
   INIT_RESET_PASSWORD_SUCCESS = '[WCW] Init Reset Password Success',
   INIT_RESET_PASSWORD_FAIL = '[WCW] Init Reset Password Fail',
@@ -82,32 +76,6 @@ export const RegisterUserSuccessAction = createAction(
 
 export const RegisterUserFailAction = createAction(
   AuthActionsTypes.REGISTER_USER_FAIL,
-  props<{ error: string }>(),
-);
-
-export const RegisterUserViaGoogleAction = createAction(
-  AuthActionsTypes.REGISTER_USER_VIA_GOOGLE,
-);
-
-export const RegisterUserViaGoogleSuccessAction = createAction(
-  AuthActionsTypes.REGISTER_USER_VIA_GOOGLE_SUCCESS,
-);
-
-export const RegisterUserViaGoogleFailAction = createAction(
-  AuthActionsTypes.REGISTER_USER_VIA_GOOGLE_FAIL,
-  props<{ error: string }>(),
-);
-
-export const RegisterUserViaFacebookAction = createAction(
-  AuthActionsTypes.REGISTER_USER_VIA_FACEBOOK,
-);
-
-export const RegisterUserViaFacebookSuccessAction = createAction(
-  AuthActionsTypes.REGISTER_USER_VIA_FACEBOOK_SUCCESS,
-);
-
-export const RegisterUserViaFacebookFailAction = createAction(
-  AuthActionsTypes.REGISTER_USER_VIA_FACEBOOK_FAIL,
   props<{ error: string }>(),
 );
 

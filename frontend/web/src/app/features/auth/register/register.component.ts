@@ -45,12 +45,12 @@ export class RegisterComponent implements OnInit {
     return this.formsService.getFormControl(this.form, name);
   }
 
-  public registerViaGoogle(): void {
-    this.authFacade.registerUserViaGoogle();
+  public loginViaGoogle(): void {
+    this.authFacade.loginUserViaGoogle();
   }
 
-  public registerViaFacebook(): void {
-    this.authFacade.registerUserViaFacebook();
+  public loginViaFacebook(): void {
+    this.authFacade.loginUserViaFacebook();
   }
 
   public onSubmit(): void {

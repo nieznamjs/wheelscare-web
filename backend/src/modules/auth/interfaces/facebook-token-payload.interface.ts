@@ -1,4 +1,4 @@
 export interface FacebookTokenPayload {
-  id: string;
+  id: number;
   email: string;
 }
