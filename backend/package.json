@@ -111,7 +111,7 @@
       "^@constants$": "<rootDir>/common/constants",
       "^@errors$": "<rootDir>/common/errors",
       "^@entities$": "<rootDir>/common/entities",
-      "^@gaurds$": "<rootDir>/common/guards",
+      "^@guards$": "<rootDir>/common/guards",
       "^@decorators$": "<rootDir>/common/decorators"
     }
   }
