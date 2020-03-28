@@ -41,8 +41,8 @@ export class AuthController {
   @ApiOkResponse({ type: SuccessResponseDto, description: 'Besides success response it should return cookie with auth token' })
   @ApiUnauthorizedResponse({ description: 'Unauthorized user', schema: errorSchemaFactory(HttpStatus.UNAUTHORIZED, ApiErrors.UnauthorizedUser) })
   @ApiForbiddenResponse({ description: 'User not active', schema: errorSchemaFactory(HttpStatus.FORBIDDEN, ApiErrors.UserIsNotActive) })
-  public async login(@Body() loginUsernDto: LoginUserDto, @Res() res: Response): Promise<void> {
-    const { token } = await this.authService.authenticate(loginUsernDto);
+  public async login(@Body() loginUserDto: LoginUserDto, @Res() res: Response): Promise<void> {
+    const { token } = await this.authService.login(loginUserDto);
 
     res.cookie(Cookies.AuthToken, token, {
       httpOnly: true,

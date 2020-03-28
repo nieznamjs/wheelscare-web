@@ -15,6 +15,7 @@ import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { CreateUserDto } from '../users/dtos';
 import { FacebookTokenPayload } from './interfaces/facebook-token-payload.interface';
+import { UserRoles } from '@purbanski-deftcode/wc-common';
 
 @Injectable()
 export class AuthService {
@@ -50,7 +51,7 @@ export class AuthService {
     }
 
     const user = await this.findUserByEmailOrUnauthorize(googleTokenPayload.email);
-    const authToken = await this.generateAuthToken(user.id);
+    const authToken = await this.generateAuthToken(user.id, user.role);
 
     return { token: authToken };
   }
@@ -64,19 +65,19 @@ export class AuthService {
     }
 
     const user = await this.findUserByEmailOrUnauthorize(facebookTokenPayload.email);
-    const authToken = await this.generateAuthToken(user.id);
+    const authToken = await this.generateAuthToken(user.id, user.role);
 
     return { token: authToken };
   }
 
-  public async authenticate(loginData: LoginUserDto): Promise<{ token: string }> {
+  public async login(loginData: LoginUserDto): Promise<{ token: string }> {
     const user = await this.findUserByEmailOrUnauthorize(loginData.email);
     const arePasswordsEqual = await this.hashService.compare(loginData.password, user.password);
 
     if (!arePasswordsEqual) { throw new UnauthorizedUserError(); }
     if (!user.active) { throw new UserNotActiveError(); }
 
-    const token = await this.generateAuthToken(user.id);
+    const token = await this.generateAuthToken(user.id, user.role);
 
     return { token };
   }
@@ -101,9 +102,10 @@ export class AuthService {
       password: null,
       active: true,
       googleId,
+      role: UserRoles.Member,
     });
 
-    const authToken = await this.generateAuthToken(user.id);
+    const authToken = await this.generateAuthToken(user.id, user.role);
 
     return { token: authToken };
   }
@@ -114,22 +116,24 @@ export class AuthService {
       password: null,
       active: true,
       facebookId,
+      role: UserRoles.Member,
     });
 
-    const authToken = await this.generateAuthToken(user.id);
+    const authToken = await this.generateAuthToken(user.id, user.role);
 
     return { token: authToken };
   }
 
-  private async generateAuthToken(userId: string): Promise<string> {
+  private async generateAuthToken(userId: string, userRole: UserRoles): Promise<string> {
     return this.tokenService.generateToken(this.appConfigService.auth.basicSecret, {
       userId,
+      userRole,
       type: TokenTypes.Auth,
     });
   }
 
   private async findUserByEmailOrUnauthorize(email: string): Promise<User> {
-    const user = await this.userRepository.findOne({ email });
+    const user = await this.userRepository.findOne({ email }, { select: ['id', 'email', 'password', 'active', 'role'] });
 
     if (!user) { throw new UnauthorizedUserError(); }
 

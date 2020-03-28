@@ -1,5 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { BaseEntity } from '@entities';
+import { UserRoles } from '@purbanski-deftcode/wc-common';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -11,6 +12,9 @@ export class User extends BaseEntity {
 
   @Column({ default: false })
   public active: boolean;
+
+  @Column({ default: UserRoles.Member })
+  public role: UserRoles;
 
   @Column({ select: false, unique: true, nullable: true, type: 'bigint' })
   public facebookId: number;
