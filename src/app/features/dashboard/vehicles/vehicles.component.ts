@@ -11,6 +11,6 @@ export class VehiclesComponent {
   constructor(private modalService: ModalService) { }
 
   public openAddVehicleModal(): void {
-    const modalRef = this.modalService.open(AddVehicleModalComponent, { disableClose: true });
+    this.modalService.open(AddVehicleModalComponent, { disableClose: true });
   }
 }
