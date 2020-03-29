@@ -1,49 +1,49 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "frontend",
+  "newProjectRoot": "projects",
   "projects": {
-    "web": {
+    "wheelscare-web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "frontend/web",
-      "sourceRoot": "frontend/web/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "wcw",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "stylePreprocessorOptions": {
-              "includePaths": [ "./frontend/web/src" ]
-            },
-            "outputPath": "dist/web",
-            "index": "frontend/web/src/index.html",
-            "main": "frontend/web/src/main.ts",
-            "polyfills": "frontend/web/src/polyfills.ts",
-            "tsConfig": "frontend/web/tsconfig.app.json",
+            "outputPath": "dist/wheelscare-web",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "frontend/web/src/favicon.ico",
-              "frontend/web/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "frontend/web/src/styles.scss",
+              "src/styles.scss",
               "./node_modules/tui-calendar/dist/tui-calendar.css",
               "./node_modules/tui-date-picker/dist/tui-date-picker.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [ "./src" ]
+            },
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "frontend/web/src/environments/environment.ts",
-                  "with": "frontend/web/src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -72,34 +72,34 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "wheelscare-web:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "web:build:production"
+              "browserTarget": "wheelscare-web:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "web:build"
+            "browserTarget": "wheelscare-web:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "frontend/web/src/test.ts",
-            "polyfills": "frontend/web/src/polyfills.ts",
-            "tsConfig": "frontend/web/tsconfig.spec.json",
-            "karmaConfig": "frontend/web/karma.conf.js",
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
-              "frontend/web/src/favicon.ico",
-              "frontend/web/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "frontend/web/src/styles.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -108,9 +108,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "frontend/web/tsconfig.app.json",
-              "frontend/web/tsconfig.spec.json",
-              "frontend/web/e2e/tsconfig.json"
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -120,17 +120,16 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "frontend/web/e2e/protractor.conf.js",
-            "devServerTarget": "web:serve"
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "wheelscare-web:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "web:serve:production"
+              "devServerTarget": "wheelscare-web:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "web"
+    }},
+  "defaultProject": "wheelscare-web"
 }

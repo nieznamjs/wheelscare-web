@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
 import { FormsService } from '@services/utils/forms.service';
+import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
 import { AuthFacade } from '@store/auth-store';
 
 @Component({
   selector: 'wcw-login',
+  styleUrls: ['./login.component.scss'],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
@@ -42,11 +42,11 @@ export class LoginComponent implements OnInit {
   }
 
   public loginViaGoogle(): void {
-    this.authFacade.loginViaGoogle();
+    this.authFacade.loginUserViaGoogle();
   }
 
   public loginViaFacebook(): void {
-    this.authFacade.loginViaFacebook();
+    this.authFacade.loginUserViaFacebook();
   }
 
   public onSubmit(): void {

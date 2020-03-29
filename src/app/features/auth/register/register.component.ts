@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
 import { FormsService } from '@services/utils/forms.service';
+import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
 import { AuthFacade } from '@store/auth-store';
 
 @Component({
   selector: 'wcw-register',
+  styleUrls: ['./register.component.scss'],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   public form: FormGroup;
@@ -27,9 +27,9 @@ export class RegisterComponent implements OnInit {
 
   private createForm(): FormGroup {
     return this.fb.group({
+      confirmPassword: [ null, Validators.required ],
       email: [ null, [ Validators.required, Validators.email ] ],
       password: [ null, [ Validators.required, Validators.pattern(PASSWORD_REQUIREMENT_REGEX_STRING) ] ],
-      confirmPassword: [ null, Validators.required ],
     });
   }
 

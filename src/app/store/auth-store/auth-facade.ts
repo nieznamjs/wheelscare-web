@@ -2,6 +2,15 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AuthState } from '@interfaces';
+import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
+import {
+  ActivateUserAction,
+  InitResetPasswordAction,
+  LoginAction, LoginViaFacebookAction,
+  LoginViaGoogleAction,
+  RegisterUserAction,
+  ResetPasswordAction,
+} from './auth-actions';
 import {
   selectActivateUserError,
   selectActivateUserSuccess,
@@ -17,15 +26,6 @@ import {
   selectRegisteredSuccessfully,
   selectRegisterUserError,
 } from './auth-selectors';
-import {
-  ActivateUserAction,
-  InitResetPasswordAction,
-  LoginAction, LoginViaFacebookAction,
-  LoginViaGoogleAction,
-  RegisterUserAction, RegisterUserViaFacebookAction, RegisterUserViaGoogleAction,
-  ResetPasswordAction
-} from './auth-actions';
-import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
 
 @Injectable()
 export class AuthFacade {
@@ -55,11 +55,11 @@ export class AuthFacade {
     this.store.dispatch(LoginAction({ payload: { email, password }}));
   }
 
-  public loginViaGoogle(): void {
+  public loginUserViaGoogle(): void {
     this.store.dispatch(LoginViaGoogleAction());
   }
 
-  public loginViaFacebook(): void {
+  public loginUserViaFacebook(): void {
     this.store.dispatch(LoginViaFacebookAction());
   }
 

@@ -44,14 +44,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-.gradle
-android
-ios
-
-# BACKEND
-/backend/.env
-/backend/dist
-/backend/node_modules/
-/backend/coverage/
-/backend/.vscode/
