@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AuthState } from '@interfaces';
-import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
+import { IRegisterUserBody } from '@wheelscare/common';
 import {
   ActivateUserAction,
   InitResetPasswordAction,

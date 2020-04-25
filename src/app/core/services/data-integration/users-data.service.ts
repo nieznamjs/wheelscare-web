@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
+import { IGeneralSuccessResponse } from '@wheelscare/common';
 import { ConfigService } from '@services/utils/config.service';
 
 @Injectable({

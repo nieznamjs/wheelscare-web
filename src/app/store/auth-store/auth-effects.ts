@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { ApiErrors } from '@purbanski-deftcode/wc-common';
+import { ApiErrors } from '@wheelscare/common';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
 import { HttpStatusCodes } from '@shared/constants/http-status-codes';

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IRegisterUserBody } from '@purbanski-deftcode/wc-common';
+import { IRegisterUserBody } from '@wheelscare/common';
 
 enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
