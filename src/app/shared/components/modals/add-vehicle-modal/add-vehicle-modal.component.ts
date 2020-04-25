@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { IVehicleBrands } from '@wheelscare/common';
+import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { VALID_VIN_REGEX } from '@constants';
 
 @Component({
   selector: 'wcw-add-vehicle-modal',
@@ -11,16 +15,21 @@ export class AddVehicleModalComponent implements OnInit {
   public generalForm: FormGroup;
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
+  public brands: Observable<IVehicleBrands>;
+  public currYear = new Date().getFullYear();
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddVehicleModalComponent>,
+    private vehiclesService: VehiclesDataService,
   ) {}
 
   public ngOnInit(): void {
     this.generalForm = this.createGeneralForm();
     this.engineForm = this.createEngineForm();
     this.bodyForm = this.createBodyForm();
+
+    this.brands = this.vehiclesService.getBrands();
   }
 
   public close(): void {
@@ -36,10 +45,18 @@ export class AddVehicleModalComponent implements OnInit {
       name: [ null, Validators.required ],
       brand: [ null, Validators.required ],
       model: [ null, Validators.required ],
-      vin: [ null, Validators.required ],
+      vin: [ null, [ Validators.required, Validators.pattern(VALID_VIN_REGEX) ] ],
       type: [ null, Validators.required ],
-      mileage: [ null, Validators.required ],
-      productionYear: [ null, Validators.required ],
+      mileage: [ null, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(5000000),
+      ]],
+      productionYear: [ null, [
+        Validators.required,
+        Validators.min(1900),
+        Validators.max(this.currYear),
+      ]],
     });
   }
 

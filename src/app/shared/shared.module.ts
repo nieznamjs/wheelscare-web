@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
@@ -18,6 +19,7 @@ import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/a
 import { GeneralComponent } from '@components/modals/add-vehicle-modal/general/general.component';
 import { EngineComponent } from '@components/modals/add-vehicle-modal/engine/engine.component';
 import { BodyComponent } from '@components/modals/add-vehicle-modal/body/body.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const materialModules = [
   MatFormFieldModule,
@@ -29,6 +31,8 @@ const materialModules = [
   MatStepperModule,
   MatSelectModule,
   MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 
 interface CustomSvgIconConfig {
