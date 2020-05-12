@@ -9,6 +9,7 @@ import { environment } from '@env/environment';
 import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 
 const socialLoginConfig = new AuthServiceConfig([
   {
@@ -45,6 +46,7 @@ const socialLoginConfig = new AuthServiceConfig([
       useFactory: () => socialLoginConfig,
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'primary' } },
   ]
 })
 export class CoreModule { }

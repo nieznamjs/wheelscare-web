@@ -2,13 +2,13 @@
   <mat-form-field class="field" appearance="outline">
     <mat-label>Kolor lakieru</mat-label>
 
-    <mat-select placeholder="Wybierz kolor lakieru" formControlName="color" required>
+    <mat-select placeholder="Wybierz kolor lakieru" formControlName="paintColor" required>
       <mat-option value="Czerwony (najszybszy)">Czerwony (najszybszy)</mat-option>
       <mat-option value="Czarny">Czarny</mat-option>
       <mat-option value="Biały">Biały</mat-option>
     </mat-select>
 
-    <mat-error class="error" *ngIf="getFormControl('color').hasError('required')">
+    <mat-error class="error" *ngIf="getFormControl('paintColor').hasError('required')">
       Kolor lakieru jest wymagany
     </mat-error>
   </mat-form-field>
@@ -65,7 +65,7 @@
   <div class="field field-radio">
     <mat-label class="label">Kierownika po prawej (Anglik)</mat-label>
 
-    <mat-radio-group class="radio-group" formControlName="isEnglishman" required>
+    <mat-radio-group class="radio-group" formControlName="hasLeftSteeringWheelPosition" required>
       <mat-radio-button class="radio-value" [value]="false" checked>Nie</mat-radio-button>
       <mat-radio-button class="radio-value" [value]="true">Tak</mat-radio-button>
     </mat-radio-group>

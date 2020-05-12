@@ -26,7 +26,8 @@ export class ActivateAccountComponent implements OnInit {
     const userId = this.route.snapshot.params.id;
     const token = this.route.snapshot.queryParams.token;
 
-    if (!token || !VALID_UUID_REGEX.test(userId)) {
+    // TODO test user id `|| !VALID_UUID_REGEX.test(userId)`
+    if (!token) {
       this.idOrTokenError = ErrorMessages.CannotActivateUser;
       return;
     }

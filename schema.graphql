@@ -1,0 +1,73 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+}
+
+type Query {
+  addMyVehicle(vehicle: CreateVehicle): Vehicle
+  deleteMyVehicle(id: String): Boolean
+  me: User
+  transferMyVehicle(targetUserId: String, vehicleId: String): Boolean
+  updateMyVehicle(vehicle: UpdateVehicle): Vehicle
+}
+
+type User {
+  active: Boolean
+  email: String!
+  facebookId: Int
+  googleId: String
+  id: String!
+  role: String
+  vehicles: [Vehicle]
+}
+
+type Vehicle {
+  brand: String!
+  driveType: String!
+  engineCapacity: Int!
+  enginePower: Int!
+  fuelType: String!
+  hasLeftSteeringWheelPosition: Boolean!
+  id: String!
+  model: String!
+  paintColor: String!
+  paintType: String!
+  transmissionType: String!
+  type: String!
+  vin: String!
+  yearOfProduction: Int!
+}
+
+input CreateVehicle {
+  brand: String!
+  driveType: String!
+  engineCapacity: Int!
+  enginePower: Int!
+  fuelType: String!
+  hasLeftSteeringWheelPosition: Boolean!
+  paintColor: String!
+  paintType: String!
+  transmissionType: String!
+  type: String!
+  vehicleModel: String!
+  vin: String!
+  yearOfProduction: Int!
+}
+
+input UpdateVehicle {
+  brand: String
+  driveType: String
+  engineCapacity: Int
+  enginePower: Int
+  fuelType: String
+  hasLeftSteeringWheelPosition: Boolean
+  id: String
+  paintColor: String
+  paintType: String
+  transmissionType: String
+  type: String
+  vehicleModel: String
+  vin: String
+  yearOfProduction: Int
+}

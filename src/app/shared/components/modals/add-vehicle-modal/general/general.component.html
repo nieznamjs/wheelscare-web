@@ -76,18 +76,18 @@
       matInput
       type="number"
       placeholder="Wprowadź rok produkcji"
-      formControlName="productionYear"
+      formControlName="yearOfProduction"
       required>
 
-    <mat-error class="error" *ngIf="getFormControl('productionYear').hasError('required')">
+    <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('required')">
       Rok produkcji jest wymagany
     </mat-error>
 
-    <mat-error class="error" *ngIf="getFormControl('productionYear').hasError('min')">
+    <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('min')">
       Rok produkcji musi być większy od 1900r.
     </mat-error>
 
-    <mat-error class="error" *ngIf="getFormControl('productionYear').hasError('max')">
+    <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('max')">
       Rok produkcji musi być mniejszy od {{ currYear }}r.
     </mat-error>
   </mat-form-field>
@@ -97,7 +97,7 @@
 
     <input
       matInput
-      type="text"
+      type="number"
       placeholder="Wprowadź aktualny przebieg"
       formControlName="mileage"
       required>

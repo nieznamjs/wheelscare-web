@@ -9,33 +9,10 @@
   display: flex;
 
   .field {
+    width: calc(33.33% - 20px);
+
     &:not(:last-child) {
       margin-right: 20px;
     }
-  }
-
-  .field-radio {
-    &:not(:last-child) {
-      margin-right: 50px;
-    }
-  }
-}
-
-.field-radio {
-  width: auto;
-}
-
-.field-radio,
-.radio-group {
-  display: flex;
-  flex-direction: column;
-
-  .label {
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-
-  .radio-value {
-    margin-bottom: 5px;
   }
 }

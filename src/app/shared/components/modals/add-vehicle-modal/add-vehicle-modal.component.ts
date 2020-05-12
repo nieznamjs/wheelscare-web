@@ -52,7 +52,7 @@ export class AddVehicleModalComponent implements OnInit {
         Validators.min(1),
         Validators.max(5000000),
       ]],
-      productionYear: [ null, [
+      yearOfProduction: [ null, [
         Validators.required,
         Validators.min(1900),
         Validators.max(this.currYear),
@@ -62,21 +62,21 @@ export class AddVehicleModalComponent implements OnInit {
 
   private createEngineForm(): FormGroup {
     return this.fb.group({
-      capacity: [ null, Validators.required ],
-      power: [ null, Validators.required ],
+      engineCapacity: [ null, [ Validators.required, Validators.min(1), Validators.max(99999) ] ],
+      enginePower: [ null, [ Validators.required, Validators.min(1), Validators.max(9999) ] ],
       fuelType: [ null, Validators.required ],
-      gearbox: [ null, Validators.required ],
-      drive: [ null, Validators.required ],
+      transmissionType: [ null, Validators.required ],
+      driveType: [ null, Validators.required ],
     });
   }
 
   private createBodyForm(): FormGroup {
     return this.fb.group({
-      color: [ null, Validators.required ],
+      paintColor: [ null, Validators.required ],
       paintType: [ null, Validators.required ],
       seatsNumber: [ null, Validators.required ],
       doorsNumber: [ null, Validators.required ],
-      isEnglishman: [ null, Validators.required ],
+      hasLeftSteeringWheelPosition: [ null, Validators.required ],
     });
   }
 }
