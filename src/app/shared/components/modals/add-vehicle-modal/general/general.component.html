@@ -29,11 +29,11 @@
   <mat-form-field class="field" appearance="outline">
     <mat-label>Model</mat-label>
 
-    <mat-select placeholder="Wybierz model" formControlName="model" required>
+    <mat-select placeholder="Wybierz model" formControlName="vehicleModel" required>
       <mat-option *ngFor="let model of models | keyvalue" [value]="model.key">{{ model.key }}</mat-option>
     </mat-select>
 
-    <mat-error class="error" *ngIf="getFormControl('model').hasError('required')">
+    <mat-error class="error" *ngIf="getFormControl('vehicleModel').hasError('required')">
       Model jest wymagany
     </mat-error>
   </mat-form-field>

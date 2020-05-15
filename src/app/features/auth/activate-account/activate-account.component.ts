@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { AuthFacade } from '@store/auth-store';
-import { VALID_UUID_REGEX } from '@shared/constants/regexes';
-import { ErrorMessages } from '@shared/constants/error-messages';
+import { ErrorMessages } from '@constants';
 
 @Component({
   selector: 'wcw-activate-account',

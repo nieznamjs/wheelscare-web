@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { IVehicleBrands } from '@wheelscare/common';
+
+import { IVehicleBrands, Vehicle } from '@wheelscare/common';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
 import { VALID_VIN_REGEX } from '@constants';
 
@@ -37,14 +38,24 @@ export class AddVehicleModalComponent implements OnInit {
   }
 
   public save(): void {
-    // TODO
+    const vehicle: Vehicle = {
+      ...this.generalForm.value,
+      ...this.engineForm.value,
+      ...this.bodyForm.value,
+    };
+
+    this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
+      if (result.data) {
+        this.dialogRef.close();
+      }
+    });
   }
 
   private createGeneralForm(): FormGroup {
     return this.fb.group({
       name: [ null, Validators.required ],
       brand: [ null, Validators.required ],
-      model: [ null, Validators.required ],
+      vehicleModel: [ null, Validators.required ],
       vin: [ null, [ Validators.required, Validators.pattern(VALID_VIN_REGEX) ] ],
       type: [ null, Validators.required ],
       mileage: [ null, [
@@ -76,7 +87,7 @@ export class AddVehicleModalComponent implements OnInit {
       paintType: [ null, Validators.required ],
       seatsNumber: [ null, Validators.required ],
       doorsNumber: [ null, Validators.required ],
-      hasLeftSteeringWheelPosition: [ null, Validators.required ],
+      hasLeftSteeringWheelPosition: [ false, Validators.required ],
     });
   }
 }

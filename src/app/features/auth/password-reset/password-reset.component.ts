@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 
 import { FormsService } from '@services/utils/forms.service';
 import { AuthFacade } from '@store/auth-store';
-import { PASSWORD_REQUIREMENT_REGEX_STRING, VALID_UUID_REGEX } from '@shared/constants/regexes';
+import { VALID_UUID_REGEX } from '@constants';
+import { USER_PASSWORD_REGEX } from '@wheelscare/common';
 
 @Component({
   selector: 'wcw-password-reset',
@@ -33,7 +34,7 @@ export class PasswordResetComponent implements OnInit {
 
   private createForm(): FormGroup {
     return this.fb.group({
-      password: [ null, [ Validators.required, Validators.pattern(PASSWORD_REQUIREMENT_REGEX_STRING) ] ],
+      password: [ null, [ Validators.required, Validators.pattern(USER_PASSWORD_REGEX) ] ],
       confirmPassword: [ null, Validators.required ],
     });
   }

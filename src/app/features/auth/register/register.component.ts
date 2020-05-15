@@ -3,8 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Observable } from 'rxjs';
 
 import { FormsService } from '@services/utils/forms.service';
-import { PASSWORD_REQUIREMENT_REGEX_STRING } from '@shared/constants/regexes';
 import { AuthFacade } from '@store/auth-store';
+import { USER_PASSWORD_REGEX } from '@wheelscare/common';
 
 @Component({
   selector: 'wcw-register',
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     return this.fb.group({
       confirmPassword: [ null, Validators.required ],
       email: [ null, [ Validators.required, Validators.email ] ],
-      password: [ null, [ Validators.required, Validators.pattern(PASSWORD_REQUIREMENT_REGEX_STRING) ] ],
+      password: [ null, [ Validators.required, Validators.pattern(USER_PASSWORD_REGEX) ] ],
     });
   }
 

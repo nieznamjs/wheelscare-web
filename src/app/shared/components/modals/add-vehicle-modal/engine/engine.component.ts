@@ -24,9 +24,4 @@ export class EngineComponent {
   public getFormControl(name: string): AbstractControl {
     return this.formsService.getFormControl(this.formGroup, name);
   }
-
-  public hasError(controlName: string): boolean {
-    return (this.getFormControl(controlName).dirty || this.getFormControl(controlName).touched)
-      && this.getFormControl(controlName).invalid;
-  }
 }

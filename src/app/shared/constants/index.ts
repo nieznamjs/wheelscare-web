@@ -4,3 +4,6 @@ export * from './regexes';
 export * from './vehicles-types-labels';
 export * from './fuel-types-labels';
 export * from './transmission-types-labels';
+export * from './paint-colors-labels';
+export * from './drive-types-labels';
+export * from './paint-types-labels';

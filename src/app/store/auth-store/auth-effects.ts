@@ -7,8 +7,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { ApiErrors } from '@wheelscare/common';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
-import { HttpStatusCodes } from '@shared/constants/http-status-codes';
-import { ErrorMessages } from '@shared/constants/error-messages';
+import { HttpStatusCodes, ErrorMessages } from '@constants';
 import * as AuthActions from '@store/auth-store/auth-actions';
 import { UsersDataService } from '@services/data-integration/users-data.service';
 import { SocialAuthService } from '@services/data-integration/social-auth.service';

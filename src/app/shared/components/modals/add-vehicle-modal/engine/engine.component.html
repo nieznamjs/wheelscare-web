@@ -5,7 +5,7 @@
 
       <input
         matInput
-        type="text"
+        type="number"
         placeholder="184"
         formControlName="enginePower"
         required>
@@ -61,7 +61,7 @@
 
   <div class="row">
     <mat-form-field class="field" appearance="outline">
-      <mat-label class="label" [class.error]="hasError('transmissionType')">
+      <mat-label class="label">
         Skrzynia biegów
       </mat-label>
 
@@ -69,13 +69,13 @@
         <mat-option *ngFor="let type of transmissionTypes" [value]="type.key">{{ type.label }}</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="hasError('transmissionType')">
+      <mat-error *ngIf="getFormControl('transmissionType').hasError('required')">
         Rodzaj skrzyni biegów jest wymagany
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="field" appearance="outline">
-      <mat-label class="label" [class.error]="hasError('driveType')">
+      <mat-label class="label">
         Napęd
       </mat-label>
 
@@ -83,7 +83,7 @@
         <mat-option *ngFor="let type of driveTypes" [value]="type.key">{{ type.label }}</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="hasError('driveType')">
+      <mat-error *ngIf="getFormControl('driveType').hasError('required')">
         Rodzaj napędu jest wymagany
       </mat-error>
     </mat-form-field>
