@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import gql from 'graphql-tag';
+import { Apollo, QueryRef } from 'apollo-angular';
 
-import { IGeneralSuccessResponse } from '@wheelscare/common';
+import { IGeneralSuccessResponse, IUser } from '@wheelscare/common';
 import { ConfigService } from '@services/utils/config.service';
 
 @Injectable({
@@ -14,7 +16,28 @@ export class UsersDataService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
+    private apollo: Apollo,
   ) {}
+
+  public getMe(): QueryRef<IUser> {
+    const query = gql`
+      {
+        me {
+          id,
+          email,
+          role,
+          vehicles {
+            id,
+            vin,
+            brand,
+            name,
+          },
+        },
+      },
+    `;
+
+    return this.apollo.watchQuery<IUser>({ query });
+  }
 
   public initPasswordReset(email: string): Observable<IGeneralSuccessResponse> {
     return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/init-password-reset`, { email });

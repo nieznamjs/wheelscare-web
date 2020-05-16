@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { FetchResult } from 'apollo-link';
 
 import {
   IVehicleBrands, Vehicle,
@@ -20,15 +22,12 @@ import {
   PaintColorsLabels,
   PaintTypesLabels,
 } from '@constants';
-import gql from 'graphql-tag';
-import { FetchResult } from 'apollo-link';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VehiclesDataService {
-  constructor(private apollo: Apollo) {
-  }
+  constructor(private apollo: Apollo) {}
 
   public getBrands(): Observable<IVehicleBrands> {
     // TODO change to http request
@@ -44,7 +43,7 @@ export class VehiclesDataService {
       }
     `;
 
-    return this.apollo.mutate({ mutation, variables: { vehicle } });
+    return this.apollo.mutate<Vehicle>({ mutation, variables: { vehicle } });
   }
 
   public getVehicleTypesSelectOptions(): { key: string, label: string }[] {

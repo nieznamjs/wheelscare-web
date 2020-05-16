@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { AuthFacade } from '@store/auth-store';
-import { ErrorMessages } from '@constants';
+import { ErrorMessages, VALID_MONGO_ID } from '@constants';
 
 @Component({
   selector: 'wcw-activate-account',
@@ -25,8 +25,7 @@ export class ActivateAccountComponent implements OnInit {
     const userId = this.route.snapshot.params.id;
     const token = this.route.snapshot.queryParams.token;
 
-    // TODO test user id `|| !VALID_UUID_REGEX.test(userId)`
-    if (!token) {
+    if (!token || !VALID_MONGO_ID.test(userId)) {
       this.idOrTokenError = ErrorMessages.CannotActivateUser;
       return;
     }

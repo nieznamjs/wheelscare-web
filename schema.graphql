@@ -2,14 +2,18 @@
 
 schema {
   query: Query
+  mutation: Mutation
+}
+
+type Mutation {
+  addMyVehicle(vehicle: CreateVehicle): Vehicle
+  deleteMyVehicle(id: String): Boolean
+  transferMyVehicle(targetUserId: String, vehicleId: String): Boolean
+  updateMyVehicle(vehicle: UpdateVehicle): Vehicle
 }
 
 type Query {
-  addMyVehicle(vehicle: CreateVehicle): Vehicle
-  deleteMyVehicle(id: String): Boolean
   me: User
-  transferMyVehicle(targetUserId: String, vehicleId: String): Boolean
-  updateMyVehicle(vehicle: UpdateVehicle): Vehicle
 }
 
 type User {
@@ -41,13 +45,17 @@ type Vehicle {
 
 input CreateVehicle {
   brand: String!
+  doorsNumber: Int!
   driveType: String!
   engineCapacity: Int!
   enginePower: Int!
   fuelType: String!
   hasLeftSteeringWheelPosition: Boolean!
+  mileage: Int!
+  name: String!
   paintColor: String!
   paintType: String!
+  seatsNumber: Int!
   transmissionType: String!
   type: String!
   vehicleModel: String!
@@ -57,14 +65,18 @@ input CreateVehicle {
 
 input UpdateVehicle {
   brand: String
+  doorsNumber: Int
   driveType: String
   engineCapacity: Int
   enginePower: Int
   fuelType: String
   hasLeftSteeringWheelPosition: Boolean
   id: String
+  mileage: Int
+  name: String
   paintColor: String
   paintType: String
+  seatsNumber: Int
   transmissionType: String
   type: String
   vehicleModel: String

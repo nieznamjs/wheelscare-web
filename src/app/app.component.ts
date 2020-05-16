@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
 
 import { AuthFacade } from '@store/auth-store';
 
@@ -13,25 +11,9 @@ import { AuthFacade } from '@store/auth-store';
 export class AppComponent implements OnInit {
   public isUserLogged$: Observable<boolean>;
 
-  constructor(private authFacade: AuthFacade, private apollo: Apollo) {}
+  constructor(private authFacade: AuthFacade) {}
 
   public ngOnInit(): void {
     this.isUserLogged$ = this.authFacade.isUserLogged$;
-
-    const query = gql`
-      {
-        me {
-          id,
-          email,
-          vehicles {
-            id,
-            brand,
-            model,
-          },
-        },
-      },
-    `;
-
-    this.apollo.watchQuery({ query }).valueChanges.subscribe(console.log)
   }
 }

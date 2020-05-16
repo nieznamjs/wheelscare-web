@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { FormsService } from '@services/utils/forms.service';
 import { AuthFacade } from '@store/auth-store';
-import { VALID_UUID_REGEX } from '@constants';
+import { VALID_MONGO_ID } from '@constants';
 import { USER_PASSWORD_REGEX } from '@wheelscare/common';
 
 @Component({
@@ -43,7 +43,7 @@ export class PasswordResetComponent implements OnInit {
     this.userId = this.route.snapshot.params.id;
     this.token = this.route.snapshot.queryParams.token;
 
-    if (!this.token || !VALID_UUID_REGEX.test(this.userId)) {
+    if (!this.token || !VALID_MONGO_ID.test(this.userId)) {
       this.router.navigate(['auth/login']);
     }
 
