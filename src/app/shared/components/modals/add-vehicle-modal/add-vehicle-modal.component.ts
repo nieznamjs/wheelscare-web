@@ -17,7 +17,7 @@ export class AddVehicleModalComponent implements OnInit {
   public bodyForm: FormGroup;
   public brands$: Observable<IVehicleBrands>;
   public currYear = new Date().getFullYear();
-  public createVehicleLoading: boolean;
+  public isLoading: boolean;
   public createVehicleError: string;
 
   constructor(
@@ -45,13 +45,19 @@ export class AddVehicleModalComponent implements OnInit {
       ...this.bodyForm.value,
     };
 
+    this.isLoading = true;
+
     this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
       console.log(result)
+      this.isLoading = false;
+
       if (result.data) {
         this.dialogRef.close();
       }
     }, (error) => {
+      // TODO add translated error
       console.log(error)
+      this.isLoading = false;
     });
   }
 

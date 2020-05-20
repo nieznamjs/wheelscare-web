@@ -30,6 +30,6 @@
       Nadwozie
     </ng-template>
 
-    <wcw-body [formGroup]="bodyForm" (saved)="save()"></wcw-body>
+    <wcw-body [formGroup]="bodyForm" (saved)="save()" [isLoading]="isLoading" [error]="createVehicleError"></wcw-body>
   </mat-step>
 </mat-horizontal-stepper>

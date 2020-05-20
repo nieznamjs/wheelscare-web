@@ -62,7 +62,11 @@
     Cofnij
   </button>
 
-  <button mat-raised-button color="primary" (click)="save()">
-    Zapisz
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="isLoading">
+    <span *ngIf="!isLoading; else loader">Zapisz</span>
+    
+    <ng-template #loader>
+      <wcw-loader class="loader" color="accent" size="24"></wcw-loader>
+    </ng-template>
   </button>
 </div>
