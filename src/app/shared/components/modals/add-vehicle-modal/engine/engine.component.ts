@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { FormsService } from '@services/utils/forms.service';
-import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
+import { VehicleFuelTypes, VehiclesDriveTypes, VehicleTransmissionTypes } from '@wheelscare/common';
+import { DriveTypesLabels, FuelTypesLabels, TransmissionTypesLabels } from '@constants';
 
 @Component({
   selector: 'wcw-engine',
@@ -12,13 +14,13 @@ import { VehiclesDataService } from '@services/data-integration/vehicles-data.se
 export class EngineComponent {
   @Input() public formGroup: FormGroup;
 
-  public readonly fuelTypes = this.vehiclesService.getFuelTypesSelectOptions();
-  public readonly transmissionTypes = this.vehiclesService.getTransmissionTypesSelectOptions();
-  public readonly driveTypes = this.vehiclesService.getDriveTypesSelectOptions();
+  public readonly fuelTypes = this.vehiclesService.getSelectOptions(VehicleFuelTypes, FuelTypesLabels);
+  public readonly transmissionTypes = this.vehiclesService.getSelectOptions(VehicleTransmissionTypes, TransmissionTypesLabels);
+  public readonly driveTypes = this.vehiclesService.getSelectOptions(VehiclesDriveTypes, DriveTypesLabels);
 
   constructor(
     private formsService: FormsService,
-    private vehiclesService: VehiclesDataService,
+    private vehiclesService: VehiclesUtilsService,
   ) { }
 
   public getFormControl(name: string): AbstractControl {

@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { FormsService } from '@services/utils/forms.service';
-import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
+import { VehiclePaintColors, VehiclePaintTypes } from '@wheelscare/common';
+import { PaintColorsLabels, PaintTypesLabels } from '@constants';
 
 @Component({
   selector: 'wcw-body',
@@ -13,14 +15,14 @@ export class BodyComponent {
   @Input() public formGroup: FormGroup;
   @Output() public saved = new EventEmitter<void>();
 
-  public readonly paintColors = this.vehiclesService.getPaintColorsSelectOptions();
-  public readonly paintTypes = this.vehiclesService.getPaintTypesSelectOptions();
+  public readonly paintColors = this.vehiclesService.getSelectOptions(VehiclePaintColors, PaintColorsLabels);
+  public readonly paintTypes = this.vehiclesService.getSelectOptions(VehiclePaintTypes, PaintTypesLabels);
   public readonly doorsNumber = this.vehiclesService.getDoorsNumberSelectOptions();
   public readonly seatsNumber = this.vehiclesService.getSeatsNumberSelectOptions();
 
   constructor(
     private formsService: FormsService,
-    private vehiclesService: VehiclesDataService,
+    private vehiclesService: VehiclesUtilsService,
   ) { }
 
   public getFormControl(name: string): AbstractControl {

@@ -17,36 +17,17 @@
       "esnext.asynciterable"
     ],
     "paths": {
-      "@services/*": [
-        "src/app/core/services/*"
-      ],
-      "@components/*": [
-        "src/app/shared/components/*"
-      ],
-      "@pipes/*": [
-        "src/app/shared/pipes/*"
-      ],
-      "@directives/*": [
-        "src/app/shared/directives/*"
-      ],
-      "@constants": [
-        "src/app/shared/constants"
-      ],
-      "@interfaces": [
-        "src/app/shared/interfaces"
-      ],
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@store/*": [
-        "src/app/store/*"
-      ],
-      "@shared/*": [
-        "src/app/shared/*"
-      ],
-      "@interceptors/*": [
-        "src/app/core/interceptors/*"
-      ]
+      "@services/*": [ "src/app/core/services/*" ],
+      "@components/*": [ "src/app/shared/components/*" ],
+      "@pipes/*": [ "src/app/shared/pipes/*" ],
+      "@directives/*": [ "src/app/shared/directives/*" ],
+      "@constants": [ "src/app/shared/constants" ],
+      "@interfaces": [ "src/app/shared/interfaces" ],
+      "@helpers": [ "src/app/shared/helpers" ],
+      "@env/*": [ "src/environments/*" ],
+      "@store/*": [ "src/app/store/*" ],
+      "@shared/*": [ "src/app/shared/*" ],
+      "@interceptors/*": [ "src/app/core/interceptors/*" ]
     }
   },
   "angularCompilerOptions": {

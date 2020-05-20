@@ -10,6 +10,7 @@ import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLo
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 const socialLoginConfig = new AuthServiceConfig([
   {
@@ -47,6 +48,7 @@ const socialLoginConfig = new AuthServiceConfig([
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'primary' } },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
   ]
 })
 export class CoreModule { }

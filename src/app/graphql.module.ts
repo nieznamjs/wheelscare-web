@@ -12,20 +12,19 @@ const uri = `${environment.apiUrl}/graphql`;
 export function createApollo(httpLink: HttpLink) {
   return {
     link: ApolloLink.from([
+      // onError(({ graphQLErrors, networkError }) => {
+      //   if (graphQLErrors) {
+      //     graphQLErrors.forEach(error => {
+      //       // TODO add snackbar
+      //       console.log(error.message);
+      //     });
+      //   }
+      //
+      //   if (networkError) {
+      //     console.log(networkError)
+      //   }
+      // }),
       httpLink.create({ uri, withCredentials: true }),
-      // TODO fix this shit
-      onError(({ graphQLErrors, networkError, response }) => {
-        console.log(graphQLErrors, networkError, response)
-        if (graphQLErrors) {
-          graphQLErrors.forEach(error => {
-            console.log(error.message);
-          });
-        }
-
-        if (networkError) {
-          console.log(networkError)
-        }
-      }),
     ]),
     cache: new InMemoryCache(),
   };
@@ -41,5 +40,4 @@ export function createApollo(httpLink: HttpLink) {
     },
   ],
 })
-export class GraphQLModule {
-}
+export class GraphQLModule {}

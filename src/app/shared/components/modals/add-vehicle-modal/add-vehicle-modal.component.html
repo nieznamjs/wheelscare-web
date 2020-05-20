@@ -14,7 +14,7 @@
       Ogólne
     </ng-template>
 
-    <wcw-general [formGroup]="generalForm" [brands]="brands | async" [currYear]="currYear"></wcw-general>
+    <wcw-general-vehicle-data [formGroup]="generalForm" [brands]="brands$ | async" [currYear]="currYear"></wcw-general-vehicle-data>
   </mat-step>
 
   <mat-step [stepControl]="engineForm">

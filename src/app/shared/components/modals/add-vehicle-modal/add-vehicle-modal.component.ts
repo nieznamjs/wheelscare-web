@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
-import { IVehicleBrands, Vehicle } from '@wheelscare/common';
+import { IVehicleBrands, VALID_VIN_REGEX, Vehicle } from '@wheelscare/common';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
-import { VALID_VIN_REGEX } from '@constants';
 
 @Component({
   selector: 'wcw-add-vehicle-modal',
@@ -16,8 +15,10 @@ export class AddVehicleModalComponent implements OnInit {
   public generalForm: FormGroup;
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
-  public brands: Observable<IVehicleBrands>;
+  public brands$: Observable<IVehicleBrands>;
   public currYear = new Date().getFullYear();
+  public createVehicleLoading: boolean;
+  public createVehicleError: string;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +31,7 @@ export class AddVehicleModalComponent implements OnInit {
     this.engineForm = this.createEngineForm();
     this.bodyForm = this.createBodyForm();
 
-    this.brands = this.vehiclesService.getBrands();
+    this.brands$ = this.vehiclesService.getBrands();
   }
 
   public close(): void {
@@ -45,9 +46,12 @@ export class AddVehicleModalComponent implements OnInit {
     };
 
     this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
+      console.log(result)
       if (result.data) {
         this.dialogRef.close();
       }
+    }, (error) => {
+      console.log(error)
     });
   }
 

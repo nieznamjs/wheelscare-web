@@ -1,27 +1,27 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { IVehicleBrands } from '@wheelscare/common';
 
+import { IVehicleBrands, VehicleTypes, IVehicleModel } from '@wheelscare/common';
 import { FormsService } from '@services/utils/forms.service';
-import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
-
+import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
+import { VehiclesTypesLabels } from '@constants';
 
 @Component({
-  selector: 'wcw-general',
-  templateUrl: './general.component.html',
-  styleUrls: ['./general.component.scss'],
+  selector: 'wcw-general-vehicle-data',
+  templateUrl: './general-vehicle-data.component.html',
+  styleUrls: ['./general-vehicle-data.component.scss'],
 })
-export class GeneralComponent {
+export class GeneralVehicleDataComponent {
   @Input() public formGroup: FormGroup;
   @Input() public brands: IVehicleBrands;
   @Input() public currYear: number;
 
-  public models: { [key: string]: { generations: string[] } };
-  public readonly vehicleTypes = this.vehiclesService.getVehicleTypesSelectOptions();
+  public models: { [key: string]: IVehicleModel };
+  public readonly vehicleTypes = this.vehiclesService.getSelectOptions(VehicleTypes, VehiclesTypesLabels);
 
   constructor(
     private formsService: FormsService,
-    private vehiclesService: VehiclesDataService,
+    private vehiclesService: VehiclesUtilsService,
   ) { }
 
   public getFormControl(name: string): AbstractControl {

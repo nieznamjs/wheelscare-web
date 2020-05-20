@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" class="form">
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Nazwa</mat-label>
 
     <input
@@ -14,7 +14,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Marka</mat-label>
 
     <mat-select placeholder="Wybierz markę" formControlName="brand" required (selectionChange)="brandSelected()">
@@ -26,7 +26,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Model</mat-label>
 
     <mat-select placeholder="Wybierz model" formControlName="vehicleModel" required>
@@ -38,7 +38,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Numer VIN</mat-label>
 
     <input
@@ -57,7 +57,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Typ</mat-label>
 
     <mat-select placeholder="Wybierz typ" formControlName="type" required>
@@ -69,7 +69,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Rok produkcji</mat-label>
 
     <input
@@ -77,6 +77,8 @@
       type="number"
       placeholder="Wprowadź rok produkcji"
       formControlName="yearOfProduction"
+      min="1900"
+      [max]="currYear"
       required>
 
     <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('required')">
@@ -92,7 +94,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="field" appearance="outline">
+  <mat-form-field class="field">
     <mat-label>Aktualny przebieg</mat-label>
 
     <input
@@ -100,6 +102,8 @@
       type="number"
       placeholder="Wprowadź aktualny przebieg"
       formControlName="mileage"
+      min="1"
+      max="5000000"
       required>
 
     <mat-error class="error" *ngIf="getFormControl('mileage').hasError('required')">
