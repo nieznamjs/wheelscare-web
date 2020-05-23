@@ -14,7 +14,7 @@ import { PaintColorsLabels, PaintTypesLabels } from '@constants';
 export class BodyComponent {
   @Input() public formGroup: FormGroup;
   @Input() public isLoading: boolean;
-  @Input() public error: string;
+  @Input() public errors: string[];
   @Output() public saved = new EventEmitter<void>();
 
   public readonly paintColors = this.vehiclesService.getSelectOptions(VehiclePaintColors, PaintColorsLabels);

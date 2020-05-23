@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
@@ -18,6 +19,7 @@ import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/a
 import { GeneralVehicleDataComponent } from '@components/modals/add-vehicle-modal/general-vehicle-data/general-vehicle-data.component';
 import { EngineComponent } from '@components/modals/add-vehicle-modal/engine/engine.component';
 import { BodyComponent } from '@components/modals/add-vehicle-modal/body/body.component';
+import { SnackbarSuccessComponent } from '@components/snackbar-success/snackbar-success.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -29,6 +31,7 @@ const materialModules = [
   MatStepperModule,
   MatSelectModule,
   MatRadioModule,
+  MatSnackBarModule,
 ];
 
 interface CustomSvgIconConfig {
@@ -55,7 +58,15 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
   ],
-  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralVehicleDataComponent, EngineComponent, BodyComponent ],
+  declarations: [
+    LoaderComponent,
+    SidebarComponent,
+    AddVehicleModalComponent,
+    GeneralVehicleDataComponent,
+    EngineComponent,
+    BodyComponent,
+    SnackbarSuccessComponent,
+  ],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

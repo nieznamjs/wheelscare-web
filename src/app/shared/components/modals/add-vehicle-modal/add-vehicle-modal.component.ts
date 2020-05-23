@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { IVehicleBrands, VALID_VIN_REGEX, Vehicle } from '@wheelscare/common';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { SnackbarService } from '@services/utils/snackbar.service';
+import { SnackbarMessages } from '@constants';
 
 @Component({
   selector: 'wcw-add-vehicle-modal',
@@ -18,13 +20,13 @@ export class AddVehicleModalComponent implements OnInit {
   public brands$: Observable<IVehicleBrands>;
   public currYear = new Date().getFullYear();
   public isLoading: boolean;
-  public createVehicleError: string;
-  public error: string;
+  public errors: string[];
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddVehicleModalComponent>,
     private vehiclesService: VehiclesDataService,
+    private snackbarService: SnackbarService,
   ) {}
 
   public ngOnInit(): void {
@@ -48,10 +50,11 @@ export class AddVehicleModalComponent implements OnInit {
 
     this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
       this.isLoading = result.loading;
-      this.error = result.error;
+      this.errors = result.errors;
 
       if (result.data) {
         this.dialogRef.close();
+        this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
       }
     });
   }

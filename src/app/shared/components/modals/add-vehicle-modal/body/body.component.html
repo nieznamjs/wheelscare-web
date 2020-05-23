@@ -48,7 +48,7 @@
   </mat-form-field>
 
   <div class="field field-radio">
-    <mat-label class="label">Kierownika po prawej (Anglik)</mat-label>
+    <mat-label class="label">Kierownica po prawej (Anglik)</mat-label>
 
     <mat-radio-group class="radio-group" formControlName="hasLeftSteeringWheelPosition" required>
       <mat-radio-button class="radio-value" [value]="false" checked>Nie</mat-radio-button>
@@ -57,14 +57,18 @@
   </div>
 </form>
 
+<div class="errors">
+  <p class="error" *ngFor="let error of errors">{{ error }}</p>
+</div>
+
 <div mat-dialog-actions class="actions">
-  <button mat-stroked-button matStepperPrevious>
+  <button mat-stroked-button matStepperPrevious [disabled]="isLoading">
     Cofnij
   </button>
 
   <button mat-raised-button color="primary" (click)="save()" [disabled]="isLoading">
     <span *ngIf="!isLoading; else loader">Zapisz</span>
-    
+
     <ng-template #loader>
       <wcw-loader class="loader" color="accent" size="24"></wcw-loader>
     </ng-template>

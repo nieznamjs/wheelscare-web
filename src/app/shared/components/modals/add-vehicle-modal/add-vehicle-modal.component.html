@@ -3,7 +3,7 @@
     Dodaj pojazd
   </h3>
 
-  <button mat-icon-button (click)="close()">
+  <button mat-icon-button (click)="close()" [disabled]="isLoading">
     <mat-icon>close</mat-icon>
   </button>
 </div>
@@ -30,6 +30,6 @@
       Nadwozie
     </ng-template>
 
-    <wcw-body [formGroup]="bodyForm" (saved)="save()" [isLoading]="isLoading" [error]="createVehicleError"></wcw-body>
+    <wcw-body [formGroup]="bodyForm" (saved)="save()" [isLoading]="isLoading" [errors]="errors"></wcw-body>
   </mat-step>
 </mat-horizontal-stepper>

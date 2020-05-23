@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
+import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
 import { CoreRoutingModule } from './core-routing.module';
 import { RootStoreModule } from '@store/root-store.module';
 import { environment } from '@env/environment';
-import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
-import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 const socialLoginConfig = new AuthServiceConfig([
   {
@@ -49,6 +50,7 @@ const socialLoginConfig = new AuthServiceConfig([
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'primary' } },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
   ]
 })
 export class CoreModule { }
