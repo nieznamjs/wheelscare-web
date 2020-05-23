@@ -5,19 +5,21 @@ import gql from 'graphql-tag';
 import { FetchResult } from 'apollo-link';
 
 import { IVehicleBrands, Vehicle, VEHICLE_BRANDS } from '@wheelscare/common';
+import { DataService } from '@services/data-integration/data.service';
+import { MutationResponse } from '@shared/interfaces/data.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VehiclesDataService {
-  constructor(private apollo: Apollo) {}
+  constructor(private dataService: DataService) {}
 
   public getBrands(): Observable<IVehicleBrands> {
     // TODO change to http request
     return of(VEHICLE_BRANDS);
   }
 
-  public createNewVehicle(vehicle: Vehicle): Observable<FetchResult<Vehicle>> {
+  public createNewVehicle(vehicle: Vehicle): Observable<MutationResponse<Vehicle>> {
     const mutation = gql`
       mutation addMyVehicle($vehicle: CreateVehicle!) {
         addMyVehicle(vehicle: $vehicle) {
@@ -26,6 +28,6 @@ export class VehiclesDataService {
       }
     `;
 
-    return this.apollo.mutate<Vehicle>({ mutation, variables: { vehicle } });
+    return this.dataService.mutate<Vehicle>({ mutation, variables: { vehicle } });
   }
 }
