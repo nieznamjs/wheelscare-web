@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import gql from 'graphql-tag';
-import { Apollo, QueryRef } from 'apollo-angular';
 
 import { IGeneralSuccessResponse, IUser } from '@wheelscare/common';
 import { ConfigService } from '@services/utils/config.service';
+import { DataService } from '@services/data-integration/data.service';
+import { WatchQueryResponse } from '@interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class UsersDataService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-    private apollo: Apollo,
+    private dataService: DataService,
   ) {}
 
-  public getMe(): QueryRef<IUser> {
+  public getMe(): Observable<WatchQueryResponse<IUser>> {
     const query = gql`
       {
         me {
@@ -30,13 +31,12 @@ export class UsersDataService {
             id,
             vin,
             brand,
-            name,
           },
         },
       },
     `;
 
-    return this.apollo.watchQuery<IUser>({ query });
+    return this.dataService.watchQuery<IUser>({ query });
   }
 
   public initPasswordReset(email: string): Observable<IGeneralSuccessResponse> {

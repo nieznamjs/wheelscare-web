@@ -26,7 +26,7 @@ export class ActivateAccountComponent implements OnInit {
     const token = this.route.snapshot.queryParams.token;
 
     if (!token || !VALID_MONGO_ID.test(userId)) {
-      this.idOrTokenError = ErrorMessages.CannotActivateUser;
+      this.idOrTokenError = ErrorMessages.CAN_NOT_ACTIVATE_USER;
       return;
     }
 

@@ -2,25 +2,24 @@ import { Component, Input } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { FormsService } from '@services/utils/forms.service';
-import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 import { VehicleFuelTypes, VehiclesDriveTypes, VehicleTransmissionTypes } from '@wheelscare/common';
 import { DriveTypesLabels, FuelTypesLabels, TransmissionTypesLabels } from '@constants';
+import { getSelectOptions } from '@helpers';
 
 @Component({
-  selector: 'wcw-engine',
-  templateUrl: './engine.component.html',
-  styleUrls: ['./engine.component.scss']
+  selector: 'wcw-add-vehicle-modal-engine',
+  templateUrl: './add-vehicle-modal-engine.component.html',
+  styleUrls: ['./add-vehicle-modal-engine.component.scss']
 })
-export class EngineComponent {
+export class AddVehicleModalEngineComponent {
   @Input() public formGroup: FormGroup;
 
-  public readonly fuelTypes = this.vehiclesService.getSelectOptions(VehicleFuelTypes, FuelTypesLabels);
-  public readonly transmissionTypes = this.vehiclesService.getSelectOptions(VehicleTransmissionTypes, TransmissionTypesLabels);
-  public readonly driveTypes = this.vehiclesService.getSelectOptions(VehiclesDriveTypes, DriveTypesLabels);
+  public readonly fuelTypes = getSelectOptions(VehicleFuelTypes, FuelTypesLabels);
+  public readonly transmissionTypes = getSelectOptions(VehicleTransmissionTypes, TransmissionTypesLabels);
+  public readonly driveTypes = getSelectOptions(VehiclesDriveTypes, DriveTypesLabels);
 
   constructor(
     private formsService: FormsService,
-    private vehiclesService: VehiclesUtilsService,
   ) { }
 
   public getFormControl(name: string): AbstractControl {
