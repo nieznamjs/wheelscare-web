@@ -1,0 +1,85 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Mutation {
+  addMyVehicle(vehicle: CreateVehicle): Vehicle
+  deleteMyVehicle(id: String): Boolean
+  transferMyVehicle(targetUserId: String, vehicleId: String): Boolean
+  updateMyVehicle(vehicle: UpdateVehicle): Vehicle
+}
+
+type Query {
+  me: User
+}
+
+type User {
+  active: Boolean
+  email: String!
+  facebookId: Int
+  googleId: String
+  id: String!
+  role: String
+  vehicles: [Vehicle]
+}
+
+type Vehicle {
+  brand: String!
+  driveType: String!
+  engineCapacity: Int!
+  enginePower: Int!
+  fuelType: String!
+  hasLeftSteeringWheelPosition: Boolean!
+  id: String!
+  model: String!
+  paintColor: String!
+  paintType: String!
+  transmissionType: String!
+  type: String!
+  vin: String!
+  yearOfProduction: Int!
+}
+
+input CreateVehicle {
+  brand: String!
+  doorsNumber: Int!
+  driveType: String!
+  engineCapacity: Int!
+  enginePower: Int!
+  fuelType: String!
+  hasLeftSteeringWheelPosition: Boolean!
+  mileage: Int!
+  name: String!
+  paintColor: String!
+  paintType: String!
+  seatsNumber: Int!
+  transmissionType: String!
+  type: String!
+  vehicleModel: String!
+  vin: String!
+  yearOfProduction: Int!
+}
+
+input UpdateVehicle {
+  brand: String
+  doorsNumber: Int
+  driveType: String
+  engineCapacity: Int
+  enginePower: Int
+  fuelType: String
+  hasLeftSteeringWheelPosition: Boolean
+  id: String
+  mileage: Int
+  name: String
+  paintColor: String
+  paintType: String
+  seatsNumber: Int
+  transmissionType: String
+  type: String
+  vehicleModel: String
+  vin: String
+  yearOfProduction: Int
+}

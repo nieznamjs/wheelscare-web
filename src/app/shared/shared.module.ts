@@ -11,13 +11,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
 import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
-import { GeneralComponent } from '@components/modals/add-vehicle-modal/general/general.component';
-import { EngineComponent } from '@components/modals/add-vehicle-modal/engine/engine.component';
-import { BodyComponent } from '@components/modals/add-vehicle-modal/body/body.component';
+import { SnackbarSuccessComponent } from '@components/snackbar-success/snackbar-success.component';
+import { ErrorMessageComponent } from '@components/error-message/error-message.component';
+import { AddVehicleModalBodyComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-body/add-vehicle-modal-body.component';
+import { AddVehicleModalEngineComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-engine/add-vehicle-modal-engine.component';
+import { AddVehicleModalGeneralComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-general/add-vehicle-modal-general.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -29,6 +32,7 @@ const materialModules = [
   MatStepperModule,
   MatSelectModule,
   MatRadioModule,
+  MatSnackBarModule,
 ];
 
 interface CustomSvgIconConfig {
@@ -55,7 +59,16 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
   ],
-  declarations: [LoaderComponent, SidebarComponent, AddVehicleModalComponent, GeneralComponent, EngineComponent, BodyComponent ],
+  declarations: [
+    LoaderComponent,
+    SidebarComponent,
+    AddVehicleModalComponent,
+    AddVehicleModalBodyComponent,
+    AddVehicleModalEngineComponent,
+    AddVehicleModalGeneralComponent,
+    SnackbarSuccessComponent,
+    ErrorMessageComponent,
+  ],
 })
 export class SharedModule {
   constructor(private matIconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+
+import { IVehicleBrands, VALID_VIN_REGEX, Vehicle } from '@wheelscare/common';
+import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { SnackbarService } from '@services/utils/snackbar.service';
+import { SnackbarMessages } from '@constants';
 
 @Component({
   selector: 'wcw-add-vehicle-modal',
@@ -11,16 +17,24 @@ export class AddVehicleModalComponent implements OnInit {
   public generalForm: FormGroup;
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
+  public brands$: Observable<IVehicleBrands>;
+  public currYear = new Date().getFullYear();
+  public isLoading: boolean;
+  public errors: string[];
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddVehicleModalComponent>,
+    private vehiclesService: VehiclesDataService,
+    private snackbarService: SnackbarService,
   ) {}
 
   public ngOnInit(): void {
     this.generalForm = this.createGeneralForm();
     this.engineForm = this.createEngineForm();
     this.bodyForm = this.createBodyForm();
+
+    this.brands$ = this.vehiclesService.getBrands();
   }
 
   public close(): void {
@@ -28,38 +42,60 @@ export class AddVehicleModalComponent implements OnInit {
   }
 
   public save(): void {
-    // TODO
+    const vehicle: Vehicle = {
+      ...this.generalForm.value,
+      ...this.engineForm.value,
+      ...this.bodyForm.value,
+    };
+
+    this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
+      this.isLoading = result.loading;
+      this.errors = result.errors;
+
+      if (result.data) {
+        this.dialogRef.close();
+        this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
+      }
+    });
   }
 
   private createGeneralForm(): FormGroup {
     return this.fb.group({
       name: [ null, Validators.required ],
       brand: [ null, Validators.required ],
-      model: [ null, Validators.required ],
-      vin: [ null, Validators.required ],
+      vehicleModel: [ null, Validators.required ],
+      vin: [ null, [ Validators.required, Validators.pattern(VALID_VIN_REGEX) ] ],
       type: [ null, Validators.required ],
-      mileage: [ null, Validators.required ],
-      productionYear: [ null, Validators.required ],
+      mileage: [ null, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(5000000),
+      ]],
+      yearOfProduction: [ null, [
+        Validators.required,
+        Validators.min(1900),
+        Validators.max(this.currYear),
+      ]],
     });
   }
 
   private createEngineForm(): FormGroup {
     return this.fb.group({
-      capacity: [ null, Validators.required ],
-      power: [ null, Validators.required ],
+      engineCapacity: [ null, [ Validators.required, Validators.min(1), Validators.max(99999) ] ],
+      enginePower: [ null, [ Validators.required, Validators.min(1), Validators.max(9999) ] ],
       fuelType: [ null, Validators.required ],
-      gearbox: [ null, Validators.required ],
-      drive: [ null, Validators.required ],
+      transmissionType: [ null, Validators.required ],
+      driveType: [ null, Validators.required ],
     });
   }
 
   private createBodyForm(): FormGroup {
     return this.fb.group({
-      color: [ null, Validators.required ],
+      paintColor: [ null, Validators.required ],
       paintType: [ null, Validators.required ],
       seatsNumber: [ null, Validators.required ],
       doorsNumber: [ null, Validators.required ],
-      isEnglishman: [ null, Validators.required ],
+      hasLeftSteeringWheelPosition: [ false, Validators.required ],
     });
   }
 }

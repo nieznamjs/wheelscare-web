@@ -1,0 +1,76 @@
+<form [formGroup]="formGroup" class="form">
+  <mat-form-field class="field">
+    <mat-label>Kolor lakieru</mat-label>
+
+    <mat-select placeholder="Wybierz kolor lakieru" formControlName="paintColor" required>
+      <mat-option *ngFor="let color of paintColors" [value]="color.key">{{ color.label }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('paintColor').hasError('required')">
+      Kolor lakieru jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Rodzaj lakieru</mat-label>
+
+    <mat-select placeholder="Wybierz rodzaj lakieru" formControlName="paintType" required>
+      <mat-option *ngFor="let type of paintTypes" [value]="type.key">{{ type.label }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('paintType').hasError('required')">
+      Rodzaj lakieru jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Liczba drzwi</mat-label>
+
+    <mat-select placeholder="Wybierz liczbę drzwi" formControlName="doorsNumber" required>
+      <mat-option *ngFor="let number of doorsNumber" [value]="number">{{ number }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('doorsNumber').hasError('required')">
+      Liczba drzwi jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Liczba miejsc</mat-label>
+
+    <mat-select placeholder="Wybierz liczbę drzwi" formControlName="seatsNumber" required>
+      <mat-option *ngFor="let number of seatsNumber" [value]="number">{{ number }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('seatsNumber').hasError('required')">
+      Liczba miejsc jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <div class="field field-radio">
+    <mat-label class="label">Kierownica po prawej (Anglik)</mat-label>
+
+    <mat-radio-group class="radio-group" formControlName="hasLeftSteeringWheelPosition" required>
+      <mat-radio-button class="radio-value" [value]="false" checked>Nie</mat-radio-button>
+      <mat-radio-button class="radio-value" [value]="true">Tak</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</form>
+
+<div class="errors">
+  <wcw-error-message class="error" *ngFor="let error of errors" [errorMessage]="error"></wcw-error-message>
+</div>
+
+<div mat-dialog-actions class="actions">
+  <button mat-stroked-button matStepperPrevious [disabled]="isLoading">
+    Cofnij
+  </button>
+
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="isLoading">
+    <span *ngIf="!isLoading; else loader">Zapisz</span>
+
+    <ng-template #loader>
+      <wcw-loader class="loader" color="accent" size="24"></wcw-loader>
+    </ng-template>
+  </button>
+</div>

@@ -1,0 +1,13 @@
+@import "styles/colors";
+
+.error {
+  margin: 0;
+  padding: 10px;
+  color: $error;
+  background-color: $error-opacity;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid $error;
+  border-radius: 3px;
+}

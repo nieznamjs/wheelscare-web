@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import gql from 'graphql-tag';
 
-import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
+import { IGeneralSuccessResponse, IUser } from '@wheelscare/common';
 import { ConfigService } from '@services/utils/config.service';
+import { DataService } from '@services/data-integration/data.service';
+import { WatchQueryResponse } from '@interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,27 @@ export class UsersDataService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
+    private dataService: DataService,
   ) {}
+
+  public getMe(): Observable<WatchQueryResponse<IUser>> {
+    const query = gql`
+      {
+        me {
+          id,
+          email,
+          role,
+          vehicles {
+            id,
+            vin,
+            brand,
+          },
+        },
+      },
+    `;
+
+    return this.dataService.watchQuery<IUser>({ query });
+  }
 
   public initPasswordReset(email: string): Observable<IGeneralSuccessResponse> {
     return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/init-password-reset`, { email });

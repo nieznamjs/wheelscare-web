@@ -1,0 +1,105 @@
+<form [formGroup]="formGroup" class="form">
+  <div class="row">
+    <mat-form-field class="field">
+      <mat-label>Moc (KM)</mat-label>
+
+      <input
+        matInput
+        type="number"
+        placeholder="184"
+        min="1"
+        max="9999"
+        formControlName="enginePower"
+        required>
+
+      <mat-error class="error" *ngIf="getFormControl('enginePower').hasError('required')">
+        Moc jest wymagana
+      </mat-error>
+
+      <mat-error class="error" *ngIf="getFormControl('enginePower').hasError('min')">
+        Moc musi być większa od 1 KM
+      </mat-error>
+
+      <mat-error class="error" *ngIf="getFormControl('enginePower').hasError('max')">
+        Moc musi być mniejsza od 9999 KM
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Rodzaj paliwa</mat-label>
+
+      <mat-select placeholder="Wybierz rodzaj paliwa" formControlName="fuelType" required>
+        <mat-option *ngFor="let type of fuelTypes" [value]="type.key">{{ type.label }}</mat-option>
+      </mat-select>
+
+      <mat-error class="error" *ngIf="getFormControl('fuelType').hasError('required')">
+        Rodzaj paliwa jest wymagany
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field"  *ngIf="formGroup.get('fuelType').value !== 'Elektryczny'">
+      <mat-label>Pojemność (cm2)</mat-label>
+
+      <input
+        matInput
+        type="number"
+        placeholder="1997"
+        min="1"
+        max="9999"
+        formControlName="engineCapacity"
+        required>
+
+      <mat-error class="error" *ngIf="getFormControl('engineCapacity').hasError('required')">
+        Pojemność jest wymagana
+      </mat-error>
+
+      <mat-error class="error" *ngIf="getFormControl('engineCapacity').hasError('min')">
+        Pojemność musi być większa od 1 KM
+      </mat-error>
+
+      <mat-error class="error" *ngIf="getFormControl('engineCapacity').hasError('max')">
+        Pojemność musi być mniejsza od 9999 KM
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="field">
+      <mat-label class="label">
+        Skrzynia biegów
+      </mat-label>
+
+      <mat-select placeholder="Wybierz rodzaj skrzyni biegów" formControlName="transmissionType" required>
+        <mat-option *ngFor="let type of transmissionTypes" [value]="type.key">{{ type.label }}</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="getFormControl('transmissionType').hasError('required')">
+        Rodzaj skrzyni biegów jest wymagany
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label class="label">
+        Napęd
+      </mat-label>
+
+      <mat-select placeholder="Wybierz rodzaj napędu" formControlName="driveType" required>
+        <mat-option *ngFor="let type of driveTypes" [value]="type.key">{{ type.label }}</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="getFormControl('driveType').hasError('required')">
+        Rodzaj napędu jest wymagany
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>
+
+<div mat-dialog-actions class="actions">
+  <button mat-stroked-button matStepperPrevious>
+    Cofnij
+  </button>
+
+  <button mat-raised-button color="primary" matStepperNext>
+    Dalej
+  </button>
+</div>

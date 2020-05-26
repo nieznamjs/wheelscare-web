@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { IGeneralSuccessResponse, IRegisterUserBody, IUser } from '@purbanski-deftcode/wc-common';
+import { IGeneralSuccessResponse, IRegisterUserBody, IUser } from '@wheelscare/common';
 import { ConfigService } from '@services/utils/config.service';
 
 @Injectable({

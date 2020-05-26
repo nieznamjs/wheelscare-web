@@ -1,0 +1,127 @@
+<form [formGroup]="formGroup" class="form">
+  <mat-form-field class="field">
+    <mat-label>Nazwa</mat-label>
+
+    <input
+      matInput
+      type="text"
+      placeholder="Wprowadź nazwę"
+      formControlName="name"
+      required>
+
+    <mat-error class="error" *ngIf="getFormControl('name').hasError('required')">
+      Nazwa jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Marka</mat-label>
+
+    <mat-select placeholder="Wybierz markę" formControlName="brand" required (selectionChange)="brandSelected()">
+      <mat-option *ngFor="let brand of brands | keyvalue" [value]="brand.key">{{ brand.key }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('brand').hasError('required')">
+      Marka jest wymagana
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Model</mat-label>
+
+    <mat-select placeholder="Wybierz model" formControlName="vehicleModel" required>
+      <mat-option *ngFor="let model of models | keyvalue" [value]="model.key">{{ model.key }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('vehicleModel').hasError('required')">
+      Model jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Numer VIN</mat-label>
+
+    <input
+      matInput
+      type="text"
+      placeholder="Wprowadź numer VIN"
+      formControlName="vin"
+      required>
+
+    <mat-error class="error" *ngIf="getFormControl('vin').hasError('required')">
+      VIN jest wymagany
+    </mat-error>
+
+    <mat-error class="error" *ngIf="getFormControl('vin').hasError('pattern')">
+      Wprowadź poprawny numer VIN
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Typ</mat-label>
+
+    <mat-select placeholder="Wybierz typ" formControlName="type" required>
+      <mat-option *ngFor="let type of vehicleTypes" [value]="type.key">{{ type.label }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('type').hasError('required')">
+      Typ jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Rok produkcji</mat-label>
+
+    <input
+      matInput
+      type="number"
+      placeholder="Wprowadź rok produkcji"
+      formControlName="yearOfProduction"
+      min="1900"
+      [max]="currYear"
+      required>
+
+    <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('required')">
+      Rok produkcji jest wymagany
+    </mat-error>
+
+    <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('min')">
+      Rok produkcji musi być większy od 1900r.
+    </mat-error>
+
+    <mat-error class="error" *ngIf="getFormControl('yearOfProduction').hasError('max')">
+      Rok produkcji musi być mniejszy od {{ currYear }}r.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field">
+    <mat-label>Aktualny przebieg</mat-label>
+
+    <input
+      matInput
+      type="number"
+      placeholder="Wprowadź aktualny przebieg"
+      formControlName="mileage"
+      min="1"
+      max="5000000"
+      required>
+
+    <mat-error class="error" *ngIf="getFormControl('mileage').hasError('required')">
+      Przebieg jest wymagany
+    </mat-error>
+
+    <mat-error class="error" *ngIf="getFormControl('mileage').hasError('min')">
+      Przebieg musi być większy od 1km
+    </mat-error>
+
+    <mat-error class="error" *ngIf="getFormControl('mileage').hasError('max')">
+      Przebieg musi być mniejszy od 5000000km
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions class="actions">
+  <button mat-raised-button color="primary" matStepperNext>
+    Dalej
+  </button>
+</div>

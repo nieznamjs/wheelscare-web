@@ -3,7 +3,7 @@ import { from, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { IGeneralSuccessResponse } from '@purbanski-deftcode/wc-common';
+import { IGeneralSuccessResponse } from '@wheelscare/common';
 
 import { ConfigService } from '../utils/config.service';
 
