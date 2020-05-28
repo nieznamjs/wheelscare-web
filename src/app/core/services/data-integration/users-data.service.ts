@@ -35,6 +35,7 @@ export class UsersDataService {
             engineCapacity,
             enginePower,
             yearOfProduction,
+            vehicleModel,
             name,
           },
         },
