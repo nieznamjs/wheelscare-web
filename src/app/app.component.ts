@@ -20,6 +20,10 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.isUserLogged$ = this.authFacade.isUserLogged$;
 
-    this.usersDataService.getMe().subscribe();
+    this.usersDataService.getMe().subscribe(response => {
+      if (response.data) {
+        this.authFacade.setUserLogged();
+      }
+    });
   }
 }

@@ -8,3 +8,4 @@ export * from './paint-colors-labels';
 export * from './drive-types-labels';
 export * from './paint-types-labels';
 export * from './snackbar-messages';
+export * from './graphql-errors';

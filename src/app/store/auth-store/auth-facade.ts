@@ -7,7 +7,7 @@ import {
   ActivateUserAction,
   InitResetPasswordAction,
   LoginAction, LoginSuccessAction, LoginViaFacebookAction,
-  LoginViaGoogleAction,
+  LoginViaGoogleAction, LogoutAction,
   RegisterUserAction,
   ResetPasswordAction,
 } from './auth-actions';
@@ -57,6 +57,10 @@ export class AuthFacade {
 
   public setUserLogged(): void {
     this.store.dispatch(LoginSuccessAction());
+  }
+
+  public logout(): void {
+    this.store.dispatch(LogoutAction());
   }
 
   public loginUserViaGoogle(): void {

@@ -6,14 +6,20 @@ import { ApolloLink } from 'apollo-link';
 
 import { environment } from '@env/environment';
 import { onError } from 'apollo-link-error';
+import { GraphqlErrors } from '@constants';
+import { AuthFacade } from '@store/auth-store';
 
 const uri = `${environment.apiUrl}/graphql`;
 
-export function createApollo(httpLink: HttpLink) {
+export function createApollo(httpLink: HttpLink, authFacade: AuthFacade) {
   return {
     link: ApolloLink.from([
       onError(error => {
-        console.log(error)
+        error.graphQLErrors?.forEach(graphqlError => {
+          if (graphqlError.message === GraphqlErrors.INVALID_TOKEN) {
+            authFacade.logout();
+          }
+        });
       }),
       httpLink.create({ uri, withCredentials: true }),
     ]),
@@ -27,7 +33,7 @@ export function createApollo(httpLink: HttpLink) {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [ HttpLink ],
+      deps: [ HttpLink, AuthFacade ],
     },
   ],
 })
