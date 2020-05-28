@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AuthFacade } from '@store/auth-store';
+import { UsersDataService } from '@services/data-integration/users-data.service';
 
 @Component({
   selector: 'wcw-root',
@@ -13,9 +14,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authFacade: AuthFacade,
+    private usersDataService: UsersDataService,
   ) {}
 
   public ngOnInit(): void {
     this.isUserLogged$ = this.authFacade.isUserLogged$;
+
+    this.usersDataService.getMe().subscribe();
   }
 }

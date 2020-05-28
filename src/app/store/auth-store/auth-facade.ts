@@ -6,7 +6,7 @@ import { IRegisterUserBody } from '@wheelscare/common';
 import {
   ActivateUserAction,
   InitResetPasswordAction,
-  LoginAction, LoginViaFacebookAction,
+  LoginAction, LoginSuccessAction, LoginViaFacebookAction,
   LoginViaGoogleAction,
   RegisterUserAction,
   ResetPasswordAction,
@@ -53,6 +53,10 @@ export class AuthFacade {
 
   public login(email: string, password: string): void {
     this.store.dispatch(LoginAction({ payload: { email, password }}));
+  }
+
+  public setUserLogged(): void {
+    this.store.dispatch(LoginSuccessAction());
   }
 
   public loginUserViaGoogle(): void {

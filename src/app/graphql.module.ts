@@ -5,12 +5,16 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 
 import { environment } from '@env/environment';
+import { onError } from 'apollo-link-error';
 
 const uri = `${environment.apiUrl}/graphql`;
 
 export function createApollo(httpLink: HttpLink) {
   return {
     link: ApolloLink.from([
+      onError(error => {
+        console.log(error)
+      }),
       httpLink.create({ uri, withCredentials: true }),
     ]),
     cache: new InMemoryCache(),

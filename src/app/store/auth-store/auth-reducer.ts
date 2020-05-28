@@ -34,6 +34,29 @@ export const authReducer = createReducer(
       },
     };
   }),
+  on(AuthActions.LogoutAction, state => ({
+    ...state,
+    login: {
+      ...state.login,
+      isLoading: true,
+    },
+  })),
+  on(AuthActions.LogoutSuccessAction, state => ({
+    ...state,
+    login: {
+      isUserLogged: false,
+      isLoading: false,
+      error: null,
+    },
+  })),
+  on(AuthActions.LogoutFailAction, (state, payload) => ({
+    ...state,
+    login: {
+      ...state.login,
+      isLoading: false,
+      error: payload.error,
+    },
+  })),
   on(AuthActions.LoginViaGoogleAction, state => {
     return {
       ...state,

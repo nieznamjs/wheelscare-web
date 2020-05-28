@@ -23,4 +23,8 @@ export class AuthDataService {
   public login(email: string, password: string): Observable<IGeneralSuccessResponse> {
     return this.http.post<IGeneralSuccessResponse>(`${this.authApiUrl}/login`, { email, password });
   }
+
+  public logout(): Observable<any> {
+    return this.http.post(`${this.authApiUrl}/logout`, {});
+  }
 }
