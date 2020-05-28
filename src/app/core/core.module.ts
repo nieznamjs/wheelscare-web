@@ -12,6 +12,7 @@ import { HttpConfigInterceptor } from '@interceptors/http-config.interceptor';
 import { CoreRoutingModule } from './core-routing.module';
 import { RootStoreModule } from '@store/root-store.module';
 import { environment } from '@env/environment';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 
 const socialLoginConfig = new AuthServiceConfig([
   {
@@ -51,6 +52,7 @@ const socialLoginConfig = new AuthServiceConfig([
     { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'primary' } },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: { scrollIndicators: true,  } },
   ]
 })
 export class CoreModule { }

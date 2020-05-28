@@ -35,6 +35,7 @@
     "apollo-link-error": "^1.1.13",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.0",
+    "ngx-perfect-scrollbar": "^9.0.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.13.0",
     "tui-calendar": "^1.12.13",

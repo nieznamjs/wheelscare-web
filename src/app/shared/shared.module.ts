@@ -12,6 +12,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
@@ -51,6 +52,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     ...materialModules,
     CommonModule,
     ReactiveFormsModule,
+    PerfectScrollbarModule,
   ],
   exports: [
     ...materialModules,
@@ -58,6 +60,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     ReactiveFormsModule,
     LoaderComponent,
     SidebarComponent,
+    PerfectScrollbarModule,
   ],
   declarations: [
     LoaderComponent,
