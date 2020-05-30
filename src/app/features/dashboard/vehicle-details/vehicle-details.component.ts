@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Vehicle } from '@wheelscare/common';
-import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 
 @Component({
   selector: 'wcw-vehicle-details',
@@ -13,9 +13,9 @@ export class VehicleDetailsComponent implements OnInit {
 
   public vehicle$: Observable<Vehicle>;
 
-  constructor(private vehiclesDataService: VehiclesDataService) { }
+  constructor(private vehiclesUtilsService: VehiclesUtilsService) { }
 
   public ngOnInit(): void {
-    this.vehicle$ = this.vehiclesDataService.currentVehicle$;
+    this.vehicle$ = this.vehiclesUtilsService.currentVehicle$;
   }
 }

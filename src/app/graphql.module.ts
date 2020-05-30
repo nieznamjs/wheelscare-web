@@ -6,8 +6,8 @@ import { ApolloLink } from 'apollo-link';
 
 import { environment } from '@env/environment';
 import { onError } from 'apollo-link-error';
-import { GraphqlErrors } from '@constants';
 import { AuthFacade } from '@store/auth-store';
+import { ApiErrors } from '@wheelscare/common';
 
 const uri = `${environment.apiUrl}/graphql`;
 
@@ -16,7 +16,7 @@ export function createApollo(httpLink: HttpLink, authFacade: AuthFacade) {
     link: ApolloLink.from([
       onError(error => {
         error.graphQLErrors?.forEach(graphqlError => {
-          if (graphqlError.message === GraphqlErrors.INVALID_TOKEN) {
+          if (graphqlError.message === ApiErrors.InvalidToken) {
             authFacade.logout();
           }
         });

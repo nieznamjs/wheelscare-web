@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import gql from 'graphql-tag';
 
 import { IVehicleBrands, Vehicle, VEHICLE_BRANDS } from '@wheelscare/common';
@@ -10,8 +10,6 @@ import { MutationResponse } from '@shared/interfaces/data.interface';
   providedIn: 'root',
 })
 export class VehiclesDataService {
-  public currentVehicle$ = new BehaviorSubject<Vehicle>(null);
-
   constructor(private dataService: DataService) {}
 
   public getBrands(): Observable<IVehicleBrands> {
@@ -29,9 +27,5 @@ export class VehiclesDataService {
     `;
 
     return this.dataService.mutate<Vehicle>({ mutation, variables: { vehicle } });
-  }
-
-  public setCurrentVehicle(vehicle: Vehicle): void {
-    this.currentVehicle$.next(vehicle);
   }
 }

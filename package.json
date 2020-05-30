@@ -25,7 +25,7 @@
     "@ngrx/schematics": "^9.1.2",
     "@ngrx/store": "^9.1.2",
     "@ngrx/store-devtools": "^9.1.2",
-    "@wheelscare/common": "^1.18.0",
+    "@wheelscare/common": "^1.19.0",
     "angularx-social-login": "^2.3.1",
     "apollo-angular": "^1.9.1",
     "apollo-angular-link-http": "^1.10.0",

@@ -8,7 +8,6 @@
   </button>
 </div>
 
-<!-- TODO fix this shit -->
 <perfect-scrollbar>
   <ul class="vehicles-list">
     <li class="vehicle box-default" [class.active]="(selectedVehicle$ | async)?.vin === vehicle.vin" *ngFor="let vehicle of (me$ | async)?.vehicles" (click)="selectVehicle(vehicle)">

@@ -6,7 +6,7 @@ import { ModalService } from '@services/utils/modal.service';
 import { AddVehicleModalComponent } from '@shared/components/modals/add-vehicle-modal/add-vehicle-modal.component';
 import { UsersDataService } from '@services/data-integration/users-data.service';
 import { IUser, Vehicle } from '@wheelscare/common';
-import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 
 @Component({
   selector: 'wcw-vehicles',
@@ -20,17 +20,16 @@ export class VehiclesComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private usersDataService: UsersDataService,
-    private vehiclesDataService: VehiclesDataService,
+    private vehiclesUtilsService: VehiclesUtilsService,
   ) { }
 
   public ngOnInit() {
     this.me$ = this.usersDataService.getMe().pipe(map(response => {
-      // TODO add 'default' attribute and use it later
       this.selectVehicle(response.data?.me.vehicles[0]);
       return response.data?.me;
     }));
 
-    this.selectedVehicle$ = this.vehiclesDataService.currentVehicle$;
+    this.selectedVehicle$ = this.vehiclesUtilsService.currentVehicle$;
   }
 
   public openAddVehicleModal(): void {
@@ -38,6 +37,6 @@ export class VehiclesComponent implements OnInit {
   }
 
   public selectVehicle(vehicle: Vehicle): void {
-    this.vehiclesDataService.setCurrentVehicle(vehicle);
+    this.vehiclesUtilsService.setCurrentVehicle(vehicle);
   }
 }

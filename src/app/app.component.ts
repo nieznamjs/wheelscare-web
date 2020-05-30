@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
     this.usersDataService.getMe().subscribe(response => {
       if (response.data) {
-        this.authFacade.setUserLogged();
+        this.authFacade.setUserAsLoggedIn();
       }
     });
   }

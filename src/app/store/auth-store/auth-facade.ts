@@ -55,7 +55,7 @@ export class AuthFacade {
     this.store.dispatch(LoginAction({ payload: { email, password }}));
   }
 
-  public setUserLogged(): void {
+  public setUserAsLoggedIn(): void {
     this.store.dispatch(LoginSuccessAction());
   }
 
