@@ -5,12 +5,22 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 
 import { environment } from '@env/environment';
+import { onError } from 'apollo-link-error';
+import { AuthFacade } from '@store/auth-store';
+import { ApiErrors } from '@wheelscare/common';
 
 const uri = `${environment.apiUrl}/graphql`;
 
-export function createApollo(httpLink: HttpLink) {
+export function createApollo(httpLink: HttpLink, authFacade: AuthFacade) {
   return {
     link: ApolloLink.from([
+      onError(error => {
+        error.graphQLErrors?.forEach(graphqlError => {
+          if (graphqlError.message === ApiErrors.InvalidToken) {
+            authFacade.logout();
+          }
+        });
+      }),
       httpLink.create({ uri, withCredentials: true }),
     ]),
     cache: new InMemoryCache(),
@@ -23,7 +33,7 @@ export function createApollo(httpLink: HttpLink) {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [ HttpLink ],
+      deps: [ HttpLink, AuthFacade ],
     },
   ],
 })

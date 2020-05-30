@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import gql from 'graphql-tag';
 
-import { IGeneralSuccessResponse, IUser } from '@wheelscare/common';
+import { IGeneralSuccessResponse } from '@wheelscare/common';
 import { ConfigService } from '@services/utils/config.service';
 import { DataService } from '@services/data-integration/data.service';
-import { WatchQueryResponse } from '@interfaces';
+import { GetMeResponse, WatchQueryResponse } from '@interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class UsersDataService {
     private dataService: DataService,
   ) {}
 
-  public getMe(): Observable<WatchQueryResponse<IUser>> {
+  public getMe(): Observable<WatchQueryResponse<GetMeResponse>> {
     const query = gql`
       {
         me {
@@ -31,12 +31,18 @@ export class UsersDataService {
             id,
             vin,
             brand,
+            mileage,
+            engineCapacity,
+            enginePower,
+            yearOfProduction,
+            vehicleModel,
+            name,
           },
         },
       },
     `;
 
-    return this.dataService.watchQuery<IUser>({ query });
+    return this.dataService.watchQuery<GetMeResponse>({ query });
   }
 
   public initPasswordReset(email: string): Observable<IGeneralSuccessResponse> {

@@ -8,46 +8,20 @@
   </button>
 </div>
 
-<ul class="vehicles-list">
-  <li class="vehicle box-default">
-    <img class="vehicle-logo" src="https://www.google.pl/url?sa=i&url=https%3A%2F%2Fwww.pinterest.se%2Fpin%2F441423200957664793%2F&psig=AOvVaw2izLL_YkUiblYrWjoQ-gxi&ust=1582661498830000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCAwNb_6ucCFQAAAAAdAAAAABAJ" alt="BMW KRUL">
+<perfect-scrollbar>
+  <ul class="vehicles-list">
+    <li class="vehicle box-default" [class.active]="(selectedVehicle$ | async)?.vin === vehicle.vin" *ngFor="let vehicle of (me$ | async)?.vehicles" (click)="selectVehicle(vehicle)">
+      <img class="vehicle-logo" src="https://www.google.pl/url?sa=i&url=https%3A%2F%2Fwww.pinterest.se%2Fpin%2F441423200957664793%2F&psig=AOvVaw2izLL_YkUiblYrWjoQ-gxi&ust=1582661498830000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCAwNb_6ucCFQAAAAAdAAAAABAJ" alt="BMW KRUL">
 
-    <div class="vehicle-details">
-      <h5 class="heading-5 vehicle-title">
-        Prywotny nojlepszy
-      </h5>
+      <div class="vehicle-details">
+        <h5 class="heading-5 vehicle-title">
+          {{ vehicle.name }}
+        </h5>
 
-      <span class="vehicle-desc">
-        BMW serii 3
-      </span>
-    </div>
-  </li>
-
-  <li class="vehicle box-default">
-    <img class="vehicle-logo" src="https://www.google.pl/url?sa=i&url=https%3A%2F%2Fwww.pinterest.se%2Fpin%2F441423200957664793%2F&psig=AOvVaw2izLL_YkUiblYrWjoQ-gxi&ust=1582661498830000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCAwNb_6ucCFQAAAAAdAAAAABAJ" alt="BMW KRUL">
-
-    <div class="vehicle-details">
-      <h5 class="heading-5 vehicle-title">
-        Służbowy 100km/h na 2
-      </h5>
-
-      <span class="vehicle-desc">
-        Skoda Fabia
-      </span>
-    </div>
-  </li>
-
-  <li class="vehicle box-default">
-    <img class="vehicle-logo" src="https://www.google.pl/url?sa=i&url=https%3A%2F%2Fwww.pinterest.se%2Fpin%2F441423200957664793%2F&psig=AOvVaw2izLL_YkUiblYrWjoQ-gxi&ust=1582661498830000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCAwNb_6ucCFQAAAAAdAAAAABAJ" alt="BMW KRUL">
-
-    <div class="vehicle-details">
-      <h5 class="heading-5 vehicle-title">
-        Służbowy 100km/h na 2
-      </h5>
-
-      <span class="vehicle-desc">
-        Skoda Fabia
-      </span>
-    </div>
-  </li>
-</ul>
+        <span class="vehicle-desc">
+          {{ vehicle.brand }} {{ vehicle.vehicleModel }}
+        </span>
+      </div>
+    </li>
+  </ul>
+</perfect-scrollbar>

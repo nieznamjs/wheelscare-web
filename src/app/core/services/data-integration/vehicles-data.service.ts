@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { FetchResult } from 'apollo-link';
 
 import { IVehicleBrands, Vehicle, VEHICLE_BRANDS } from '@wheelscare/common';
 import { DataService } from '@services/data-integration/data.service';

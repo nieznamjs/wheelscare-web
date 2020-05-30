@@ -11,8 +11,7 @@ import { MutationResponse, WatchQueryResponse } from '@interfaces';
   providedIn: 'root',
 })
 export class DataService {
-  constructor(private apollo: Apollo) {
-  }
+  constructor(private apollo: Apollo) {}
 
   public watchQuery<T>(options: QueryOptions): Observable<WatchQueryResponse<T>> {
     return new Observable(observer => {

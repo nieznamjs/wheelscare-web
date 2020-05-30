@@ -5,6 +5,9 @@ enum AuthActionsTypes {
   LOGIN = '[WCW] Login',
   LOGIN_SUCCESS = '[WCW] Login Success',
   LOGIN_FAIL = '[WCW] Login Fail',
+  LOGOUT = '[WCW] Logout',
+  LOGOUT_SUCCESS = '[WCW] Logout Success',
+  LOGOUT_FAIL = '[WCW] Logout Fail',
   LOGIN_VIA_GOOGLE = '[WCW] Login via google',
   LOGIN_VIA_GOOGLE_SUCCESS = '[WCW] Login via google Success',
   LOGIN_VIA_GOOGLE_FAIL = '[WCW] Login via google Fail',
@@ -36,6 +39,19 @@ export const LoginSuccessAction = createAction(
 
 export const LoginFailAction = createAction(
   AuthActionsTypes.LOGIN_FAIL,
+  props<{ error: string }>(),
+);
+
+export const LogoutAction = createAction(
+  AuthActionsTypes.LOGOUT,
+);
+
+export const LogoutSuccessAction = createAction(
+  AuthActionsTypes.LOGOUT_SUCCESS,
+);
+
+export const LogoutFailAction = createAction(
+  AuthActionsTypes.LOGOUT_FAIL,
   props<{ error: string }>(),
 );
 

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { AuthFacade } from '@store/auth-store';
 
 @Component({
   selector: 'wcw-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  constructor() { }
+  constructor(private authFacade: AuthFacade) { }
 
-  ngOnInit(): void {
+  public logout(): void {
+    this.authFacade.logout();
   }
-
 }

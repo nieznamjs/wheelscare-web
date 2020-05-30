@@ -50,6 +50,22 @@ export class AuthEffects {
     }),
   ));
 
+  public logoutEffect$ = createEffect(() => this.actions$.pipe(
+   ofType(AuthActions.LogoutAction),
+   switchMap(() => {
+     return this.authService.logout()
+       .pipe(
+         map(() => {
+           this.router.navigate(['auth', 'login']);
+           return AuthActions.LogoutSuccessAction();
+         }),
+         catchError(() => {
+           return of(AuthActions.LogoutFailAction({ error: ErrorMessages.GENERAL_SERVER_ERROR }));
+         }),
+       );
+   }),
+  ));
+
   public loginViaGoogleEffect$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActions.LoginViaGoogleAction),
     switchMap(() => {

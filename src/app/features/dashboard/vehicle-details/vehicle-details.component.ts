@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Vehicle } from '@wheelscare/common';
+import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 
 @Component({
   selector: 'wcw-vehicle-details',
@@ -7,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleDetailsComponent implements OnInit {
 
-  constructor() { }
+  public vehicle$: Observable<Vehicle>;
 
-  ngOnInit(): void {
+  constructor(private vehiclesUtilsService: VehiclesUtilsService) { }
+
+  public ngOnInit(): void {
+    this.vehicle$ = this.vehiclesUtilsService.currentVehicle$;
   }
-
 }

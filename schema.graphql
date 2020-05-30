@@ -28,17 +28,22 @@ type User {
 
 type Vehicle {
   brand: String!
+  doorsNumber: Int!
   driveType: String!
   engineCapacity: Int!
   enginePower: Int!
   fuelType: String!
+  generation: String
   hasLeftSteeringWheelPosition: Boolean!
   id: String!
-  model: String!
+  mileage: Int!
+  name: String!
   paintColor: String!
   paintType: String!
+  seatsNumber: Int!
   transmissionType: String!
   type: String!
+  vehicleModel: String!
   vin: String!
   yearOfProduction: Int!
 }
@@ -50,6 +55,7 @@ input CreateVehicle {
   engineCapacity: Int!
   enginePower: Int!
   fuelType: String!
+  generation: String
   hasLeftSteeringWheelPosition: Boolean!
   mileage: Int!
   name: String!
@@ -70,6 +76,7 @@ input UpdateVehicle {
   engineCapacity: Int
   enginePower: Int
   fuelType: String
+  generation: String
   hasLeftSteeringWheelPosition: Boolean
   id: String
   mileage: Int

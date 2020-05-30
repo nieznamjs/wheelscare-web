@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .add-vehicle-btn {
@@ -13,20 +14,20 @@
 
 .vehicles-list {
   list-style: none;
-  padding: 0;
-  margin: 20px 0 0;
+  padding: 0 0 5px;
+  margin: 0;
+  max-height: 280px;
 }
 
 .vehicle {
   display: flex;
   padding: 10px 20px;
-
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 10px;
+  cursor: pointer;
 
   &.active {
-    background-color: $gray-light;
+    background-color: $primary-light;
+    color: $white;
   }
 }
 
