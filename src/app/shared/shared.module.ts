@@ -22,6 +22,7 @@ import { ErrorMessageComponent } from '@components/error-message/error-message.c
 import { AddVehicleModalBodyComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-body/add-vehicle-modal-body.component';
 import { AddVehicleModalEngineComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-engine/add-vehicle-modal-engine.component';
 import { AddVehicleModalGeneralComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-general/add-vehicle-modal-general.component';
+import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle-confirm/delete-vehicle-confirm.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -71,6 +72,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     AddVehicleModalGeneralComponent,
     SnackbarSuccessComponent,
     ErrorMessageComponent,
+    DeleteVehicleConfirmComponent,
   ],
 })
 export class SharedModule {

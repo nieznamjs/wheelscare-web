@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ModalService } from '@services/utils/modal.service';
-import { AddVehicleModalComponent } from '@shared/components/modals/add-vehicle-modal/add-vehicle-modal.component';
 import { UsersDataService } from '@services/data-integration/users-data.service';
 import { IUser, Vehicle } from '@wheelscare/common';
 import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
@@ -33,7 +32,7 @@ export class VehiclesComponent implements OnInit {
   }
 
   public openAddVehicleModal(): void {
-    this.modalService.open(AddVehicleModalComponent, { disableClose: true });
+    this.modalService.openAddVehicleModal();
   }
 
   public selectVehicle(vehicle: Vehicle): void {
