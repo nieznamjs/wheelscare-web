@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Vehicle } from '@wheelscare/common';
 import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
+import { ModalService } from '@services/utils/modal.service';
 
 @Component({
   selector: 'wcw-vehicle-details',
@@ -13,9 +14,16 @@ export class VehicleDetailsComponent implements OnInit {
 
   public vehicle$: Observable<Vehicle>;
 
-  constructor(private vehiclesUtilsService: VehiclesUtilsService) { }
+  constructor(
+    private vehiclesUtilsService: VehiclesUtilsService,
+    private modalService: ModalService,
+  ) { }
 
   public ngOnInit(): void {
     this.vehicle$ = this.vehiclesUtilsService.currentVehicle$;
+  }
+
+  public deleteVehicle(vehicle: Vehicle): void {
+    this.modalService.openDeleteVehicleConfirmModal({ data: { vehicle }, maxWidth: 500 });
   }
 }

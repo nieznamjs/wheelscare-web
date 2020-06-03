@@ -23,7 +23,9 @@ export function createApollo(httpLink: HttpLink, authFacade: AuthFacade) {
       }),
       httpLink.create({ uri, withCredentials: true }),
     ]),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      dataIdFromObject: o => o.id,
+    }),
   };
 }
 

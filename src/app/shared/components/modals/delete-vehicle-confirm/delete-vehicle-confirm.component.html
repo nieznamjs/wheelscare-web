@@ -1,0 +1,19 @@
+<h2 mat-dialog-title class="heading-3">
+  Potwierdź usunięcie
+</h2>
+
+<p mat-dialog-content class="content">
+  Czy na pewno chcesz usunąć pojazd <strong>{{ data.vehicle?.name }}</strong> o numerze VIN <strong>{{ data.vehicle?.vin }}</strong>? Wszystkie dane zostaną utracone.
+</p>
+
+<div mat-dialog-actions class="buttons">
+  <button mat-raised-button color="warn" (click)="deleteVehicle()" [disabled]="loading">
+    <span *ngIf="!loading; else loader">Tak, usuń!</span>
+
+    <ng-template #loader>
+      <wcw-loader class="loader" color="accent" size="24"></wcw-loader>
+    </ng-template>
+  </button>
+
+  <button mat-raised-button color="primary" (click)="close()" [disabled]="loading">Nie usuwaj</button>
+</div>
