@@ -25,6 +25,7 @@ export class DeleteVehicleConfirmComponent implements OnDestroy {
 
   public ngOnDestroy() {
     this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public deleteVehicle(): void {
