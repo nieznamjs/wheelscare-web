@@ -32,7 +32,7 @@ export class VehiclesComponent implements OnInit {
   }
 
   public openAddVehicleModal(): void {
-    this.modalService.openAddVehicleModal();
+    this.modalService.openVehicleModal();
   }
 
   public selectVehicle(vehicle: Vehicle): void {

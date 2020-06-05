@@ -26,4 +26,8 @@ export class VehicleDetailsComponent implements OnInit {
   public deleteVehicle(vehicle: Vehicle): void {
     this.modalService.openDeleteVehicleConfirmModal({ data: { vehicle }, maxWidth: 500 });
   }
+
+  public editVehicle(vehicle: Vehicle): void {
+    this.modalService.openVehicleModal(vehicle);
+  }
 }

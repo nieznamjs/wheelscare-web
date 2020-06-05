@@ -3,7 +3,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 import { ComponentType } from '@angular/cdk/overlay';
 
 import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle-confirm/delete-vehicle-confirm.component';
-import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
+import { VehicleModalComponent } from '@components/modals/vehicle-modal/vehicle-modal.component';
+import { Vehicle } from '@wheelscare/common';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class ModalService {
     return this.dialog.open(component, options);
   }
 
-  public openAddVehicleModal(): MatDialogRef<AddVehicleModalComponent> {
-    return this.open(AddVehicleModalComponent, { disableClose: true });
+  public openVehicleModal(vehicle?: Vehicle): MatDialogRef<VehicleModalComponent> {
+    return this.open(VehicleModalComponent, { disableClose: true, data: { vehicle } });
   }
 
   public openDeleteVehicleConfirmModal(options: MatDialogConfig): MatDialogRef<DeleteVehicleConfirmComponent> {

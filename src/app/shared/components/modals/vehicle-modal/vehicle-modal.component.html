@@ -14,8 +14,8 @@
       Ogólne
     </ng-template>
 
-    <wcw-add-vehicle-modal-general [formGroup]="generalForm" [brands]="brands$ | async" [currYear]="currYear">
-    </wcw-add-vehicle-modal-general>
+    <wcw-vehicle-modal-general [formGroup]="generalForm" [brands]="brands$ | async" [currYear]="currYear">
+    </wcw-vehicle-modal-general>
   </mat-step>
 
   <mat-step [stepControl]="engineForm">
@@ -23,7 +23,7 @@
       Silnik i napęd
     </ng-template>
 
-    <wcw-add-vehicle-modal-engine [formGroup]="engineForm"></wcw-add-vehicle-modal-engine>
+    <wcw-vehicle-modal-engine [formGroup]="engineForm"></wcw-vehicle-modal-engine>
   </mat-step>
 
   <mat-step [stepControl]="bodyForm">
@@ -31,7 +31,7 @@
       Nadwozie
     </ng-template>
 
-    <wcw-add-vehicle-modal-body [formGroup]="bodyForm" (saved)="save()" [isLoading]="isLoading" [errors]="errors">
-    </wcw-add-vehicle-modal-body>
+    <wcw-vehicle-modal-body [formGroup]="bodyForm" (saved)="save()" [isLoading]="isLoading" [errors]="errors">
+    </wcw-vehicle-modal-body>
   </mat-step>
 </mat-horizontal-stepper>

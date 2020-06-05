@@ -7,11 +7,11 @@ import { VehiclesTypesLabels } from '@constants';
 import { getSelectOptions } from '@helpers';
 
 @Component({
-  selector: 'wcw-add-vehicle-modal-general',
-  templateUrl: './add-vehicle-modal-general.component.html',
-  styleUrls: ['./add-vehicle-modal-general.component.scss'],
+  selector: 'wcw-vehicle-modal-general',
+  templateUrl: './vehicle-modal-general.component.html',
+  styleUrls: ['./vehicle-modal-general.component.scss'],
 })
-export class AddVehicleModalGeneralComponent {
+export class VehicleModalGeneralComponent {
   @Input() public formGroup: FormGroup;
   @Input() public brands: IVehicleBrands;
   @Input() public currYear: number;

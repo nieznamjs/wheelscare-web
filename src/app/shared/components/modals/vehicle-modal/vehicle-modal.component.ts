@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { IVehicleBrands, VALID_VIN_REGEX, Vehicle } from '@wheelscare/common';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
 import { SnackbarService } from '@services/utils/snackbar.service';
 import { SnackbarMessages } from '@constants';
+import { VehicleModalData } from '@interfaces';
 
 @Component({
-  selector: 'wcw-add-vehicle-modal',
-  templateUrl: './add-vehicle-modal.component.html',
-  styleUrls: ['./add-vehicle-modal.component.scss']
+  selector: 'wcw-vehicle-modal',
+  templateUrl: './vehicle-modal.component.html',
+  styleUrls: ['./vehicle-modal.component.scss']
 })
-export class AddVehicleModalComponent implements OnInit {
+export class VehicleModalComponent implements OnInit {
   public generalForm: FormGroup;
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
@@ -24,15 +25,18 @@ export class AddVehicleModalComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AddVehicleModalComponent>,
+    private dialogRef: MatDialogRef<VehicleModalComponent>,
     private vehiclesService: VehiclesDataService,
     private snackbarService: SnackbarService,
+    @Inject(MAT_DIALOG_DATA) private data: VehicleModalData,
   ) {}
 
   public ngOnInit(): void {
     this.generalForm = this.createGeneralForm();
     this.engineForm = this.createEngineForm();
     this.bodyForm = this.createBodyForm();
+
+    this.patchForms();
 
     this.brands$ = this.vehiclesService.getBrands();
   }
@@ -57,6 +61,24 @@ export class AddVehicleModalComponent implements OnInit {
         this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
       }
     });
+  }
+
+  private patchForms(): void {
+    const vehicleData = this.data?.vehicle;
+
+    if (!vehicleData) {
+      return;
+    }
+
+    console.log(vehicleData)
+
+    this.generalForm.patchValue(vehicleData);
+    this.engineForm.patchValue(vehicleData);
+    this.bodyForm.patchValue(vehicleData);
+
+    console.log(this.generalForm.value)
+    console.log(this.engineForm.value)
+    console.log(this.bodyForm.value)
   }
 
   private createGeneralForm(): FormGroup {

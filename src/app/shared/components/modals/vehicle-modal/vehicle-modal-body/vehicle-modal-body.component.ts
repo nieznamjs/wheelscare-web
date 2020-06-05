@@ -8,11 +8,11 @@ import { PaintColorsLabels, PaintTypesLabels } from '@constants';
 import { getSelectOptions } from '@helpers';
 
 @Component({
-  selector: 'wcw-add-vehicle-modal-body',
-  templateUrl: './add-vehicle-modal-body.component.html',
-  styleUrls: ['./add-vehicle-modal-body.component.scss']
+  selector: 'wcw-vehicle-modal-body',
+  templateUrl: './vehicle-modal-body.component.html',
+  styleUrls: ['./vehicle-modal-body.component.scss']
 })
-export class AddVehicleModalBodyComponent {
+export class VehicleModalBodyComponent {
   @Input() public formGroup: FormGroup;
   @Input() public isLoading: boolean;
   @Input() public errors: string[];

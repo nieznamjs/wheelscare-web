@@ -21,6 +21,7 @@ export class UsersDataService {
   ) {}
 
   public getMe(): Observable<WatchQueryResponse<GetMeResponse>> {
+    // TODO get only basic vehicles data
     const query = gql`
       {
         me {
@@ -30,13 +31,23 @@ export class UsersDataService {
           vehicles {
             id,
             vin,
-            brand,
-            mileage,
-            engineCapacity,
-            enginePower,
+            paintColor,
+            paintType,
+            type,
+            transmissionType,
             yearOfProduction,
+            hasLeftSteeringWheelPosition,
+            driveType,
+            brand,
             vehicleModel,
+            generation,
+            enginePower,
+            engineCapacity,
+            fuelType,
             name,
+            mileage,
+            seatsNumber,
+            doorsNumber,
           },
         },
       },
