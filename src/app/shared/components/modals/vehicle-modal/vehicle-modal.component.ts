@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { IVehicleBrands, VALID_VIN_REGEX, Vehicle } from '@wheelscare/common';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
@@ -12,9 +13,9 @@ import { VehicleModalData } from '@interfaces';
 @Component({
   selector: 'wcw-vehicle-modal',
   templateUrl: './vehicle-modal.component.html',
-  styleUrls: ['./vehicle-modal.component.scss']
+  styleUrls: [ './vehicle-modal.component.scss' ],
 })
-export class VehicleModalComponent implements OnInit {
+export class VehicleModalComponent implements OnInit, OnDestroy {
   public generalForm: FormGroup;
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
@@ -23,13 +24,16 @@ export class VehicleModalComponent implements OnInit {
   public isLoading: boolean;
   public errors: string[];
 
+  private destroy$ = new ReplaySubject<void>();
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<VehicleModalComponent>,
     private vehiclesService: VehiclesDataService,
     private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) private data: VehicleModalData,
-  ) {}
+  ) {
+  }
 
   public ngOnInit(): void {
     this.generalForm = this.createGeneralForm();
@@ -39,6 +43,11 @@ export class VehicleModalComponent implements OnInit {
     this.patchForms();
 
     this.brands$ = this.vehiclesService.getBrands();
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public close(): void {
@@ -52,15 +61,33 @@ export class VehicleModalComponent implements OnInit {
       ...this.bodyForm.value,
     };
 
-    this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
-      this.isLoading = result.loading;
-      this.errors = result.errors;
+    if (this.data?.vehicle) {
+      this.vehiclesService.updateVehicle(vehicle)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(result => {
+          this.isLoading = result.loading;
+          this.errors = result.errors;
 
-      if (result.data) {
-        this.dialogRef.close();
-        this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
-      }
-    });
+          if (result.data) {
+            this.dialogRef.close();
+            this.snackbarService.showSuccess(SnackbarMessages.VehicleUpdatedSuccessfully);
+          }
+        });
+
+      return;
+    }
+
+    this.vehiclesService.createNewVehicle(vehicle)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isLoading = result.loading;
+        this.errors = result.errors;
+
+        if (result.data) {
+          this.dialogRef.close();
+          this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
+        }
+      });
   }
 
   private patchForms(): void {
@@ -70,15 +97,9 @@ export class VehicleModalComponent implements OnInit {
       return;
     }
 
-    console.log(vehicleData)
-
     this.generalForm.patchValue(vehicleData);
     this.engineForm.patchValue(vehicleData);
     this.bodyForm.patchValue(vehicleData);
-
-    console.log(this.generalForm.value)
-    console.log(this.engineForm.value)
-    console.log(this.bodyForm.value)
   }
 
   private createGeneralForm(): FormGroup {
@@ -92,12 +113,12 @@ export class VehicleModalComponent implements OnInit {
         Validators.required,
         Validators.min(1),
         Validators.max(5000000),
-      ]],
+      ] ],
       yearOfProduction: [ null, [
         Validators.required,
         Validators.min(1900),
         Validators.max(this.currYear),
-      ]],
+      ] ],
     });
   }
 

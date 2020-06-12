@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import gql from 'graphql-tag';
 import { DataProxy } from 'apollo-cache';
+import { FetchResult } from 'apollo-link';
 
 import { IUser, IVehicleBrands, Vehicle, VEHICLE_BRANDS } from '@wheelscare/common';
 import { DataService } from '@services/data-integration/data.service';
-import { MutationResponse } from '@shared/interfaces/data.interface';
-import { FetchResult } from 'apollo-link';
+import { MutationResponse, WatchQueryResponse } from '@shared/interfaces/data.interface';
+import { GetVehicleResponse } from '@interfaces';
 
 const getUsersVehiclesQuery = gql`
   {
@@ -14,24 +15,38 @@ const getUsersVehiclesQuery = gql`
       vehicles {
         id,
         vin,
-        paintColor,
-        paintType,
         type,
-        transmissionType,
-        yearOfProduction,
-        hasLeftSteeringWheelPosition,
-        driveType,
         brand,
         vehicleModel,
         generation,
-        enginePower,
-        engineCapacity,
-        fuelType,
         name,
-        mileage,
-        seatsNumber,
-        doorsNumber,
       },
+    },
+  },
+`;
+
+const getVehicleQuery = gql`
+  query vehicle($id: String!) {
+    vehicle(id: $id) {
+      id,
+      vin,
+      paintColor,
+      paintType,
+      type,
+      transmissionType,
+      yearOfProduction,
+      hasLeftSteeringWheelPosition,
+      driveType,
+      brand,
+      vehicleModel,
+      generation,
+      enginePower,
+      engineCapacity,
+      fuelType,
+      name,
+      mileage,
+      seatsNumber,
+      doorsNumber,
     },
   },
 `;
@@ -47,18 +62,20 @@ export class VehiclesDataService {
     return of(VEHICLE_BRANDS);
   }
 
+  public getVehicle(id: string): Observable<WatchQueryResponse<GetVehicleResponse>> {
+    return this.dataService.watchQuery<GetVehicleResponse>({ query: getVehicleQuery, variables: { id } });
+  }
+
   public createNewVehicle(vehicle: Vehicle): Observable<MutationResponse<{ addMyVehicle: Vehicle }>> {
     const mutation = gql`
       mutation addMyVehicle($vehicle: CreateVehicle!) {
         addMyVehicle(vehicle: $vehicle) {
           id,
           vin,
+          type,
           brand,
-          mileage,
-          engineCapacity,
-          enginePower,
-          yearOfProduction,
           vehicleModel,
+          generation,
           name,
         },
       },
@@ -73,6 +90,46 @@ export class VehiclesDataService {
         storeData.me.vehicles = [ ...storeData.me.vehicles, response.data.addMyVehicle ];
 
         store.writeQuery({ query: getUsersVehiclesQuery, data: storeData });
+      },
+    });
+  }
+
+  public updateVehicle(vehicle: Vehicle): Observable<MutationResponse<{ updateMyVehicle: Vehicle }>> {
+    const mutation = gql`
+      mutation updateMyVehicle($vehicle: UpdateVehicle!) {
+        updateMyVehicle(vehicle: $vehicle) {
+          id,
+          vin,
+          paintColor,
+          paintType,
+          type,
+          transmissionType,
+          yearOfProduction,
+          hasLeftSteeringWheelPosition,
+          driveType,
+          brand,
+          vehicleModel,
+          generation,
+          enginePower,
+          engineCapacity,
+          fuelType,
+          name,
+          mileage,
+          seatsNumber,
+          doorsNumber,
+        },
+      },
+    `;
+
+    return this.dataService.mutate({
+      mutation,
+      variables: { vehicle },
+      update: (store: DataProxy, response: FetchResult<{ updateMyVehicle: Vehicle }>) => {
+        const storeData: { vehicle: Vehicle } = store.readQuery({ query: getVehicleQuery });
+
+        storeData.vehicle = response.data.updateMyVehicle;
+
+        store.writeQuery({ query: getVehicleQuery, data: storeData });
       },
     });
   }

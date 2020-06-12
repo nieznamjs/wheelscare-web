@@ -14,7 +14,7 @@ import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 })
 export class VehiclesComponent implements OnInit {
   public me$: Observable<IUser>;
-  public selectedVehicle$: Observable<Vehicle>;
+  public selectedVehicleId$: Observable<string>;
 
   constructor(
     private modalService: ModalService,
@@ -24,18 +24,18 @@ export class VehiclesComponent implements OnInit {
 
   public ngOnInit() {
     this.me$ = this.usersDataService.getMe().pipe(map(response => {
-      this.selectVehicle(response.data?.me.vehicles[0]);
+      this.selectVehicle(response.data?.me.vehicles[0]?.id);
       return response.data?.me;
     }));
 
-    this.selectedVehicle$ = this.vehiclesUtilsService.currentVehicle$;
+    this.selectedVehicleId$ = this.vehiclesUtilsService.currentVehicleId$;
   }
 
   public openAddVehicleModal(): void {
     this.modalService.openVehicleModal();
   }
 
-  public selectVehicle(vehicle: Vehicle): void {
-    this.vehiclesUtilsService.setCurrentVehicle(vehicle);
+  public selectVehicle(id: string): void {
+    this.vehiclesUtilsService.setCurrentVehicle(id);
   }
 }

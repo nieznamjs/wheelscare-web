@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-
-import { getRange } from '@shared/helpers/get-range';
 import { BehaviorSubject } from 'rxjs';
 
-import { Vehicle } from '@wheelscare/common';
+import { getRange } from '@helpers';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehiclesUtilsService {
-  public currentVehicle$ = new BehaviorSubject<Vehicle>(null);
+  public currentVehicleId$ = new BehaviorSubject<string>(null);
 
-  public setCurrentVehicle(vehicle: Vehicle): void {
-    this.currentVehicle$.next(vehicle);
+  public setCurrentVehicle(id: string): void {
+    this.currentVehicleId$.next(id);
   }
 
   public getDoorsNumberSelectOptions(): number[] {
