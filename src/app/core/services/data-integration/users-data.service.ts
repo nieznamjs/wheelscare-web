@@ -30,11 +30,10 @@ export class UsersDataService {
           vehicles {
             id,
             vin,
-            type,
             brand,
             vehicleModel,
-            generation,
             name,
+            default,
           },
         },
       },

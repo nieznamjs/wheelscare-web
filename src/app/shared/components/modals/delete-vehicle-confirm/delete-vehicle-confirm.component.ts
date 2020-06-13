@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 
 import { DeleteVehicleConfirmModalData } from '@shared/interfaces/delete-vehicle-confirm-modal-data.interface';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { SnackbarService } from '@services/utils/snackbar.service';
+import { SnackbarMessages } from '@constants';
 
 @Component({
   selector: 'wcw-delete-vehicle-confirm',
@@ -20,6 +22,7 @@ export class DeleteVehicleConfirmComponent implements OnDestroy {
   constructor(
     private dialogRef: MatDialogRef<DeleteVehicleConfirmComponent>,
     private vehiclesDataService: VehiclesDataService,
+    private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public data: DeleteVehicleConfirmModalData,
   ) { }
 
@@ -37,6 +40,7 @@ export class DeleteVehicleConfirmComponent implements OnDestroy {
         this.dialogRef.disableClose = !response.loading;
 
         if (response.data) {
+          this.snackbarService.showSuccess(SnackbarMessages.VehicleDeletedSuccessfully);
           this.close();
         }
     });
