@@ -62,6 +62,8 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
     };
 
     if (this.data?.vehicle) {
+      vehicle.id = this.data.vehicle.id;
+
       this.vehiclesService.updateVehicle(vehicle)
         .pipe(takeUntil(this.destroy$))
         .subscribe(result => {
