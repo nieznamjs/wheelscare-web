@@ -12,7 +12,7 @@ import { GetMeResponse, WatchQueryResponse } from '@interfaces';
   providedIn: 'root'
 })
 export class UsersDataService {
-  private readonly usersApiUrl = `${this.config.apiUrl}/users`;
+  private readonly authApiUrl = `${this.config.apiUrl}/auth`;
 
   constructor(
     private http: HttpClient,
@@ -44,7 +44,7 @@ export class UsersDataService {
   }
 
   public initPasswordReset(email: string): Observable<IGeneralSuccessResponse> {
-    return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/init-password-reset`, { email });
+    return this.http.post<IGeneralSuccessResponse>(`${this.authApiUrl}/init-password-reset`, { email });
   }
 
   public passwordReset(id: string, newPassword: string, token: string): Observable<IGeneralSuccessResponse> {
@@ -54,7 +54,7 @@ export class UsersDataService {
       }),
     };
 
-    return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/${id}/reset-password`, { newPassword }, httpOptions);
+    return this.http.post<IGeneralSuccessResponse>(`${this.authApiUrl}/${id}/reset-password`, { newPassword }, httpOptions);
   }
 
   public activateUser(userId: string, token: string): Observable<IGeneralSuccessResponse> {
@@ -64,6 +64,6 @@ export class UsersDataService {
       }),
     };
 
-    return this.http.post<IGeneralSuccessResponse>(`${this.usersApiUrl}/${userId}/activate`, {}, httpOptions);
+    return this.http.post<IGeneralSuccessResponse>(`${this.authApiUrl}/${userId}/activate`, {}, httpOptions);
   }
 }
