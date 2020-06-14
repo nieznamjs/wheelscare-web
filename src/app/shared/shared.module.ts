@@ -16,12 +16,12 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { LoaderComponent } from '@components/loader/loader.component';
 import { SidebarComponent } from '@components/sidebar/sidebar.component';
-import { AddVehicleModalComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal.component';
+import { VehicleModalComponent } from '@components/modals/vehicle-modal/vehicle-modal.component';
 import { SnackbarSuccessComponent } from '@components/snackbar-success/snackbar-success.component';
 import { ErrorMessageComponent } from '@components/error-message/error-message.component';
-import { AddVehicleModalBodyComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-body/add-vehicle-modal-body.component';
-import { AddVehicleModalEngineComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-engine/add-vehicle-modal-engine.component';
-import { AddVehicleModalGeneralComponent } from '@components/modals/add-vehicle-modal/add-vehicle-modal-general/add-vehicle-modal-general.component';
+import { VehicleModalBodyComponent } from '@components/modals/vehicle-modal/vehicle-modal-body/vehicle-modal-body.component';
+import { VehicleModalEngineComponent } from '@components/modals/vehicle-modal/vehicle-modal-engine/vehicle-modal-engine.component';
+import { VehicleModalGeneralComponent } from '@components/modals/vehicle-modal/vehicle-modal-general/vehicle-modal-general.component';
 import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle-confirm/delete-vehicle-confirm.component';
 
 const materialModules = [
@@ -66,10 +66,10 @@ const customSvgIcons: CustomSvgIconConfig[] = [
   declarations: [
     LoaderComponent,
     SidebarComponent,
-    AddVehicleModalComponent,
-    AddVehicleModalBodyComponent,
-    AddVehicleModalEngineComponent,
-    AddVehicleModalGeneralComponent,
+    VehicleModalComponent,
+    VehicleModalBodyComponent,
+    VehicleModalEngineComponent,
+    VehicleModalGeneralComponent,
     SnackbarSuccessComponent,
     ErrorMessageComponent,
     DeleteVehicleConfirmComponent,

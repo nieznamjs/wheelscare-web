@@ -8,11 +8,11 @@ import { PaintColorsLabels, PaintTypesLabels } from '@constants';
 import { getSelectOptions } from '@helpers';
 
 @Component({
-  selector: 'wcw-add-vehicle-modal-body',
-  templateUrl: './add-vehicle-modal-body.component.html',
-  styleUrls: ['./add-vehicle-modal-body.component.scss']
+  selector: 'wcw-vehicle-modal-body',
+  templateUrl: './vehicle-modal-body.component.html',
+  styleUrls: ['./vehicle-modal-body.component.scss']
 })
-export class AddVehicleModalBodyComponent {
+export class VehicleModalBodyComponent {
   @Input() public formGroup: FormGroup;
   @Input() public isLoading: boolean;
   @Input() public errors: string[];
@@ -20,12 +20,12 @@ export class AddVehicleModalBodyComponent {
 
   public readonly paintColors = getSelectOptions(VehiclePaintColors, PaintColorsLabels);
   public readonly paintTypes = getSelectOptions(VehiclePaintTypes, PaintTypesLabels);
-  public readonly doorsNumber = this.vehiclesService.getDoorsNumberSelectOptions();
-  public readonly seatsNumber = this.vehiclesService.getSeatsNumberSelectOptions();
+  public readonly doorsNumber = this.vehiclesUtilsService.getDoorsNumberSelectOptions();
+  public readonly seatsNumber = this.vehiclesUtilsService.getSeatsNumberSelectOptions();
 
   constructor(
     private formsService: FormsService,
-    private vehiclesService: VehiclesUtilsService,
+    private vehiclesUtilsService: VehiclesUtilsService,
   ) { }
 
   public getFormControl(name: string): AbstractControl {

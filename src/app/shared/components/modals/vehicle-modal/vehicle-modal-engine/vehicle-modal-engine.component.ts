@@ -7,11 +7,11 @@ import { DriveTypesLabels, FuelTypesLabels, TransmissionTypesLabels } from '@con
 import { getSelectOptions } from '@helpers';
 
 @Component({
-  selector: 'wcw-add-vehicle-modal-engine',
-  templateUrl: './add-vehicle-modal-engine.component.html',
-  styleUrls: ['./add-vehicle-modal-engine.component.scss']
+  selector: 'wcw-vehicle-modal-engine',
+  templateUrl: './vehicle-modal-engine.component.html',
+  styleUrls: ['./vehicle-modal-engine.component.scss']
 })
-export class AddVehicleModalEngineComponent {
+export class VehicleModalEngineComponent {
   @Input() public formGroup: FormGroup;
 
   public readonly fuelTypes = getSelectOptions(VehicleFuelTypes, FuelTypesLabels);

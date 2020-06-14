@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 
 import { AuthFacade } from '@store/auth-store';
 import { UsersDataService } from '@services/data-integration/users-data.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'wcw-root',

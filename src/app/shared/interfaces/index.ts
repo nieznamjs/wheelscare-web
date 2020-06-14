@@ -3,3 +3,4 @@ export * from './http';
 export * from './select-option.interface';
 export * from './snackbar-data.interface';
 export * from './data.interface';
+export * from './vehicle-modal-data.interface';

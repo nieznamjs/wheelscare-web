@@ -24,11 +24,16 @@
   padding: 10px 20px;
   margin-bottom: 10px;
   cursor: pointer;
+  justify-content: space-between;
 
   &.active {
     background-color: $primary-light;
     color: $white;
   }
+}
+
+.vehicle-data {
+  display: flex;
 }
 
 .vehicle-desc {
@@ -39,4 +44,20 @@
   width: 80px;
   flex-shrink: 0;
   margin-right: 20px;
+}
+
+.default-label {
+  align-self: flex-end;
+  padding: 5px;
+  border-radius: $general-border-radius;
+  color: $font-primary;
+  background-color: $gray;
+  font-size: 10px;
+  transition-duration: 200ms;
+
+  &.is-default,
+  &:hover {
+    background-color: $success;
+    color: $white;
+  }
 }

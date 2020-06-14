@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable, ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { IVehicleBrands, VALID_VIN_REGEX, Vehicle } from '@wheelscare/common';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
 import { SnackbarService } from '@services/utils/snackbar.service';
 import { SnackbarMessages } from '@constants';
+import { VehicleModalData } from '@interfaces';
 
 @Component({
-  selector: 'wcw-add-vehicle-modal',
-  templateUrl: './add-vehicle-modal.component.html',
-  styleUrls: ['./add-vehicle-modal.component.scss']
+  selector: 'wcw-vehicle-modal',
+  templateUrl: './vehicle-modal.component.html',
+  styleUrls: [ './vehicle-modal.component.scss' ],
 })
-export class AddVehicleModalComponent implements OnInit {
+export class VehicleModalComponent implements OnInit, OnDestroy {
   public generalForm: FormGroup;
   public engineForm: FormGroup;
   public bodyForm: FormGroup;
@@ -22,19 +24,30 @@ export class AddVehicleModalComponent implements OnInit {
   public isLoading: boolean;
   public errors: string[];
 
+  private destroy$ = new ReplaySubject<void>();
+
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AddVehicleModalComponent>,
-    private vehiclesService: VehiclesDataService,
+    private dialogRef: MatDialogRef<VehicleModalComponent>,
+    private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) private data: VehicleModalData,
+  ) {
+  }
 
   public ngOnInit(): void {
     this.generalForm = this.createGeneralForm();
     this.engineForm = this.createEngineForm();
     this.bodyForm = this.createBodyForm();
 
-    this.brands$ = this.vehiclesService.getBrands();
+    this.patchForms();
+
+    this.brands$ = this.vehiclesDataService.getBrands();
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public close(): void {
@@ -48,15 +61,54 @@ export class AddVehicleModalComponent implements OnInit {
       ...this.bodyForm.value,
     };
 
-    this.vehiclesService.createNewVehicle(vehicle).subscribe(result => {
-      this.isLoading = result.loading;
-      this.errors = result.errors;
+    if (this.data?.vehicle) {
+      this.updateVehicle(vehicle);
+      return;
+    }
 
-      if (result.data) {
-        this.dialogRef.close();
-        this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
-      }
-    });
+    this.createVehicle(vehicle);
+  }
+
+  private updateVehicle(vehicle: Vehicle): void {
+    vehicle.id = this.data.vehicle.id;
+
+    this.vehiclesDataService.updateVehicle(vehicle)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isLoading = result.loading;
+        this.errors = result.errors;
+
+        if (result.data) {
+          this.dialogRef.close();
+          this.snackbarService.showSuccess(SnackbarMessages.VehicleUpdatedSuccessfully);
+        }
+      });
+  }
+
+  private createVehicle(vehicle: Vehicle): void {
+    this.vehiclesDataService.createNewVehicle(vehicle)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isLoading = result.loading;
+        this.errors = result.errors;
+
+        if (result.data) {
+          this.dialogRef.close();
+          this.snackbarService.showSuccess(SnackbarMessages.VehicleAddedSuccessfully);
+        }
+      });
+  }
+
+  private patchForms(): void {
+    const vehicleData = this.data?.vehicle;
+
+    if (!vehicleData) {
+      return;
+    }
+
+    this.generalForm.patchValue(vehicleData);
+    this.engineForm.patchValue(vehicleData);
+    this.bodyForm.patchValue(vehicleData);
   }
 
   private createGeneralForm(): FormGroup {
@@ -70,12 +122,12 @@ export class AddVehicleModalComponent implements OnInit {
         Validators.required,
         Validators.min(1),
         Validators.max(5000000),
-      ]],
+      ] ],
       yearOfProduction: [ null, [
         Validators.required,
         Validators.min(1900),
         Validators.max(this.currYear),
-      ]],
+      ] ],
     });
   }
 
