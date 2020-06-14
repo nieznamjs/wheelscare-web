@@ -26,18 +26,18 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.vehiclesUtilsService.currentVehicleId$
-        .pipe(
-          filter(id => !!id),
-          takeUntil(this.destroy$),
-        )
-        .subscribe((id: string) => {
-      this.vehicle$ = this.vehiclesDataService.getVehicle(id).pipe(
-        map(response => {
-          this.isLoading = response.loading;
-          return response.data?.vehicle;
-        }),
+      .pipe(
+        filter(id => !!id),
         takeUntil(this.destroy$),
-      );
+      )
+      .subscribe((id: string) => {
+        this.vehicle$ = this.vehiclesDataService.getVehicle(id).pipe(
+          map(response => {
+            this.isLoading = response.loading;
+            return response.data?.vehicle;
+          }),
+          takeUntil(this.destroy$),
+        );
     });
   }
 
