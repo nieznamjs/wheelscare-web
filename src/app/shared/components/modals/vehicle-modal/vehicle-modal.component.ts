@@ -29,7 +29,7 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<VehicleModalComponent>,
-    private vehiclesService: VehiclesDataService,
+    private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) private data: VehicleModalData,
   ) {
@@ -42,7 +42,7 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
 
     this.patchForms();
 
-    this.brands$ = this.vehiclesService.getBrands();
+    this.brands$ = this.vehiclesDataService.getBrands();
   }
 
   public ngOnDestroy() {
@@ -62,24 +62,31 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
     };
 
     if (this.data?.vehicle) {
-      vehicle.id = this.data.vehicle.id;
-
-      this.vehiclesService.updateVehicle(vehicle)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(result => {
-          this.isLoading = result.loading;
-          this.errors = result.errors;
-
-          if (result.data) {
-            this.dialogRef.close();
-            this.snackbarService.showSuccess(SnackbarMessages.VehicleUpdatedSuccessfully);
-          }
-        });
-
+      this.updateVehicle(vehicle);
       return;
     }
 
-    this.vehiclesService.createNewVehicle(vehicle)
+    this.createVehicle(vehicle);
+  }
+
+  private updateVehicle(vehicle: Vehicle): void {
+    vehicle.id = this.data.vehicle.id;
+
+    this.vehiclesDataService.updateVehicle(vehicle)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isLoading = result.loading;
+        this.errors = result.errors;
+
+        if (result.data) {
+          this.dialogRef.close();
+          this.snackbarService.showSuccess(SnackbarMessages.VehicleUpdatedSuccessfully);
+        }
+      });
+  }
+
+  private createVehicle(vehicle: Vehicle): void {
+    this.vehiclesDataService.createNewVehicle(vehicle)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.isLoading = result.loading;

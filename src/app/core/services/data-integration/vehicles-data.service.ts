@@ -18,6 +18,7 @@ const getUsersVehiclesQuery = gql`
         brand,
         vehicleModel,
         name,
+        default,
       },
     },
   },
@@ -122,7 +123,7 @@ export class VehiclesDataService {
     return this.dataService.mutate({ mutation, variables: { vehicle }});
   }
 
-  public setDefaultVehicle(vehicle: Vehicle): Observable<MutationResponse<{ updateMyVehicle: Vehicle }>> {
+  public setDefaultVehicle(vehicle: Partial<Vehicle>): Observable<MutationResponse<{ updateMyVehicle: Vehicle }>> {
     const mutation = gql`
       mutation updateMyVehicle($vehicle: UpdateVehicle!) {
         updateMyVehicle(vehicle: $vehicle) {
@@ -135,22 +136,9 @@ export class VehiclesDataService {
     return this.dataService.mutate({
       mutation,
       variables: { vehicle },
-      update: (store: DataProxy, response: FetchResult<{ updateMyVehicle: Vehicle }>) => {
-        const storeData: { me: IUser } = store.readQuery({ query: getUsersVehiclesQuery });
-        // TODO fix this shit
-
-        const vehicles = storeData.me.vehicles.map(vehicleFromCache => {
-          if (vehicleFromCache.id === response.data?.updateMyVehicle.id) {
-            return { ...vehicleFromCache, default: true };
-          }
-
-          return { ...vehicleFromCache, default: false };
-        });
-
-        console.log(vehicles)
-
-        store.writeQuery({ query: getUsersVehiclesQuery, data: storeData });
-      },
+      refetchQueries: [{
+        query: getUsersVehiclesQuery,
+      }],
     });
   }
 

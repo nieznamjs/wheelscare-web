@@ -50,8 +50,9 @@
   align-self: flex-end;
   padding: 5px;
   border-radius: $general-border-radius;
+  color: $font-primary;
   background-color: $gray;
-  font-size: 12px;
+  font-size: 10px;
   transition-duration: 200ms;
 
   &.is-default,

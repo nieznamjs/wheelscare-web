@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { IVehicleBrands, VehicleTypes, IVehicleModel } from '@wheelscare/common';
@@ -11,7 +11,7 @@ import { getSelectOptions } from '@helpers';
   templateUrl: './vehicle-modal-general.component.html',
   styleUrls: ['./vehicle-modal-general.component.scss'],
 })
-export class VehicleModalGeneralComponent {
+export class VehicleModalGeneralComponent implements OnInit {
   @Input() public formGroup: FormGroup;
   @Input() public brands: IVehicleBrands;
   @Input() public currYear: number;
@@ -22,6 +22,12 @@ export class VehicleModalGeneralComponent {
   constructor(
     private formsService: FormsService,
   ) { }
+
+  public ngOnInit(): void {
+    if (this.formGroup.get('brand').value) {
+      this.brandSelected();
+    }
+  }
 
   public getFormControl(name: string): AbstractControl {
     return this.formsService.getFormControl(this.formGroup, name);

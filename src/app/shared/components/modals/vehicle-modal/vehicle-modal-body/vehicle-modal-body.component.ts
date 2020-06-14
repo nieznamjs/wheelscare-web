@@ -20,12 +20,12 @@ export class VehicleModalBodyComponent {
 
   public readonly paintColors = getSelectOptions(VehiclePaintColors, PaintColorsLabels);
   public readonly paintTypes = getSelectOptions(VehiclePaintTypes, PaintTypesLabels);
-  public readonly doorsNumber = this.vehiclesService.getDoorsNumberSelectOptions();
-  public readonly seatsNumber = this.vehiclesService.getSeatsNumberSelectOptions();
+  public readonly doorsNumber = this.vehiclesUtilsService.getDoorsNumberSelectOptions();
+  public readonly seatsNumber = this.vehiclesUtilsService.getSeatsNumberSelectOptions();
 
   constructor(
     private formsService: FormsService,
-    private vehiclesService: VehiclesUtilsService,
+    private vehiclesUtilsService: VehiclesUtilsService,
   ) { }
 
   public getFormControl(name: string): AbstractControl {
