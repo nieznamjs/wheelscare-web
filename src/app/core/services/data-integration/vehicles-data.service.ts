@@ -7,7 +7,7 @@ import { FetchResult } from 'apollo-link';
 import { IUser, IVehicleBrands, Vehicle, VEHICLE_BRANDS } from '@wheelscare/common';
 import { DataService } from '@services/data-integration/data.service';
 import { MutationResponse, WatchQueryResponse } from '@shared/interfaces/data.interface';
-import { GetVehicleResponse } from '@interfaces';
+import { GetVehicleResponse, InitVehicleTransferBody } from '@interfaces';
 
 const getUsersVehiclesQuery = gql`
   {
@@ -160,5 +160,15 @@ export class VehiclesDataService {
         store.writeQuery({ query: getUsersVehiclesQuery, data: storeData });
       },
     });
+  }
+
+  public initVehicleTransfer(body: InitVehicleTransferBody): Observable<MutationResponse<boolean>> {
+    const mutation = gql`
+      mutation initTransferMyVehicle($vehicleId: String, $targetUserEmail: String) {
+        initTransferMyVehicle(vehicleId: $vehicleId, targetUserEmail: $targetUserEmail),
+      },
+    `;
+
+    return this.dataService.mutate({ mutation, variables: body });
   }
 }

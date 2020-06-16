@@ -1,0 +1,25 @@
+<h2 mat-dialog-title class="heading-3">
+  Potwierdź transfer
+</h2>
+
+<div mat-dialog-content>
+  Czy na pewno chcesz rozpocząć transfer pojazdu <strong>{{ data.vehicle.name }}</strong> o numerze VIN <strong>{{ data.vehicle.vin }}</strong> do osoby o adresie e-mail <strong>{{ data.body.targetUserEmail }}</strong>?
+</div>
+
+<div class="errors">
+  <wcw-error-message class="error" *ngFor="let error of errors" [errorMessage]="error"></wcw-error-message>
+</div>
+
+<div mat-dialog-actions class="actions">
+  <button type="button" mat-raised-button color="primary" (click)="close()" [disabled]="loading">
+    Anuluj
+  </button>
+
+  <button mat-raised-button color="warn" (click)="initTransfer()" [disabled]="loading">
+    <span *ngIf="!loading; else loader">Transferuj</span>
+
+    <ng-template #loader>
+      <wcw-loader class="loader" color="accent" size="24"></wcw-loader>
+    </ng-template>
+  </button>
+</div>

@@ -1,15 +1,12 @@
-.content {
-  margin: 20px 0;
-  padding: 0;
-}
-
-.buttons {
+.actions {
   display: flex;
   justify-content: space-between;
   margin-bottom: -14px;
 }
 
 .errors {
+  margin: 10px 0;
+
   .error {
     &:not(:last-child) {
       margin-bottom: 10px;

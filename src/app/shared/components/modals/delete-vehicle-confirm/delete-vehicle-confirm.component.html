@@ -6,6 +6,10 @@
   Czy na pewno chcesz usunąć pojazd <strong>{{ data.vehicle?.name }}</strong> o numerze VIN <strong>{{ data.vehicle?.vin }}</strong>? Wszystkie dane zostaną utracone.
 </p>
 
+<div class="errors">
+  <wcw-error-message class="error" *ngFor="let error of errors" [errorMessage]="error"></wcw-error-message>
+</div>
+
 <div mat-dialog-actions class="buttons">
   <button mat-raised-button color="warn" (click)="deleteVehicle()" [disabled]="loading">
     <span *ngIf="!loading; else loader">Tak, usuń!</span>

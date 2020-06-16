@@ -23,6 +23,8 @@ import { VehicleModalBodyComponent } from '@components/modals/vehicle-modal/vehi
 import { VehicleModalEngineComponent } from '@components/modals/vehicle-modal/vehicle-modal-engine/vehicle-modal-engine.component';
 import { VehicleModalGeneralComponent } from '@components/modals/vehicle-modal/vehicle-modal-general/vehicle-modal-general.component';
 import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle-confirm/delete-vehicle-confirm.component';
+import { InitVehicleTransferComponent } from '@components/modals/init-vehicle-transfer/init-vehicle-transfer.component';
+import { ConfirmVehicleTransferInitComponent } from '@components/modals/confirm-vehicle-transfer-init/confirm-vehicle-transfer-init.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -73,6 +75,8 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     SnackbarSuccessComponent,
     ErrorMessageComponent,
     DeleteVehicleConfirmComponent,
+    InitVehicleTransferComponent,
+    ConfirmVehicleTransferInitComponent,
   ],
 })
 export class SharedModule {

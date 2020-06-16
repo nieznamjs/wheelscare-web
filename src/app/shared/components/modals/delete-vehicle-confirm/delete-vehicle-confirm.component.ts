@@ -26,7 +26,7 @@ export class DeleteVehicleConfirmComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: DeleteVehicleConfirmModalData,
   ) { }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
