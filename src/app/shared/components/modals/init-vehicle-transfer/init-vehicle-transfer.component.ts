@@ -42,6 +42,10 @@ export class InitVehicleTransferComponent implements OnInit, OnDestroy {
   }
 
   public initTransfer(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     const body = this.form.value;
 
     this.confirmModalService.openConfirmVehicleTransferModal({ body, vehicle: this.data.vehicle }).afterClosed()
