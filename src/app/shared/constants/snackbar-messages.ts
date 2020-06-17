@@ -3,5 +3,7 @@ export enum SnackbarMessages {
   VehicleDeletedSuccessfully = 'Pojazd został usunięty pomyślnie',
   VehicleUpdatedSuccessfully = 'Pojazd został zaktualizowany pomyślnie',
   VehicleSetDefaultSuccessfully = 'Pojazd został ustawiony jako domyślny pomyślnie',
-  VehicleTransferInitializedSuccessfully = 'Na podany adres e-mail wysłano wiadomość z linkiem do zakończenia procesu transferu pojazdu'
+  VehicleTransferInitializedSuccessfully = 'Na podany adres e-mail wysłano wiadomość z linkiem do zakończenia procesu transferu pojazdu',
+  VehicleTransferedSuccessfully = 'Pojazd został pomyślnie przetransferowany',
+  VehicleTransferIncorrectUrl = 'Podany adres URL jest nieprawidłowy, spróbuj jeszcze raz lub skontaktuj się z administratorem'
 }

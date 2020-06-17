@@ -8,7 +8,7 @@
   </button>
 </div>
 
-<perfect-scrollbar>
+<perfect-scrollbar *ngIf="(me$ | async)?.vehicles.length !== 0; else noVehicles">
   <ul class="vehicles-list">
     <li
       class="vehicle box-default"
@@ -34,3 +34,7 @@
     </li>
   </ul>
 </perfect-scrollbar>
+
+<ng-template #noVehicles>
+  Nie masz jeszcze żadnego pojazdu.
+</ng-template>

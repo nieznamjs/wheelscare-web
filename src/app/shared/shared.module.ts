@@ -25,6 +25,7 @@ import { VehicleModalGeneralComponent } from '@components/modals/vehicle-modal/v
 import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle-confirm/delete-vehicle-confirm.component';
 import { InitVehicleTransferComponent } from '@components/modals/init-vehicle-transfer/init-vehicle-transfer.component';
 import { ConfirmVehicleTransferInitComponent } from '@components/modals/confirm-vehicle-transfer-init/confirm-vehicle-transfer-init.component';
+import { SnackbarErrorComponent } from '@components/snackbar-error/snackbar-error.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -77,6 +78,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     DeleteVehicleConfirmComponent,
     InitVehicleTransferComponent,
     ConfirmVehicleTransferInitComponent,
+    SnackbarErrorComponent,
   ],
 })
 export class SharedModule {

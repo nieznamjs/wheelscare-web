@@ -83,13 +83,9 @@ export class VehiclesDataService {
     return this.dataService.mutate<{ addMyVehicle: Vehicle }>({
       mutation,
       variables: { vehicle },
-      update: (store: DataProxy, response: FetchResult<{ addMyVehicle: Vehicle }>) => {
-        const storeData: { me: IUser } = store.readQuery({ query: getUsersVehiclesQuery });
-
-        storeData.me.vehicles = [ ...storeData.me.vehicles, response.data.addMyVehicle ];
-
-        store.writeQuery({ query: getUsersVehiclesQuery, data: storeData });
-      },
+      refetchQueries: [{
+        query: getUsersVehiclesQuery,
+      }],
     });
   }
 
@@ -170,5 +166,15 @@ export class VehiclesDataService {
     `;
 
     return this.dataService.mutate({ mutation, variables: body });
+  }
+
+  public confirmVehicleTransfer(token: string): Observable<MutationResponse<boolean>> {
+    const mutation = gql`
+      mutation confirmTransferMyVehicle($token: String) {
+        confirmTransferMyVehicle(token: $token)
+      }
+    `;
+
+    return this.dataService.mutate({ mutation, variables: { token }});
   }
 }
