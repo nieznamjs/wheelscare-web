@@ -175,6 +175,12 @@ export class VehiclesDataService {
       }
     `;
 
-    return this.dataService.mutate({ mutation, variables: { token }});
+    return this.dataService.mutate({
+      mutation,
+      variables: { token },
+      refetchQueries: [{
+        query: getUsersVehiclesQuery,
+      }],
+    });
   }
 }
