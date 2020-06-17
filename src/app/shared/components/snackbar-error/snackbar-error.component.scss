@@ -1,0 +1,16 @@
+@import "styles/colors";
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message {
+  color: $error;
+}
+
+.close {
+  margin-left: 20px;
+  flex-shrink: 0;
+}

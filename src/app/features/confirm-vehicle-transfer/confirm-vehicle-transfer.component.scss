@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-default {
+  padding: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.errors {
+  margin: 10px 0;
+
+  .error {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
