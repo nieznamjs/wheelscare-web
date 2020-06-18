@@ -7,7 +7,7 @@ import { FetchResult } from 'apollo-link';
 import { IUser, IVehicleBrands, Vehicle, VEHICLE_BRANDS } from '@wheelscare/common';
 import { DataService } from '@services/data-integration/data.service';
 import { MutationResponse, WatchQueryResponse } from '@shared/interfaces/data.interface';
-import { GetVehicleResponse } from '@interfaces';
+import { GetVehicleResponse, InitVehicleTransferBody } from '@interfaces';
 
 const getUsersVehiclesQuery = gql`
   {
@@ -83,13 +83,9 @@ export class VehiclesDataService {
     return this.dataService.mutate<{ addMyVehicle: Vehicle }>({
       mutation,
       variables: { vehicle },
-      update: (store: DataProxy, response: FetchResult<{ addMyVehicle: Vehicle }>) => {
-        const storeData: { me: IUser } = store.readQuery({ query: getUsersVehiclesQuery });
-
-        storeData.me.vehicles = [ ...storeData.me.vehicles, response.data.addMyVehicle ];
-
-        store.writeQuery({ query: getUsersVehiclesQuery, data: storeData });
-      },
+      refetchQueries: [{
+        query: getUsersVehiclesQuery,
+      }],
     });
   }
 
@@ -159,6 +155,32 @@ export class VehiclesDataService {
 
         store.writeQuery({ query: getUsersVehiclesQuery, data: storeData });
       },
+    });
+  }
+
+  public initVehicleTransfer(body: InitVehicleTransferBody): Observable<MutationResponse<boolean>> {
+    const mutation = gql`
+      mutation initTransferMyVehicle($vehicleId: String, $targetUserEmail: String) {
+        initTransferMyVehicle(vehicleId: $vehicleId, targetUserEmail: $targetUserEmail),
+      },
+    `;
+
+    return this.dataService.mutate({ mutation, variables: body });
+  }
+
+  public confirmVehicleTransfer(token: string): Observable<MutationResponse<boolean>> {
+    const mutation = gql`
+      mutation confirmTransferMyVehicle($token: String) {
+        confirmTransferMyVehicle(token: $token)
+      }
+    `;
+
+    return this.dataService.mutate({
+      mutation,
+      variables: { token },
+      refetchQueries: [{
+        query: getUsersVehiclesQuery,
+      }],
     });
   }
 }

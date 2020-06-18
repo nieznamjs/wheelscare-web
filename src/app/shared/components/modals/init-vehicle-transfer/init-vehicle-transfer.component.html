@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+  <mat-form-field class="field">
+    <mat-label>E-mail osoby, która ma zostać nowym właścicielem</mat-label>
+
+    <input
+      matInput
+      type="email"
+      placeholder="Wprowadź adres email"
+      formControlName="targetUserEmail"
+      required>
+
+    <mat-error class="error" *ngIf="targetUserEmail.hasError('required')">
+      Adres e-mail jest wymagany
+    </mat-error>
+
+    <mat-error class="error" *ngIf="targetUserEmail.hasError('email')">
+      Wprowadź poprawny adres e-mail
+    </mat-error>
+  </mat-form-field>
+
+  <div mat-dialog-actions class="actions">
+    <button type="button" mat-raised-button color="primary" (click)="close()">
+      Anuluj
+    </button>
+
+    <button mat-raised-button color="warn" (click)="initTransfer()">
+      Transferuj
+    </button>
+  </div>
+</form>

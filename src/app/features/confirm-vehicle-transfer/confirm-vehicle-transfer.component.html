@@ -1,0 +1,25 @@
+<div class="box-default">
+  <h2 class="heading-2">
+    Potwierdź transfer pojazdu
+  </h2>
+
+  <p>Czy na pewno chcesz dokonać transferu pojazdu?</p>
+
+  <div class="actions">
+    <button type="button" mat-raised-button color="primary" (click)="cancel()" [disabled]="loading">
+      Anuluj
+    </button>
+
+    <button mat-raised-button color="warn" (click)="confirmTransfer()" [disabled]="loading || !token">
+      <span *ngIf="!loading; else loader">Transferuj</span>
+
+      <ng-template #loader>
+        <wcw-loader class="loader" color="accent" size="24"></wcw-loader>
+      </ng-template>
+    </button>
+  </div>
+
+  <div class="errors" *ngIf="errors && errors.length !== 0">
+    <wcw-error-message class="error" *ngFor="let error of errors" [errorMessage]="error"></wcw-error-message>
+  </div>
+</div>

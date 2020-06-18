@@ -1,3 +1,5 @@
-<wcw-sidebar *ngIf="isUserLogged$ | async"></wcw-sidebar>
+<div [class.has-sidebar]="isUserLogged$ | async">
+  <wcw-sidebar *ngIf="isUserLogged$ | async"></wcw-sidebar>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

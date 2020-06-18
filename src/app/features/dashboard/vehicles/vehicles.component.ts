@@ -33,9 +33,11 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     this.me$ = this.usersDataService.getMe().pipe(map(response => {
       const defaultVehicle = response.data?.me.vehicles.find(vehicle => vehicle.default);
 
-      response.data?.me.vehicles.sort((a, b) => Number(b.default) - Number(a.default));
+      if (response.data?.me.vehicles.length !== 0) {
+        response.data?.me.vehicles.sort((a, b) => Number(b.default) - Number(a.default));
 
-      this.selectVehicle(defaultVehicle?.id);
+        this.selectVehicle(defaultVehicle?.id);
+      }
 
       return response.data?.me;
     }));

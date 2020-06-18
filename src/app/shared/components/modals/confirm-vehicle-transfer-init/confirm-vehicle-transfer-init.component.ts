@@ -3,27 +3,28 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { DeleteVehicleConfirmModalData } from '@shared/interfaces/delete-vehicle-confirm-modal-data.interface';
+import { ConfirmVehicleTransferInitModalData } from '@interfaces';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
 import { SnackbarService } from '@services/utils/snackbar.service';
 import { SnackbarMessages } from '@constants';
 
 @Component({
-  selector: 'wcw-delete-vehicle-confirm',
-  templateUrl: './delete-vehicle-confirm.component.html',
-  styleUrls: ['./delete-vehicle-confirm.component.scss']
+  selector: 'wcw-confirm-vehicle-transfer-init',
+  templateUrl: './confirm-vehicle-transfer-init.component.html',
+  styleUrls: ['./confirm-vehicle-transfer-init.component.scss']
 })
-export class DeleteVehicleConfirmComponent implements OnDestroy {
+export class ConfirmVehicleTransferInitComponent implements OnDestroy {
+
+  private destroy$ = new ReplaySubject<void>(1);
 
   public loading = false;
   public errors: string[];
-  private destroy$ = new ReplaySubject(1);
 
   constructor(
-    private dialogRef: MatDialogRef<DeleteVehicleConfirmComponent>,
+    private dialogRef: MatDialogRef<ConfirmVehicleTransferInitComponent>,
     private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
-    @Inject(MAT_DIALOG_DATA) public data: DeleteVehicleConfirmModalData,
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmVehicleTransferInitModalData,
   ) { }
 
   public ngOnDestroy(): void {
@@ -31,22 +32,21 @@ export class DeleteVehicleConfirmComponent implements OnDestroy {
     this.destroy$.complete();
   }
 
-  public deleteVehicle(): void {
-    this.vehiclesDataService.deleteVehicle(this.data.vehicle.id)
+  public close(): void {
+    this.dialogRef.close();
+  }
+
+  public initTransfer(): void {
+    this.vehiclesDataService.initVehicleTransfer(this.data.body)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {
         this.loading = response.loading;
         this.errors = response.errors;
-        this.dialogRef.disableClose = !response.loading;
 
         if (response.data) {
-          this.snackbarService.showSuccess(SnackbarMessages.VehicleDeletedSuccessfully);
-          this.close();
+          this.snackbarService.showSuccess(SnackbarMessages.VehicleTransferInitializedSuccessfully);
+          this.dialogRef.close(true);
         }
-    });
-  }
-
-  public close(): void {
-    this.dialogRef.close();
+      });
   }
 }

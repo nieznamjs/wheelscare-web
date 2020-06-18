@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/overlay';
 
+import { Vehicle } from '@wheelscare/common';
 import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle-confirm/delete-vehicle-confirm.component';
 import { VehicleModalComponent } from '@components/modals/vehicle-modal/vehicle-modal.component';
-import { Vehicle } from '@wheelscare/common';
+import { InitVehicleTransferComponent } from '@shared/components/modals/init-vehicle-transfer/init-vehicle-transfer.component';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class ModalService {
   }
 
   public openDeleteVehicleConfirmModal(options: MatDialogConfig): MatDialogRef<DeleteVehicleConfirmComponent> {
-    return this.open<DeleteVehicleConfirmComponent>(DeleteVehicleConfirmComponent, options);
+    return this.open<DeleteVehicleConfirmComponent>(DeleteVehicleConfirmComponent, { ...options, maxWidth: 500 });
+  }
+
+  public openInitVehicleTransferModal(options: MatDialogConfig): MatDialogRef<InitVehicleTransferComponent> {
+    return this.open<InitVehicleTransferComponent>(InitVehicleTransferComponent, { ...options, width: '400px' });
   }
 }
