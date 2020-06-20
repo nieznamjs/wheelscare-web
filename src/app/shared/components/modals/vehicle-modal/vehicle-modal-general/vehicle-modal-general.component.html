@@ -29,12 +29,24 @@
   <mat-form-field class="field">
     <mat-label>Model</mat-label>
 
-    <mat-select placeholder="Wybierz model" formControlName="vehicleModel" required>
+    <mat-select placeholder="Wybierz model" formControlName="vehicleModel" (selectionChange)="modelSelected()" required>
       <mat-option *ngFor="let model of models | keyvalue" [value]="model.key">{{ model.key }}</mat-option>
     </mat-select>
 
     <mat-error class="error" *ngIf="getFormControl('vehicleModel').hasError('required')">
       Model jest wymagany
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="field" *ngIf="generations && generations?.length !== 0">
+    <mat-label>Generacja</mat-label>
+
+    <mat-select placeholder="Wybierz generację" formControlName="generation" required>
+      <mat-option *ngFor="let generation of generations" [value]="generation">{{ generation }}</mat-option>
+    </mat-select>
+
+    <mat-error class="error" *ngIf="getFormControl('generation').hasError('required')">
+      Generacja jest wymagana
     </mat-error>
   </mat-form-field>
 

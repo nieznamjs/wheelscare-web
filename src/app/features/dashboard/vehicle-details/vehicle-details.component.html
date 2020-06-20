@@ -17,8 +17,8 @@
             <strong>Model: </strong> {{ vehicle.vehicleModel }}
           </div>
 
-          <div class="data-row">
-            <strong>Generacja: </strong> F30
+          <div class="data-row" *ngIf="vehicle.generation">
+            <strong>Generacja: </strong> {{ vehicle.generation }}
           </div>
 
           <div class="data-row">

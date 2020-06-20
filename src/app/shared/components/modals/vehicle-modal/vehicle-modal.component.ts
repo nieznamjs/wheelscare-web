@@ -120,6 +120,7 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
       name: [ null, Validators.required ],
       brand: [ null, Validators.required ],
       vehicleModel: [ null, Validators.required ],
+      generation: null,
       vin: [ null, [ Validators.required, Validators.pattern(VALID_VIN_REGEX) ] ],
       type: [ null, Validators.required ],
       mileage: [ null, [
