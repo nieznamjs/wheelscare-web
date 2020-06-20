@@ -1,29 +1,55 @@
-.wrapper {
+.row {
   display: flex;
-  align-items: flex-start;
-}
 
-.box {
-  &-left {
-    flex: 4;
-    margin-right: 50px;
+  @media (max-width: 1200px) {
+    flex-direction: column;
   }
 
-  &-right {
-    flex: 6;
+  &:not(:last-child) {
+    margin-bottom: 50px;
+
+    @media (max-width: 1200px) {
+      margin: 0;
+    }
+  }
+}
+
+.vehicles-list,
+.events-list {
+  width: 40%;
+  margin-right: 50px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.vehicle-details,
+.calendar {
+  width: 60%;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.vehicle-details {
+  @media (max-width: 1200px) {
+    order: -1;
+    margin-bottom: 25px;
   }
 }
 
 .list {
   display: block;
-  height: 50%;
-
-  &:not(:last-child) {
-    margin-bottom: 50px;
-  }
+  margin-bottom: 25px;
 }
 
 .calendar {
   display: block;
-  margin-top: 50px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
