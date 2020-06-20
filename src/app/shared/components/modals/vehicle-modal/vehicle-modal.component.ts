@@ -66,6 +66,10 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.data?.isCreatingFirstVehicle) {
+      vehicle.default = true;
+    }
+
     this.createVehicle(vehicle);
   }
 

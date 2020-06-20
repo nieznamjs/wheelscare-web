@@ -17,6 +17,7 @@ import { SnackbarMessages } from '@constants';
 })
 export class VehiclesComponent implements OnInit, OnDestroy {
   private destroy$ = new ReplaySubject(1);
+  private hasNoVehicles = true;
 
   public me$: Observable<IUser>;
   public selectedVehicleId$: Observable<string>;
@@ -31,12 +32,13 @@ export class VehiclesComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.me$ = this.usersDataService.getMe().pipe(map(response => {
-      const defaultVehicle = response.data?.me.vehicles.find(vehicle => vehicle.default);
+      if (response.data && response.data.me.vehicles.length !== 0) {
+        const defaultVehicle = response.data.me.vehicles.find(vehicle => vehicle.default);
 
-      if (response.data?.me.vehicles.length !== 0) {
-        response.data?.me.vehicles.sort((a, b) => Number(b.default) - Number(a.default));
+        response.data.me.vehicles.sort((a, b) => Number(b.default) - Number(a.default));
 
         this.selectVehicle(defaultVehicle?.id);
+        this.hasNoVehicles = false;
       }
 
       return response.data?.me;
@@ -51,7 +53,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   public openAddVehicleModal(): void {
-    this.modalService.openVehicleModal();
+    this.modalService.openVehicleModal({ isCreatingFirstVehicle: this.hasNoVehicles });
   }
 
   public selectVehicle(id: string): void {
