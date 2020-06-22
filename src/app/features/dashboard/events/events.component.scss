@@ -36,6 +36,11 @@
 
 .event-desc {
   font-size: 14px;
+
+  @media (max-width: 360px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .event-data {

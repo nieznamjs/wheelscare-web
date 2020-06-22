@@ -31,7 +31,7 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<VehicleModalComponent>,
     private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
-    @Inject(MAT_DIALOG_DATA) private data: VehicleModalData,
+    @Inject(MAT_DIALOG_DATA) public data: VehicleModalData,
   ) {
   }
 

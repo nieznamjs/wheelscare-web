@@ -4,8 +4,16 @@
   color: $font-primary;
 }
 
+.title {
+  margin-bottom: 0;
+}
+
 .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+::ng-deep .mat-horizontal-content-container {
+  padding: 0 0 24px !important;
 }
