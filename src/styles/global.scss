@@ -32,6 +32,18 @@ a {
   color: currentColor;
 }
 
+.vehicle-modal {
+  @media (max-width: 480px) {
+    .mat-horizontal-content-container {
+      padding: 0 0 24px;
+    }
+
+    .mat-horizontal-stepper-header-container {
+      margin-left: -24px;
+    }
+  }
+}
+
 .box-default {
   box-shadow: $general-shadow;
   border-radius: $general-border-radius;

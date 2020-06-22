@@ -20,7 +20,7 @@ export class ModalService {
   }
 
   public openVehicleModal(data: VehicleModalData): MatDialogRef<VehicleModalComponent> {
-    return this.open(VehicleModalComponent, { disableClose: true, data });
+    return this.open(VehicleModalComponent, { disableClose: true, panelClass: 'vehicle-modal', data });
   }
 
   public openDeleteVehicleConfirmModal(options: MatDialogConfig): MatDialogRef<DeleteVehicleConfirmComponent> {
