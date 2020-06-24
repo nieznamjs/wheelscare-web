@@ -32,8 +32,14 @@ a {
   color: currentColor;
 }
 
+.cdk-overlay-pane {
+  @media (max-width: $screen-M) {
+    max-width: 90vw !important;
+  }
+}
+
 .vehicle-modal {
-  @media (max-width: 480px) {
+  @media (max-width: $screen-S) {
     .mat-horizontal-content-container {
       padding: 0 0 24px;
     }

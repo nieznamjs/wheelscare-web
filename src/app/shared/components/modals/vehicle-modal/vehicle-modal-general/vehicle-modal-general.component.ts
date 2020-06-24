@@ -47,7 +47,7 @@ export class VehicleModalGeneralComponent implements OnInit {
 
     const generationControl = this.formGroup.get('generation');
 
-    if (this?.generations.length !== 0) {
+    if (this.generations?.length !== 0) {
       generationControl.setValidators([ Validators.required ]);
       generationControl.updateValueAndValidity();
       return;

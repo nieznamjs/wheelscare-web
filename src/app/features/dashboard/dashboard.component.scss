@@ -1,14 +1,16 @@
+@import "styles/variables";
+
 .row {
   display: flex;
 
-  @media (max-width: 1200px) {
+  @media (max-width: $screen-L) {
     flex-direction: column;
   }
 
   &:not(:last-child) {
     margin-bottom: 50px;
 
-    @media (max-width: 1200px) {
+    @media (max-width: $screen-L) {
       margin: 0;
     }
   }
@@ -19,7 +21,7 @@
   width: 40%;
   margin-right: 50px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: $screen-L) {
     width: 100%;
     margin: 0;
   }
@@ -29,13 +31,13 @@
 .calendar {
   width: 60%;
 
-  @media (max-width: 1200px) {
+  @media (max-width: $screen-L) {
     width: 100%;
   }
 }
 
 .vehicle-details {
-  @media (max-width: 1200px) {
+  @media (max-width: $screen-L) {
     order: -1;
     margin-bottom: 25px;
   }
@@ -49,7 +51,7 @@
 .calendar {
   display: block;
 
-  @media (max-width: 768px) {
+  @media (max-width: $screen-M) {
     display: none;
   }
 }

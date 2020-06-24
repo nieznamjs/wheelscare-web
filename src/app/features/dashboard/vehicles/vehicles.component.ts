@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { ModalService } from '@services/utils/modal.service';
 import { UsersDataService } from '@services/data-integration/users-data.service';
@@ -28,6 +29,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     private vehiclesUtilsService: VehiclesUtilsService,
     private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
+    private scrollToService: ScrollToService,
   ) { }
 
   public ngOnInit() {
@@ -58,6 +60,20 @@ export class VehiclesComponent implements OnInit, OnDestroy {
 
   public selectVehicle(id: string): void {
     this.vehiclesUtilsService.setCurrentVehicle(id);
+
+    const currentDeviceWidth = window.innerWidth;
+
+    if (currentDeviceWidth >= 1200) {
+      return;
+    }
+
+    let offset = -50;
+
+    if (currentDeviceWidth <= 480) {
+      offset = -80;
+    }
+
+    this.scrollToService.scrollTo({ target: 'vehicle-details', offset });
   }
 
   public setDefaultVehicle(vehicle: Vehicle): void {

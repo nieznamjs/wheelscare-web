@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -13,6 +14,7 @@ import { CalendarComponent } from './calendar/calendar.component';
   imports: [
     SharedModule,
     DashboardRoutingModule,
+    ScrollToModule.forRoot(),
   ],
 })
 export class DashboardModule { }
