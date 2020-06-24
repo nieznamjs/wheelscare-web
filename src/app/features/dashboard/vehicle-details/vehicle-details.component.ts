@@ -51,7 +51,7 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
   }
 
   public editVehicle(vehicle: Vehicle): void {
-    this.modalService.openVehicleModal(vehicle);
+    this.modalService.openVehicleModal({ vehicle });
   }
 
   public initVehicleTransfer(vehicle: Vehicle): void {

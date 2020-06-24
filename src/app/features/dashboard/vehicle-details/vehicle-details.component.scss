@@ -4,6 +4,10 @@
 .vehicle-name {
   height: 40px;
   margin-bottom: 20px;
+
+  @media (max-width: $screen-M) {
+    margin-bottom: 10px;
+  }
 }
 
 .vehicle {
@@ -13,22 +17,43 @@
 .vehicle-details {
   display: flex;
   align-items: center;
+
+  @media (max-width: $screen-M) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .vehicle-img {
   margin-right: 20px;
   max-width: 300px;
   max-height: 200px;
+
+  @media (max-width: $screen-M) {
+    margin: 0;
+  }
 }
 
 .vehicle-data {
   display: flex;
   padding: 30px 0;
+
+  @media (max-width: $screen-M) {
+    padding: 20px 0;
+  }
+
+  @media (max-width: 580px) {
+    flex-direction: column;
+  }
 }
 
 .data-column {
   &:not(:last-child) {
     margin-right: 20px;
+
+    @media (max-width: 580px) {
+      margin: 0 0 5px;
+    }
   }
 }
 
@@ -48,6 +73,10 @@
   border-top: 1px solid $gray;
   margin-top: 20px;
   padding-top: 20px;
+
+  @media (max-width: $screen-M) {
+    margin: 0;
+  }
 }
 
 .action-btn {

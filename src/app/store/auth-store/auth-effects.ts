@@ -5,6 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ApiErrors } from '@wheelscare/common';
+import { Apollo } from 'apollo-angular';
 
 import { AuthDataService } from '@services/data-integration/auth-data.service';
 import { HttpStatusCodes, ErrorMessages } from '@constants';
@@ -20,6 +21,7 @@ export class AuthEffects {
     private socialAuthService: SocialAuthService,
     private actions$: Actions,
     private router: Router,
+    private apollo: Apollo,
   ) {}
 
   public loginEffect$ = createEffect(() => this.actions$.pipe(
@@ -57,6 +59,7 @@ export class AuthEffects {
        .pipe(
          map(() => {
            this.router.navigate(['auth', 'login']);
+           this.apollo.getClient().clearStore();
            return AuthActions.LogoutSuccessAction();
          }),
          catchError(() => {

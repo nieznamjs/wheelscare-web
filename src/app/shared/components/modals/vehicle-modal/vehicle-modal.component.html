@@ -1,6 +1,8 @@
 <div class="row">
-  <h3 class="heading-4" mat-dialog-title>
-    Dodaj pojazd
+  <h3 class="heading-4 title" mat-dialog-title>
+    <ng-container *ngIf="!data?.vehicle; else editHeader">Dodaj pojazd</ng-container>
+
+    <ng-template #editHeader>Edytuj pojazd</ng-template>
   </h3>
 
   <button mat-icon-button (click)="close()" [disabled]="isLoading">

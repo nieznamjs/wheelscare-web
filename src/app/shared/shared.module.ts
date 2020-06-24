@@ -65,6 +65,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     LoaderComponent,
     SidebarComponent,
     PerfectScrollbarModule,
+    ErrorMessageComponent,
   ],
   declarations: [
     LoaderComponent,

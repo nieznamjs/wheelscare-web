@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { ModalService } from '@services/utils/modal.service';
 import { UsersDataService } from '@services/data-integration/users-data.service';
@@ -17,6 +18,7 @@ import { SnackbarMessages } from '@constants';
 })
 export class VehiclesComponent implements OnInit, OnDestroy {
   private destroy$ = new ReplaySubject(1);
+  private hasNoVehicles = true;
 
   public me$: Observable<IUser>;
   public selectedVehicleId$: Observable<string>;
@@ -27,16 +29,18 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     private vehiclesUtilsService: VehiclesUtilsService,
     private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
+    private scrollToService: ScrollToService,
   ) { }
 
   public ngOnInit() {
     this.me$ = this.usersDataService.getMe().pipe(map(response => {
-      const defaultVehicle = response.data?.me.vehicles.find(vehicle => vehicle.default);
+      if (response.data && response.data.me.vehicles.length !== 0) {
+        const defaultVehicle = response.data.me.vehicles.find(vehicle => vehicle.default);
 
-      if (response.data?.me.vehicles.length !== 0) {
-        response.data?.me.vehicles.sort((a, b) => Number(b.default) - Number(a.default));
+        response.data.me.vehicles.sort((a, b) => Number(b.default) - Number(a.default));
 
         this.selectVehicle(defaultVehicle?.id);
+        this.hasNoVehicles = false;
       }
 
       return response.data?.me;
@@ -51,11 +55,25 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   public openAddVehicleModal(): void {
-    this.modalService.openVehicleModal();
+    this.modalService.openVehicleModal({ isCreatingFirstVehicle: this.hasNoVehicles });
   }
 
   public selectVehicle(id: string): void {
     this.vehiclesUtilsService.setCurrentVehicle(id);
+
+    const currentDeviceWidth = window.innerWidth;
+
+    if (currentDeviceWidth >= 1200) {
+      return;
+    }
+
+    let offset = -50;
+
+    if (currentDeviceWidth <= 480) {
+      offset = -80;
+    }
+
+    this.scrollToService.scrollTo({ target: 'vehicle-details', offset });
   }
 
   public setDefaultVehicle(vehicle: Vehicle): void {

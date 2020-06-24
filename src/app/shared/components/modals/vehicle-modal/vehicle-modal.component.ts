@@ -31,7 +31,7 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<VehicleModalComponent>,
     private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
-    @Inject(MAT_DIALOG_DATA) private data: VehicleModalData,
+    @Inject(MAT_DIALOG_DATA) public data: VehicleModalData,
   ) {
   }
 
@@ -64,6 +64,10 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
     if (this.data?.vehicle) {
       this.updateVehicle(vehicle);
       return;
+    }
+
+    if (this.data?.isCreatingFirstVehicle) {
+      vehicle.default = true;
     }
 
     this.createVehicle(vehicle);
@@ -116,6 +120,7 @@ export class VehicleModalComponent implements OnInit, OnDestroy {
       name: [ null, Validators.required ],
       brand: [ null, Validators.required ],
       vehicleModel: [ null, Validators.required ],
+      generation: null,
       vin: [ null, [ Validators.required, Validators.pattern(VALID_VIN_REGEX) ] ],
       type: [ null, Validators.required ],
       mileage: [ null, [

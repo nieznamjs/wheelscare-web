@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 
 import { IVehicleBrands, VehicleTypes, IVehicleModel } from '@wheelscare/common';
 import { FormsService } from '@services/utils/forms.service';
@@ -17,6 +17,7 @@ export class VehicleModalGeneralComponent implements OnInit {
   @Input() public currYear: number;
 
   public models: { [key: string]: IVehicleModel };
+  public generations: string[];
   public readonly vehicleTypes = getSelectOptions(VehicleTypes, VehiclesTypesLabels);
 
   constructor(
@@ -27,6 +28,10 @@ export class VehicleModalGeneralComponent implements OnInit {
     if (this.formGroup.get('brand').value) {
       this.brandSelected();
     }
+
+    if (this.formGroup.get('vehicleModel').value) {
+      this.modelSelected();
+    }
   }
 
   public getFormControl(name: string): AbstractControl {
@@ -35,5 +40,20 @@ export class VehicleModalGeneralComponent implements OnInit {
 
   public brandSelected(): void {
     this.models = this.brands[this.formGroup.get('brand').value].models;
+  }
+
+  public modelSelected(): void {
+    this.generations = this.models[this.formGroup.get('vehicleModel').value].generations;
+
+    const generationControl = this.formGroup.get('generation');
+
+    if (this.generations?.length !== 0) {
+      generationControl.setValidators([ Validators.required ]);
+      generationControl.updateValueAndValidity();
+      return;
+    }
+
+    generationControl.clearValidators();
+    generationControl.updateValueAndValidity();
   }
 }
