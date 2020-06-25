@@ -43,7 +43,7 @@ export class VehicleModalGeneralComponent implements OnInit {
   }
 
   public modelSelected(): void {
-    this.generations = this.models[this.formGroup.get('vehicleModel').value].generations;
+    this.generations = this.models[this.formGroup.get('vehicleModel').value]?.generations;
 
     const generationControl = this.formGroup.get('generation');
 
