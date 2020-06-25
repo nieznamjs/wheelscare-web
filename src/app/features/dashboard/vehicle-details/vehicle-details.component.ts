@@ -6,6 +6,7 @@ import { Vehicle } from '@wheelscare/common';
 import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 import { ModalService } from '@services/utils/modal.service';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
+import { BrandsLogosService } from '@services/utils/brands-logos.service';
 
 @Component({
   selector: 'wcw-vehicle-details',
@@ -22,6 +23,7 @@ export class VehicleDetailsComponent implements OnInit, OnDestroy {
     private vehiclesDataService: VehiclesDataService,
     private vehiclesUtilsService: VehiclesUtilsService,
     private modalService: ModalService,
+    public brandsLogosService: BrandsLogosService,
   ) { }
 
   public ngOnInit(): void {

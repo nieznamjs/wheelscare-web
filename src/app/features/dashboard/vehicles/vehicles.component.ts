@@ -10,6 +10,7 @@ import { VehiclesUtilsService } from '@services/utils/vehicles-utils.service';
 import { VehiclesDataService } from '@services/data-integration/vehicles-data.service';
 import { SnackbarService } from '@services/utils/snackbar.service';
 import { SnackbarMessages } from '@constants';
+import { BrandsLogosService } from '@services/utils/brands-logos.service';
 
 @Component({
   selector: 'wcw-vehicles',
@@ -30,6 +31,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     private vehiclesDataService: VehiclesDataService,
     private snackbarService: SnackbarService,
     private scrollToService: ScrollToService,
+    public brandsLogosService: BrandsLogosService,
   ) { }
 
   public ngOnInit() {

@@ -34,6 +34,7 @@
 
 .vehicle-data {
   display: flex;
+  align-items: center;
 }
 
 .vehicle-desc {
@@ -41,7 +42,8 @@
 }
 
 .vehicle-logo {
-  width: 80px;
+  max-width: 40px;
+  max-height: 40px;
   flex-shrink: 0;
   margin-right: 20px;
 
