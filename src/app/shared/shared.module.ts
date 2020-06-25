@@ -26,6 +26,7 @@ import { DeleteVehicleConfirmComponent } from '@components/modals/delete-vehicle
 import { InitVehicleTransferComponent } from '@components/modals/init-vehicle-transfer/init-vehicle-transfer.component';
 import { ConfirmVehicleTransferInitComponent } from '@components/modals/confirm-vehicle-transfer-init/confirm-vehicle-transfer-init.component';
 import { SnackbarErrorComponent } from '@components/snackbar-error/snackbar-error.component';
+import { BrandLogoPathPipe } from './pipes/brand-logo-path.pipe';
 
 const materialModules = [
   MatFormFieldModule,
@@ -66,6 +67,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     SidebarComponent,
     PerfectScrollbarModule,
     ErrorMessageComponent,
+    BrandLogoPathPipe,
   ],
   declarations: [
     LoaderComponent,
@@ -80,6 +82,7 @@ const customSvgIcons: CustomSvgIconConfig[] = [
     InitVehicleTransferComponent,
     ConfirmVehicleTransferInitComponent,
     SnackbarErrorComponent,
+    BrandLogoPathPipe,
   ],
 })
 export class SharedModule {
